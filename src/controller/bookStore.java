@@ -37,6 +37,7 @@ public class bookStore extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		request.getRequestDispatcher("/home.jspx").forward(request, response);
 	
 	}
 
