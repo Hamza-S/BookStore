@@ -1,6 +1,9 @@
 package controller;
 
+import model.Books;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +30,14 @@ public class bookStore extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("test");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			Books.main(null);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 	/**
