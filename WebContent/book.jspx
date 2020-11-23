@@ -25,11 +25,11 @@
       				alt="Girl in a jacket" width="500" height="600">
       			</img>
     		</div>
-    	<div class="col-sm">
+    		<div class="col-sm">
       		One of two columns
-    	</div>
-  </div>
-</div>
+    		</div>
+  		</div>
+	</div>
 	
 </body>
 </html>
