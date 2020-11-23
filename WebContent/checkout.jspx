@@ -26,6 +26,7 @@
     <h2>Checkout </h2>
     <p class="lead"> Complete your book order below!</p>
   </div>
+  
 
   <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
@@ -68,14 +69,6 @@
         </li>
       </ul>
 
-      <form class="card p-2">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code"> </input>
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </div>
-      </form>
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
