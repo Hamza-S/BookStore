@@ -13,23 +13,150 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
+<title>Book Name</title>
 <style>
 th, td {
 	border: 1px solid black;
 }
+.hr-line{
+	border-top: 1.5px solid grey;
+}
+
 </style>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/res/validation.js">
 	;
 </script>
-<link rel="stylesheet"
+	<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous"></link>
+	
+	<script src="https://kit.fontawesome.com/a076d05399.js">;</script>
+	
 </head>
 <body>
 	<f:view>
+		<!-- Nav Bar -->
+		<div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">InstaBook</h1>
+                <p>Get your favorite books, instantly.</p>
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="#">Home
+                                    <span class="sr-only">(current)</span>
+                            </a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <!-- book + info -->
+		<div class="container">
+	  		<div class="row">
+	    		<div class="col-sm">
+	      			<img src="${pageContext.request.contextPath}/res/img/boo1.jpg" 
+	      				class="img-fluid"
+	      				alt="Book Img" width="400" height="500">
+	      			</img>
+	    		</div>
+	    		<div class="col-sm">
+	    			<H1 class="display-4">Harry Potter and the Cursed Child</H1>
+	      		 	<p class="hr-line"></p>
+					<div class="container">
+				  		<div class="row">
+				    		<div class="col-sm">
+				      			<p class="font-weight-bold">Title:</p>
+				      			<p class="font-weight-bold">Category:</p>
+				      			<p class="font-weight-bold">Price:</p>
+				      		</div>
+					    	<div class="col-sm">
+					    		<p>Harry Potter and the Cursed Child</p>
+							  	<p>Fiction</p>
+							  	<p>$10.00</p>
+							</div>
+				  		</div>
+					</div> 
+					
+					<form>
+					  <div class="form-group">
+						<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+					    		<label class="font-weight-bold" for="bookQuantity">Quantity:</label>
+						    </div>
+						    <div class="col-sm">
+					    		<input type="number" class="form-control" id="bookQuantity"  placeholder="0" min="0" max="100"></input>
+					    		<small id="emailHelp" class="form-text text-muted">Limit 100 per customer.</small>
+					    		
+						    </div>
+						  </div>
+						</div>
+					  </div>
+					  <button type="submit" class="btn btn-success btn-lg btn-block button">
+						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-bag-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M8 1a2.5 2.5 0 0 0-2.5 2.5V4h5v-.5A2.5 2.5 0 0 0 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
+						  <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+						</svg>
+						Add to cart 
+					  
+					  </button>
+					  
+					  
+					</form>
+					
+	    		</div>
+	  		</div>
+	  		<Br/>
+	  		<p class="hr-line"></p>
+	  		<H1 class="display-3 d-flex justify-content-center">Reviews</H1>
+	  		
+	  		
+	  		
+	  		
+	  		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="red" xmlns="http://www.w3.org/2000/svg">
+  				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg>
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg>
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  				<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg>
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg>
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+			</svg>
+	
+			
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+			<p>sdsdsdsd</p>
+		
+			
+		</div>
+	
+	
+	
 	</f:view>
 </body>
 	</html>
