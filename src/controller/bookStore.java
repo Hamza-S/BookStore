@@ -1,14 +1,18 @@
 package controller;
 
 import model.Books;
+
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bean.BookBean;
 
 /**
  * Servlet implementation class bookStore
@@ -30,10 +34,13 @@ public class bookStore extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("test");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		try {
-			Books.main(null);
+			Map<String, BookBean> rv = Books.getInstance().getLibrary();
+			for (Map.Entry<String, BookBean> i : rv.entrySet()) {
+				System.out.println(i.getValue().getTitle());
+
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
