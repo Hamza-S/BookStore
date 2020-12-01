@@ -23,6 +23,13 @@ th, td {
 	src="${pageContext.request.contextPath}/res/validation.js">
 	;
 </script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/js/register.js">
+	;
+</script>
+
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
@@ -30,6 +37,105 @@ th, td {
 </head>
 <body>
 	<f:view>
+	<!-- Nav Bar -->
+		<div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">InstaBook</h1>
+                <p>Get your favorite books, instantly.</p>
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="#">Home
+                                    <span class="sr-only">(current)</span>
+                            </a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <!-- registration  width="400" height="900" -->
+        <div class="container">
+        	<div class="py-5 text-center">
+	    		<h1>Register</h1>
+	    		<p class="lead font-italic"> &quot;A room without books is like a body without a soul.&quot; <br/> -Marcus Tullius Cicero</p>
+	  		</div>
+		  <div class="row">
+		    <div class="col-4" >
+		    	<img src="${pageContext.request.contextPath}/res/img/registerPic.jpg" 
+	      				class="img-fluid"
+	      				alt="Book Img" >
+	      	  	</img>
+		    </div>
+		    <div class="col" >
+		    	
+		    	<form class="needs-validation">
+		    		<div class="row">
+			         	<div class="col-md-6 mb-3">
+			            	<label for="firstName">First Name</label>
+			            	<input type="text" class="form-control" id="firstName" placeholder="" value="" > </input>
+			            	<!-- Q: ask Ryan about how to do invalid-feedback -->
+			            	<div class="invalid-feedback">
+			              		Valid first name is required.
+			            	</div>
+			          	</div>
+			          	<div class="col-md-6 mb-3">
+			            	<label for="lastName">Last Name</label>
+			            	<input type="text" class="form-control" id="lastName" placeholder="" value="" > </input>
+			            	<div class="invalid-feedback">
+			              		Valid last name is required.
+			            	</div>
+			          	</div>
+			        </div>
+			        
+			        <div class="row">
+			         	<div class="col-md-6 mb-3">
+			            	<label for="userName">User Name</label>
+			            	<input type="text" class="form-control" id="userName" placeholder="" value="" > </input>
+			            	<div class="invalid-feedback">
+			              		Valid user name is required.
+			            	</div>
+			          	</div>
+			          	<div class="col-md-6 mb-3">
+			            	<label for="email">Email</label>
+			            	<input type="email" class="form-control" id="email" placeholder="you@example.com" value="" > </input>
+			            	<div class="invalid-feedback">
+			              		Valid email is required.
+			            	</div>
+			          	</div>
+			        </div>
+			        <div class="row">
+			        	<div class="col-md-6 mb-3">
+			        		<label for="password1">Password</label>  
+			        		<input type="password" class="form-control" id="password1" placeholder="" value=""></input>
+			        		<input type="checkbox" onclick="showPassword()" id="showPass"> <span class="text-muted">Show password</span></input>
+			        	</div>
+			        	
+			        	<div class="col-md-6 mb-3">
+			        		<label for="password2">Confirm Password</label>
+			        		<input type="password" class="form-control" id="password2" placeholder="" value=""></input>
+			        	</div>
+			        </div>
+			        <button class="btn btn-primary btn-lg btn-block" type="submit">Register Account</button>
+		    	</form>
+		    	<HR />
+		    	<center>
+		    		<p> Have an account? <a href="login.jspx">Log In</a></p>
+		    	</center>
+		    </div>
+		  </div>
+		</div>
+        
+        
 	</f:view>
 </body>
 	</html>
