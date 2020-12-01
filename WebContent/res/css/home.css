@@ -1,0 +1,18 @@
+#homeJumbo {
+	margin-bottom: 0;
+}
+#homeNav {
+ 
+}
+#homeSearch {
+	padding-right: 20%;
+	padding-left: 20%;
+	margin-top:0;
+	margin-bottom:0;
+}
+#homeSearch input {
+	height: 50px;
+}
+::placeholder {
+  font-size: 24px;
+}
