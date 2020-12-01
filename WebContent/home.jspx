@@ -43,8 +43,7 @@ th, td {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" 
-						href="bookStore"><h5>Home</h5>
+					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="bookStore/Login"><h5>Login</h5></a></li>
@@ -60,18 +59,18 @@ th, td {
 				<h1 class="display-3">InstaBook</h1>
 				<p>Get your favorite books, instantly.</p>
 			</div>
-					<form class="search" action="searchResults" method="GET">
-			<div class="input-group mb-3" id="homeSearch">
+			<form class="search" action="bookStore" method="GET">
+				<div class="input-group mb-3" id="homeSearch">
 
-				<input type="text" class="form-control"
-					placeholder="Search for a book" aria-label="Search for a book"
-					aria-describedby="basic-addon2"></input>
-				<div class="input-group-append">
-					<button class="btn btn-outline-dark" type="submit">Search</button>
+					<input id ="searchbar" value = "" name = "bookTitle" type="text" class="form-control"
+						placeholder="Search for a book" aria-label="Search for a book"
+						aria-describedby="basic-addon2"></input>
+					<div class="input-group-append">
+						<button class="btn btn-outline-dark" name = 'search' type="submit" value = "true">Search</button>
+					</div>
+
 				</div>
-
-			</div>
-		</form>
+			</form>
 		</div>
 
 

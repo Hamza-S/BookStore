@@ -30,6 +30,32 @@ th, td {
 </head>
 <body>
 	<f:view>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+			id="homeNav">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Login"><h5>Login</h5></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Register"><h5>Register</h5></a></li>
+					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<h1>Search Results</h1>
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<div class="row">${searchResults}</div>
+			</div>
+		</div>
 	</f:view>
 </body>
 	</html>

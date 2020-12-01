@@ -39,4 +39,20 @@ public class BooksDAO {
 		con.close();
 		return rv;
 	}
+	public Map<String, BookBean> searchLibrary(String bookTitle) throws SQLException {
+		String query = ("select * from book WHERE title = ?");
+		Map<String, BookBean> rv = new HashMap<String, BookBean>();
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		p.setString(1, bookTitle);
+		ResultSet r = p.executeQuery();
+		while (r.next()) {
+			String name = r.getString("title");
+			rv.put(name, new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price"))));
+		}
+		r.close();
+		p.close();
+		con.close();
+		return rv;
+	}
 }
