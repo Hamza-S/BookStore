@@ -1,0 +1,59 @@
+@charset "ISO-8859-1";
+
+html,body{
+background-image: url('../img/libraryWallpaper.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 410px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+
+
+
+.card-header h3, .card-header h1, .card-header h2{
+color: white;
+}
+
+
+
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
