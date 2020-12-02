@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +30,16 @@ public class bookStore extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		ServletContext svcnxt = getServletContext();
+		try {
+			svcnxt.setAttribute("model", Books.getInstance());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -35,11 +47,12 @@ public class bookStore extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Books book = (Books) request.getServletContext().getAttribute("model");
 		// TODO Auto-generated method stub
 		try {
 
-			Map<String, BookBean> rv = Books.getInstance().getLibrary();
-			String books = Books.getInstance().generateBookCards(rv);
+			Map<String, BookBean> rv = book.getLibrary();
+			String books = book.generateBookCards(rv);
 			request.getServletContext().setAttribute("library", books);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,8 +62,8 @@ public class bookStore extends HttpServlet {
 			String title = request.getParameter("bookTitle");
 			try {
 
-				Map<String, BookBean> rv = Books.getInstance().searchLibrary(title);
-				String searchRes = Books.getInstance().generateBookCards(rv);
+				Map<String, BookBean> rv = book.searchLibrary(title);
+				String searchRes = book.generateBookCards(rv);
 				request.setAttribute("searchResults", searchRes);
 			} catch (Exception e) {
 				e.printStackTrace();
