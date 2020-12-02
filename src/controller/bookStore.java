@@ -65,6 +65,7 @@ public class bookStore extends HttpServlet {
 				Map<String, BookBean> rv = book.searchLibrary(title);
 				String searchRes = book.generateBookCards(rv);
 				request.setAttribute("searchResults", searchRes);
+				request.setAttribute("resultCount", rv.size());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
