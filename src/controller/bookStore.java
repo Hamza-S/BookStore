@@ -55,7 +55,7 @@ public class bookStore extends HttpServlet {
 
 			Map<String, BookBean> rv = book.getLibrary();
 			String books = book.generateBookCards(rv);
-			request.getServletContext().setAttribute("library", books);
+			request.setAttribute("library", books);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,11 +83,27 @@ public class bookStore extends HttpServlet {
 			else if (path.equals("/Cart")) {
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
 			}
+			 
 			else {
 				request.getRequestDispatcher("/home.jspx").forward(request, response);
 			}
 
 		
+		}
+		else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) {
+			String category = request.getParameter("category");
+			try {
+
+				Map<String, BookBean> rv = book.getBooksByCategory(category);
+				String searchRes = book.generateBookCards(rv);
+				request.setAttribute("library", searchRes);
+				request.setAttribute("resultCount", rv.size());
+				
+				response.setContentType("text/html");
+				response.getWriter().append(searchRes);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			request.getRequestDispatcher("/home.jspx").forward(request, response);

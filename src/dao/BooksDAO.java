@@ -57,7 +57,10 @@ public class BooksDAO {
 	}
 	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException {
 		String c = category.toLowerCase();
-		String query = ("select * from book WHERE lower(category) like '%" + c + "%'");
+		String query = ("select * from book WHERE lower(category) = '" + c + "'");
+		if (category.contentEquals("all")) {
+			query = ("select * from book");
+		}
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
