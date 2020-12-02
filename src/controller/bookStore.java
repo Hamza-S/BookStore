@@ -19,7 +19,7 @@ import bean.BookBean;
 /**
  * Servlet implementation class bookStore
  */
-@WebServlet("/bookStore")
+@WebServlet({ "/bookStore", "/bookStore/*" })
 public class bookStore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,7 @@ public class bookStore extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		ServletContext svcnxt = getServletContext();
@@ -48,6 +49,7 @@ public class bookStore extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Books book = (Books) request.getServletContext().getAttribute("model");
+		String path = request.getPathInfo();
 		// TODO Auto-generated method stub
 		try {
 
@@ -58,7 +60,7 @@ public class bookStore extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) {
-			
+
 			String title = request.getParameter("bookTitle");
 			try {
 
@@ -70,10 +72,26 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
-		} else {
+
+		} else if (path != null) {
+			if (path.equals("/Login")) {
+				request.getRequestDispatcher("/login.jspx").forward(request, response);
+			}
+			else if (path.equals("/Register")) {
+				request.getRequestDispatcher("/register.jspx").forward(request, response);
+			}
+			else if (path.equals("/Cart")) {
+				request.getRequestDispatcher("/cart.jspx").forward(request, response);
+			}
+			else {
+				request.getRequestDispatcher("/home.jspx").forward(request, response);
+			}
+
+		
+		}
+		else {
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
 		}
-
 	}
 
 	/**
