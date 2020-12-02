@@ -55,4 +55,20 @@ public class BooksDAO {
 		con.close();
 		return rv;
 	}
+	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException {
+		String c = category.toLowerCase();
+		String query = ("select * from book WHERE lower(category) like '%" + c + "%'");
+		Map<String, BookBean> rv = new HashMap<String, BookBean>();
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		while (r.next()) {
+			String name = r.getString("title");
+			rv.put(name, new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price"))));
+		}
+		r.close();
+		p.close();
+		con.close();
+		return rv;
+	}
 }

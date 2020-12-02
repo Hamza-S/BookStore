@@ -32,6 +32,9 @@ public class Books {
 	public Map<String, BookBean> searchLibrary(String title) throws SQLException {
 		return bDAO.searchLibrary(title);
 	}
+	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException {
+		return bDAO.getBooksByCategory(category);
+	}
 	
 	public String generateBookCards(Map<String,BookBean> data) {
 		String books = "";

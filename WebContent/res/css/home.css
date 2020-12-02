@@ -13,6 +13,9 @@
 #homeSearch input {
 	height: 50px;
 }
+#filterSection {
+	margin-left: 0.5%;
+}
 ::placeholder {
   font-size: 24px;
 }
