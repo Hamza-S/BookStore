@@ -40,11 +40,10 @@ public class BooksDAO {
 		return rv;
 	}
 	public Map<String, BookBean> searchLibrary(String bookTitle) throws SQLException {
-		String query = ("select * from book WHERE title = ?");
+		String query = ("select * from book WHERE title like '%" + bookTitle + "%'");
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
-		p.setString(1, bookTitle);
 		ResultSet r = p.executeQuery();
 		while (r.next()) {
 			String name = r.getString("title");
