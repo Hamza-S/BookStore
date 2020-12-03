@@ -6,16 +6,16 @@ CREATE TABLE Users (
   email VARCHAR(50) NOT NULL,
   PRIMARY KEY(username)
 );
+INSERT INTO Users (firstName, lastName, username, password, email) VALUES ('syed', 'abdali', 'syed001', 'syedPass','syed@hotmail.com');
+
 
 CREATE TABLE Address (
-    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     street VARCHAR(100) NOT NULL,
     province VARCHAR(20) NOT NULL,
     country VARCHAR(20) NOT NULL,
     zip VARCHAR(20) NOT NULL,
     username VARCHAR(50) NOT NULL,
-    PRIMARY KEY(id),
-    FOREIGN KEY (username) REFERENCES USERS(username) ON DELETE CASCADE
+    PRIMARY KEY(username)
 );
 
 CREATE TABLE Book (
@@ -29,6 +29,18 @@ CREATE TABLE Book (
 INSERT INTO Book (bid, title, price, category) VALUES ('b001', 'Little Prince', 20, 'Fiction');
 INSERT INTO Book (bid, title, price, category) VALUES ('b002','Physics', 201, 'Science');
 INSERT INTO Book (bid, title, price, category) VALUES ('b003','Mechanics' ,100,'Engineering');
+
+CREATE TABLE Review(
+	username VARCHAR(50) NOT NULL,
+	bid VARCHAR(20) NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	text VARCHAR(1000) NOT NULL,
+	PRIMARY KEY(username, bid),
+	FOREIGN KEY(username) REFERENCES Users(username) ON DELETE CASCADE,
+	FOREIGN KEY(bid) REFERENCES Book(bid) ON DELETE CASCADE
+);
+insert into Review (username, bid, title, text) VALUES ('syed001','b001','This book is Ass','I cant read tbh.');
+
 
 
 CREATE TABLE PO (
