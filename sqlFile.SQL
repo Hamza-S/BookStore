@@ -1,4 +1,22 @@
+CREATE TABLE Users (
+  firstName VARCHAR(50) NOT NULL,
+  lastName VARCHAR(50) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  PRIMARY KEY(username)
+);
 
+CREATE TABLE Address (
+    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    street VARCHAR(100) NOT NULL,
+    province VARCHAR(20) NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    zip VARCHAR(20) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY (username) REFERENCES USERS(username) ON DELETE CASCADE
+);
 
 CREATE TABLE Book (
   bid VARCHAR(20) NOT NULL,
@@ -12,15 +30,6 @@ INSERT INTO Book (bid, title, price, category) VALUES ('b001', 'Little Prince', 
 INSERT INTO Book (bid, title, price, category) VALUES ('b002','Physics', 201, 'Science');
 INSERT INTO Book (bid, title, price, category) VALUES ('b003','Mechanics' ,100,'Engineering');
 
-CREATE TABLE Address (
-    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    street VARCHAR(100) NOT NULL,
-    province VARCHAR(20) NOT NULL,
-    country VARCHAR(20) NOT NULL,
-    zip VARCHAR(20) NOT NULL,
-    phone VARCHAR(20),
-    PRIMARY KEY(id)
-);
 
 CREATE TABLE PO (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
