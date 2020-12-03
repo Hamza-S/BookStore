@@ -101,6 +101,41 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 
+		} else if (request.getParameter("login_admin") != null && request.getParameter("login_admin").equals("true")) { // Login
+			// button
+			// handler
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			try {
+				if (username.contentEquals("admin")) {
+					if (book.login(username, password)) {
+						UserBean user = book.getUserBean(username);
+						request.getSession().setAttribute("UserBean", user);
+						String street = book.getAddressAttribute(username, "street");
+						String country = book.getAddressAttribute(username, "country");
+						String province = book.getAddressAttribute(username, "province");
+						String zip = book.getAddressAttribute(username, "zip");
+						request.getSession().setAttribute("street", street);
+						request.getSession().setAttribute("country", country);
+						request.getSession().setAttribute("province", province);
+						request.getSession().setAttribute("zip", zip);
+						System.out.println("Welcome back, " + username);
+						request.getSession().setAttribute("isLoggedIn", true);
+						request.getSession().setAttribute("userName", user.getUserName());// delete when log out
+						request.getRequestDispatcher("/home.jspx").forward(request, response);
+					}
+					else {
+						System.out.println("Wrong password");
+						request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
+					}
+				} else { // throw error incorrect password/authentication failed
+					System.out.println("Not an admin");
+					request.getRequestDispatcher("/home.jspx").forward(request, response);
+				}
+			} catch (NoSuchAlgorithmException | SQLException e) {
+				e.printStackTrace();
+			}
+
 		} else if (request.getParameter("register") != null && request.getParameter("register").equals("true")) { // Login
 			// button
 			String fName = request.getParameter("fname");
@@ -130,12 +165,11 @@ public class bookStore extends HttpServlet {
 
 		else if (request.getParameter("logout") != null && request.getParameter("logout").equals("true")) { // Login
 			// button
-			
+
 			request.getSession().setAttribute("UserBean", new UserBean());
 			request.getSession().removeAttribute("isLoggedIn");
 			request.getSession().removeAttribute("userName");
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
-		
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
@@ -144,9 +178,16 @@ public class bookStore extends HttpServlet {
 				request.getRequestDispatcher("/register.jspx").forward(request, response);
 			} else if (path.equals("/Cart")) {
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
-			}
 
-			else {
+			} else if (path.equals("/AdminLogin")) {
+
+				request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
+
+			} else if (path.equals("/Admin")) {
+
+				request.getRequestDispatcher("/admin.jspx").forward(request, response);
+
+			} else {
 				request.getRequestDispatcher("/home.jspx").forward(request, response);
 			}
 
