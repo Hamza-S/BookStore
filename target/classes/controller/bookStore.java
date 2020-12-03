@@ -14,45 +14,42 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.BookBean;
+import bean.UserBean;
 
-/**
- * Servlet implementation class bookStore
- */
 @WebServlet({ "/bookStore", "/bookStore/*" })
 public class bookStore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public bookStore() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		ServletContext svcnxt = getServletContext();
 		try {
-			svcnxt.setAttribute("model", Books.getInstance());
+			svcnxt.setAttribute("model", Books.getInstance()); // Singleton design pattern for model
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Books book = (Books) request.getServletContext().getAttribute("model");
-		
+		HttpSession session = request.getSession();
+		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial visit/not logged in
+													
+			UserBean user = new UserBean();
+			session.setAttribute("UserBean", user);
+		} else {
+			//Do nothing, userbean already generated, or the user is logged in.
+		}
+
 		String path = request.getPathInfo();
-		// TODO Auto-generated method stub
 		try {
 
 			Map<String, BookBean> rv = book.getLibrary();
@@ -61,13 +58,13 @@ public class bookStore extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) {
+		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) { //Search functionality
 			try {
-				boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com", "testing123");
+				boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com",
+						"testing123");
 				System.out.println(registered);
 				System.out.println(book.login("hamzabman", "testing123"));
 			} catch (NoSuchAlgorithmException | SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -83,24 +80,20 @@ public class bookStore extends HttpServlet {
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
 
-		} else if (path != null) {
+		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
 				request.getRequestDispatcher("/login.jspx").forward(request, response);
-			}
-			else if (path.equals("/Register")) {
+			} else if (path.equals("/Register")) {
 				request.getRequestDispatcher("/register.jspx").forward(request, response);
-			}
-			else if (path.equals("/Cart")) {
+			} else if (path.equals("/Cart")) {
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
 			}
-			 
+
 			else {
 				request.getRequestDispatcher("/home.jspx").forward(request, response);
 			}
 
-		
-		}
-		else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) {
+		} else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) {  //Ajax handling for home page																								 
 			String category = request.getParameter("category");
 			try {
 
@@ -108,25 +101,20 @@ public class bookStore extends HttpServlet {
 				String searchRes = book.generateBookCards(rv);
 				request.setAttribute("library", searchRes);
 				request.setAttribute("resultCount", rv.size());
-				
+
 				response.setContentType("text/html");
 				response.getWriter().append(searchRes);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

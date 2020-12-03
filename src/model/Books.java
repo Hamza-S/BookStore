@@ -2,13 +2,7 @@ package model;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import authentication.Authenticator;
 import bean.BookBean;
 import dao.BooksDAO;
