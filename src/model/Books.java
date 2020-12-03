@@ -1,19 +1,22 @@
 package model;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
+import authentication.Authenticator;
 import bean.BookBean;
 import dao.BooksDAO;
 
 public class Books {
 	private static Books instance;
 	private BooksDAO bDAO;
+	private Authenticator auth;
  
 	private Books() {
 	 
@@ -36,6 +39,30 @@ public class Books {
 		return bDAO.getBooksByCategory(category);
 	}
 	
+	public boolean registerUser (String fname, String lname, String username, String email, String password) throws NoSuchAlgorithmException, SQLException {
+		boolean registered = false;
+		if (auth.userExists(username)) {
+			//throw error because user already exists
+		}
+		else {
+			auth.registerUser(fname, lname, username, email, password);
+			registered = true;
+		}
+		return registered;
+	}
+	
+	public boolean login(String username, String password) throws NoSuchAlgorithmException, SQLException {
+		boolean authenticated = false;
+		if (!auth.userExists(username)) {
+			//throw error because USER does not exist
+		}
+		else {
+			
+			authenticated = auth.authenticate(username, password);
+		}
+		return authenticated;
+	}
+
 	public String generateBookCards(Map<String,BookBean> data) {
 		String books = "";
 		BookBean b = null;
