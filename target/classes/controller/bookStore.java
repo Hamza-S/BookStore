@@ -71,9 +71,7 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
-		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
-																											// button
-																											// handler
+		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login button handler																							 
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			try {
@@ -82,6 +80,7 @@ public class bookStore extends HttpServlet {
 					request.getSession().setAttribute("UserBean", user);
 					System.out.println("Welcome back, " + username);
 					request.getRequestDispatcher("/home.jspx").forward(request, response);
+					request.getSession().setAttribute("isLoggedIn", true); //delete when log out
 				} else {
 					// throw error incorrect password/authentication failed
 					System.out.println("Incorrect password");
