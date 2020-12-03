@@ -5,6 +5,7 @@ import model.Books;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -49,6 +50,8 @@ public class bookStore extends HttpServlet {
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
 		} else {
+			UserBean user = (UserBean) session.getAttribute("UserBean");;
+			System.out.println(Arrays.toString(user.getCart().getCart().entrySet().toArray()));
 			// Do nothing, userbean already generated, or the user is logged in.
 		}
 
@@ -89,12 +92,23 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			
-			
 			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
+			
 
 		}
-		
+		else if(request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
+			System.out.println("asipdniasnd");
+			UserBean s = (UserBean) request.getSession().getAttribute("UserBean");
+			String bid = request.getParameter("bookid");
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			System.out.println(bid);
+			System.out.println(quantity);
+			s.getCart().addItem(bid, quantity);
+			System.out.println(Arrays.toString(s.getCart().getCart().entrySet().toArray()));
+			request.getSession().setAttribute("UserBean", s);
+			request.getRequestDispatcher("/bookStore?bid="+bid+"&moreInfo=true").forward(request, response);
+
+		}
 		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
 																											// button
 																											// handler

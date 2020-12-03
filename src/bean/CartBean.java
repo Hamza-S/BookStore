@@ -12,12 +12,7 @@ public class CartBean {
 	
 	public void addItem(String bid, int quantity) {
 		Map<String, Integer> c = this.cart;
-		if (c.containsKey(bid)) {
-			c.put(bid, c.get(bid) + 1); //If item already in cart just update quantity 
-		}
-		else {
-			c.put(bid, 1);
-		}
+		c.put(bid, quantity);
 	}
 	
 	public void removeItem(String bid) {
