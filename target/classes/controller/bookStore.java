@@ -106,6 +106,7 @@ public class bookStore extends HttpServlet {
 			s.getCart().addItem(bid, quantity);
 			System.out.println(Arrays.toString(s.getCart().getCart().entrySet().toArray()));
 			request.getSession().setAttribute("UserBean", s);
+			request.getSession().setAttribute("CartNum", s.getCart().getTotalQuantity());
 			request.getRequestDispatcher("/bookStore?bid="+bid+"&moreInfo=true").forward(request, response);
 
 		}
@@ -116,7 +117,11 @@ public class bookStore extends HttpServlet {
 			String password = request.getParameter("password");
 			try {
 				if (book.login(username, password)) {
+					//If they login, we want to save their cart
+					UserBean usr = (UserBean) request.getSession().getAttribute("UserBean");
+					Map<String, Integer> usrCart = usr.getCart().getCart();
 					UserBean user = book.getUserBean(username);
+					user.getCart().setCart(usrCart);
 					request.getSession().setAttribute("UserBean", user);
 					String street = book.getAddressAttribute(username, "street");
 					String country = book.getAddressAttribute(username, "country");
@@ -205,8 +210,10 @@ public class bookStore extends HttpServlet {
 
 		else if (request.getParameter("logout") != null && request.getParameter("logout").equals("true")) { // Login
 			// button
-
-			request.getSession().setAttribute("UserBean", new UserBean());
+			UserBean loggedoutUser = new UserBean();
+			UserBean currUser = (UserBean) request.getSession().getAttribute("UserBean");
+			loggedoutUser.getCart().setCart(currUser.getCart().getCart());
+			request.getSession().setAttribute("UserBean", loggedoutUser);
 			request.getSession().removeAttribute("isLoggedIn");
 			request.getSession().removeAttribute("userName");
 			request.getRequestDispatcher("/home.jspx").forward(request, response);

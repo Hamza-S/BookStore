@@ -12,7 +12,13 @@ public class CartBean {
 	
 	public void addItem(String bid, int quantity) {
 		Map<String, Integer> c = this.cart;
-		c.put(bid, quantity);
+		if (c.containsKey(bid)) {
+			c.put(bid, c.get(bid)+quantity);
+		}
+		else {
+			c.put(bid, quantity);
+		}
+		
 	}
 	
 	public void removeItem(String bid) {
@@ -23,9 +29,18 @@ public class CartBean {
 	}
 
 	public Map<String, Integer> getCart() {
-		return cart; 
+		return this.cart; 
 	}
-
+	
+	public int getTotalQuantity() {
+		int totalQuant = 0;
+		if (this.cart.size() > 0) {
+			for (Integer value : this.cart.values()) {
+			    totalQuant += value;
+			}
+		}
+		return totalQuant;
+	}
 	public void setCart(Map<String, Integer> cart) {
 		this.cart = cart;
 	}

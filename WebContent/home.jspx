@@ -28,84 +28,98 @@ th, td {
 	src="${pageContext.request.contextPath}/res/js/home_filter.js">;</script>
 </head>
 <body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light"
-			id="homeNav">
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ml-auto">
-					<c:choose> 
-					 <c:when test="${not isLoggedIn}">
-					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="bookStore/Login"><h5>Login</h5></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Register"><h5>Register</h5></a></li>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<c:choose>
+					<c:when test="${not isLoggedIn}">
+						<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="bookStore/Login"><h5>Login</h5></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="bookStore/Register"><h5>Register</h5></a></li>
 					</c:when>
 					<c:when test="${not empty isLoggedIn}">
-						<li class="nav-item"><a class="nav-link active" id = "welcomeBackText"><h6>Welcome back, ${userName} </h6></a></li>
+						<li class="nav-item"><a class="nav-link active"
+							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
 						<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5></a></li>
 						<form class="logout" action="/BookStore/bookStore" method="POST">
-							<button id = "logout" name = "logout" value = "true" type='submit'>
+							<button id="logout" name="logout" value="true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
-							</button>				
+							</button>
 						</form>
-						
-					</c:when>	
-					</c:choose>
-					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
-					</li>
-					
-				</ul>
-			</div>
-		</nav>
-		<div class="jumbotron" id="homeJumbo">
-			<div class="container">
-				<h1 class="display-3">InstaBook</h1>
-				<p>Get your favorite books, instantly.</p>
-			</div>
-			<div id="homeSearch">
-				<form class="search" action="bookStore" method="GET">
-					<div class="input-group mb-3">
 
-						<input id="searchbar" value="" name="bookTitle" type="text"
-							class="form-control" placeholder="Search for a book"
-							aria-label="Search for a book" aria-describedby="basic-addon2"></input>
-						<div class="input-group-append">
-							<button class="btn btn-outline-dark" name='search' type="submit"
-								value="true">Search</button>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${empty CartNum}">
+						<li class="nav-item"><a class="nav-link"
+							href="bookStore/Cart"><h5>Cart (0)</h5></a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item"><a class="nav-link"
+							href="bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</ul>
+		</div>
+	</nav>
+	<div class="jumbotron" id="homeJumbo">
+		<div class="container">
+			<h1 class="display-3">InstaBook</h1>
+			<p>Get your favorite books, instantly.</p>
+		</div>
+		<div id="homeSearch">
+			<form class="search" action="bookStore" method="GET">
+				<div class="input-group mb-3">
+
+					<input id="searchbar" value="" name="bookTitle" type="text"
+						class="form-control" placeholder="Search for a book"
+						aria-label="Search for a book" aria-describedby="basic-addon2"></input>
+					<div class="input-group-append">
+						<button class="btn btn-outline-dark" name='search' type="submit"
+							value="true">Search</button>
+					</div>
+
+				</div>
+			</form>
+			<div id="filterSection">
+				<h6>Filter by category:</h6>
+				<form class="filter" action="bookStore/fetchBooks" method="GET">
+					<div class="input-group">
+						<input type="hidden" class="form-control"></input>
+						<div class="input-group-append" id="button-addon4">
+							<button id='all' name='filter' type='submit' value='all'
+								onclick="getBooksByCategory('/BookStore/bookStore', 'all');return false;"
+								class="btn btn-dark">All</button>
+							<button id='fiction' name='filter' type='submit'
+								onclick="getBooksByCategory('/BookStore/bookStore', 'fiction');return false;"
+								value='fiction' class="btn btn-dark">Fiction</button>
+							<button id='sciencefiction' name='filter'
+								onclick="getBooksByCategory('/BookStore/bookStore', 'sciencefiction');return false;"
+								type='submit' value='sciencefiction' class="btn btn-dark">Science
+								Fiction</button>
+							<button id='fantasy' name='filter'
+								onclick="getBooksByCategory('/BookStore/bookStore', 'fantasy');return false;"
+								type='submit' value='fantasy' class="btn btn-dark">Fantasy</button>
 						</div>
-
 					</div>
 				</form>
-				<div id="filterSection">
-					<h6>Filter by category:</h6>
-					<form class="filter" action="bookStore/fetchBooks" method="GET">
-						<div class="input-group">
-							<input type="hidden" class="form-control"></input>
-							<div class="input-group-append" id="button-addon4">
-								<button id = 'all' name='filter' type='submit' value='all'
-									onclick="getBooksByCategory('/BookStore/bookStore', 'all');return false;" class="btn btn-dark">All</button>
-								<button id = 'fiction' name='filter' type='submit' onclick="getBooksByCategory('/BookStore/bookStore', 'fiction');return false;" value='fiction'
-									class="btn btn-dark">Fiction</button>
-								<button id = 'sciencefiction' name='filter' onclick="getBooksByCategory('/BookStore/bookStore', 'sciencefiction');return false;" type='submit' value='sciencefiction'
-									class="btn btn-dark">Science Fiction</button>
-								<button id = 'fantasy' name='filter' onclick="getBooksByCategory('/BookStore/bookStore', 'fantasy');return false;" type='submit' value='fantasy'
-									class="btn btn-dark">Fantasy</button>
-							</div>
-						</div>
-					</form>
-				</div>
 			</div>
 		</div>
-		<div class="album py-5 bg-light">
-			<div class="container">
-				<div class="row" id = "library_category">${library}</div>
-			</div>
+	</div>
+	<div class="album py-5 bg-light">
+		<div class="container">
+			<div class="row" id="library_category">${library}</div>
 		</div>
+	</div>
 </body>
 	</html>
 </jsp:root>
