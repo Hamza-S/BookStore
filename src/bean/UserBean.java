@@ -6,7 +6,6 @@ public class UserBean {
 	private String lastName;
 	private String userName;
 	private String email;
-	private String password;
 	private boolean isLoggedIn = false;
 	private CartBean cart;
 
@@ -14,13 +13,12 @@ public class UserBean {
 		this.cart = new CartBean();
 	}
 
-	public UserBean(String fn, String ln, String un, String e, String p) {
+	public UserBean(String fn, String ln, String un, String e) {
 		this.cart = new CartBean();
 		this.firstName = fn;
 		this.lastName = ln;
 		this.userName = un;
 		this.email = e;
-		this.password = p;
 		this.isLoggedIn = true;
 	}
 
@@ -70,14 +68,6 @@ public class UserBean {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }

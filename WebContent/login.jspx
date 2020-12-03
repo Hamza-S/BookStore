@@ -70,15 +70,15 @@ th, td {
 					</div>
 					</center>
 					<div class="card-body">
-						<form>
+						<form class="login" action="" method="POST">
 							<div class="input-group form-group">
 								
-								<input type="text" class="form-control mb-4" placeholder="username"></input>
+								<input type="text" name="username" class="form-control mb-4" placeholder="username"></input>
 								
 							</div>
 							<div class="input-group form-group">
 								
-								<input type="password" class="form-control mb-1" placeholder="password"></input>
+								<input type="password" name="password" class="form-control mb-1" placeholder="password"></input>
 							</div>
 							<div class="row align-items-center remember mb-5">
 								<input type="checkbox"  id="rememberPass" > <span >Remember Password</span></input>
@@ -88,7 +88,8 @@ th, td {
 								<input type="submit" value="Login" class="btn  login_btn"></input>
 							</div>
 							-->
-							<button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Login</button>
+							<button class="btn btn-primary btn-lg btn-block mb-2" name='login' type="submit"
+								value="true">Login</button>
 							
 							<div class="">
 								<div class="d-flex justify-content-center links">

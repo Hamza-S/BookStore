@@ -41,12 +41,13 @@ public class bookStore extends HttpServlet {
 			throws ServletException, IOException {
 		Books book = (Books) request.getServletContext().getAttribute("model");
 		HttpSession session = request.getSession();
-		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial visit/not logged in
-													
+		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial
+														// visit/not logged in
+
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
 		} else {
-			//Do nothing, userbean already generated, or the user is logged in.
+			// Do nothing, userbean already generated, or the user is logged in.
 		}
 
 		String path = request.getPathInfo();
@@ -58,7 +59,8 @@ public class bookStore extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) { //Search functionality
+		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) { // Search
+																										// functionality
 			try {
 				boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com",
 						"testing123");
@@ -79,6 +81,25 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
+		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login button handler
+			String username = request.getParameter("username");	
+			String password = request.getParameter("password");
+			try {
+				if (book.login(username, password)) {
+					UserBean user = book.getUserBean(username);
+					request.getSession().setAttribute("UserBean", user);
+					System.out.println("Welcome back, " + username);
+					request.getRequestDispatcher("/home.jspx").forward(request, response);
+				}
+				else {
+					//throw error incorrect password/authentication failed
+					System.out.println("Incorrect password");
+					request.getRequestDispatcher("/login.jspx").forward(request, response);
+				}
+			} catch (NoSuchAlgorithmException | SQLException e) {
+				e.printStackTrace();
+			}
+
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
@@ -93,7 +114,10 @@ public class bookStore extends HttpServlet {
 				request.getRequestDispatcher("/home.jspx").forward(request, response);
 			}
 
-		} else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) {  //Ajax handling for home page																								 
+		} else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) { // Ajax
+																											// handling
+																											// for home
+																											// page
 			String category = request.getParameter("category");
 			try {
 
@@ -111,8 +135,7 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
 		}
 	}
-	
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

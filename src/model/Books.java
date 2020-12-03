@@ -5,12 +5,15 @@ import java.sql.*;
 import java.util.Map;
 import authentication.Authenticator;
 import bean.BookBean;
+import bean.UserBean;
 import dao.BooksDAO;
+import dao.UsersDAO;
 
 public class Books {
 	private static Books instance;
 	private BooksDAO bDAO;
-	private static Authenticator auth;
+	private UsersDAO uDAO;
+	private Authenticator auth;
  
 	private Books() {
 	 
@@ -19,7 +22,8 @@ public class Books {
 		if (instance == null) {
 			instance = new Books();
 			instance.bDAO = new BooksDAO();
-			auth = new Authenticator();
+			instance.auth = new Authenticator();
+			instance.uDAO = new UsersDAO();
 		}
 		return instance;
 		
@@ -57,6 +61,11 @@ public class Books {
 			authenticated = auth.authenticate(username, password);
 		}
 		return authenticated;
+	}
+	
+	public UserBean getUserBean(String username) throws SQLException {
+		return uDAO.getUserBean(username);
+		
 	}
 
 	public String generateBookCards(Map<String,BookBean> data) {
