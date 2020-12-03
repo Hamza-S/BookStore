@@ -87,13 +87,13 @@ th, td {
 		<div class="container">
 	  		<div class="row">
 	    		<div class="col-sm">
-	      			<img src="${pageContext.request.contextPath}/res/img/boo1.jpg" 
+	      			<img src="${pageContext.request.contextPath}/res/img/${bid}.jpg" 
 	      				class="img-fluid"
 	      				alt="Book Img" width="400" height="500">
 	      			</img>
 	    		</div>
 	    		<div class="col-sm">
-	    			<H1 class="display-4">Harry Potter and the Cursed Child</H1>
+	    			<H1 class="display-4">${title}</H1>
 	      		 	<p class="hr-line"></p>
 					<div class="container">
 				  		<div class="row">
@@ -103,9 +103,9 @@ th, td {
 				      			<p class="font-weight-bold">Price:</p>
 				      		</div>
 					    	<div class="col-sm">
-					    		<p>Harry Potter and the Cursed Child</p>
-							  	<p>Fiction</p>
-							  	<p>$10.00</p>
+					    		<p>${title}</p>
+							  	<p>${category}</p>
+							  	<p>$${price}</p>
 							</div>
 				  		</div>
 					</div> 

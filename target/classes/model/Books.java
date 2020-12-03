@@ -112,4 +112,9 @@ public class Books {
 		return books;
 		
 	}
+	
+	public BookBean getBook(String bid) throws SQLException {
+		BookBean book=bDAO.getBookById(bid);
+		return book;
+	}
 }

@@ -56,7 +56,7 @@ public class BooksDAO {
 		return rv;
 	}
 	
-	public BookBean searchById(String bid) throws SQLException {
+	public BookBean getBookById(String bid) throws SQLException {
 		String query = ("select * from book where bid like '%" + bid + "%'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);

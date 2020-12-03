@@ -73,7 +73,29 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
-		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
+		}
+		//Request to a BookInfo more info
+		else if(request.getParameter("moreInfo") != null && request.getParameter("moreInfo").equals("true")) {
+			System.out.println("In more info");
+			String bid=request.getParameter("bid");
+			try {
+				request.setAttribute("bid", book.getBook(bid).getBid());
+				request.setAttribute("category", book.getBook(bid).getCategory());
+				request.setAttribute("price", book.getBook(bid).getPrice());
+				request.setAttribute("title", book.getBook(bid).getTitle());
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
+
+		}
+		
+		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
 																											// button
 																											// handler
 			String username = request.getParameter("username");
