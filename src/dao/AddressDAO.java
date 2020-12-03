@@ -42,4 +42,16 @@ public class AddressDAO {
 		return success;
 	}
 	
+	public int getAddressAttribute(String username, String attribute) throws SQLException {
+		String query = ("SELECT " + attribute + " FROM ADDRESS WHEN username LIKE '" + username + "'" );
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		System.out.println(query);
+		int success = p.executeUpdate();
+		System.out.println(success);
+		p.close();
+		con.close();
+		return success;
+	}
+	
 }
