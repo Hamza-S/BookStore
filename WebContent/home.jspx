@@ -27,6 +27,8 @@ th, td {
 <link rel="StyleSheet"
 	href="${pageContext.request.contextPath}/res/css/home.css"
 	type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/js/home_filter.js">;</script>
 </head>
 <body>
 	<f:view>
@@ -72,17 +74,17 @@ th, td {
 				</form>
 				<div id="filterSection">
 					<h6>Filter by category:</h6>
-					<form class="filter" action="bookStore" method="GET">
+					<form class="filter" action="bookStore/fetchBooks" method="GET">
 						<div class="input-group">
 							<input type="hidden" class="form-control"></input>
 							<div class="input-group-append" id="button-addon4">
-								<button name='filter' type='submit' value='all'
-									class="btn btn-dark">All</button>
-								<button name='filter' type='submit' value='fiction'
+								<button id = 'all' name='filter' type='submit' value='all'
+									onclick="getBooksByCategory('/BookStore/bookStore', 'all');return false;" class="btn btn-dark">All</button>
+								<button id = 'fiction' name='filter' type='submit' onclick="getBooksByCategory('/BookStore/bookStore', 'fiction');return false;" value='fiction'
 									class="btn btn-dark">Fiction</button>
-								<button name='filter' type='submit' value='sciencefiction'
+								<button id = 'sciencefiction' name='filter' onclick="getBooksByCategory('/BookStore/bookStore', 'sciencefiction');return false;" type='submit' value='sciencefiction'
 									class="btn btn-dark">Science Fiction</button>
-								<button name='filter' type='submit' value='fantasy'
+								<button id = 'fantasy' name='filter' onclick="getBooksByCategory('/BookStore/bookStore', 'fantasy');return false;" type='submit' value='fantasy'
 									class="btn btn-dark">Fantasy</button>
 							</div>
 						</div>
@@ -92,7 +94,7 @@ th, td {
 		</div>
 		<div class="album py-5 bg-light">
 			<div class="container">
-				<div class="row">${library}</div>
+				<div class="row" id = "library_category">${library}</div>
 			</div>
 		</div>
 	</f:view>
