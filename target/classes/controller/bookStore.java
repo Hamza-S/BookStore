@@ -79,8 +79,9 @@ public class bookStore extends HttpServlet {
 					UserBean user = book.getUserBean(username);
 					request.getSession().setAttribute("UserBean", user);
 					System.out.println("Welcome back, " + username);
+					request.getSession().setAttribute("isLoggedIn", true);
+					request.getSession().setAttribute("userName", user.getUserName());//delete when log out
 					request.getRequestDispatcher("/home.jspx").forward(request, response);
-					request.getSession().setAttribute("isLoggedIn", true); //delete when log out
 				} else {
 					// throw error incorrect password/authentication failed
 					System.out.println("Incorrect password");

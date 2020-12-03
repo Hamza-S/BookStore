@@ -83,9 +83,9 @@ public class Books {
 			b = i.getValue();
 			books += "<div class=\"col-md-4\">";
 			books += "<div class=\"card mb-4 shadow-sm\">";
-			books += "<svg class=\"bd-placeholder-img card-img-top\" width=\"100%\" height=\"225\" xmlns=\"http://www.w3.org/2000/svg\"\r\n" + 
+			books += "<svg class=\"bd-placeholder-img card-img-top\" width=\"110%\" height=\"450\" xmlns=\"http://www.w3.org/2000/svg\"\r\n" + 
 					"preserveAspectRatio=\"xMidYMid slice\" focusable=\"false\" role=\"img\">\r\n" + 
-					"<image href=\"https://upload.wikimedia.org/wikipedia/en/c/c9/Harry_Potter_and_the_Goblet_of_Fire_Poster.jpg\"></image>\r\n" + 
+					"<image href=\"https://dynamic.indigoimages.ca/books/1524763160.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en\"></image>\r\n" + 
 					"</svg>";
 			books += "<div class=\"card-body\">";
 			books += "<h6 class=\"card-text\"> " + b.getTitle() + "</h6>";
