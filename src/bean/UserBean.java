@@ -11,7 +11,8 @@ public class UserBean {
 	
 	
 	public UserBean () {
-//		thi
+		
+		
 	}
 
 }
