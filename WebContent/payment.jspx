@@ -22,6 +22,27 @@
 	src="${pageContext.request.contextPath}/res/js/payment.js">;</script>
 </head>
 <f:view>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+			id="homeNav">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Login"><h5>Login</h5></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Register"><h5>Register</h5></a></li>
+					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 	<body class="bg-light">
 
 		<div class="container">
@@ -32,6 +53,7 @@
 				<hr class="mb-4"></hr>
 			</div>
 			
+			<div id="upper-section">
 			<p class="lead"> Please select register or login to continue</p>
 			<input type="button" name="answer" value="Register" onclick="showDiv()" />
 			<input type="button" name="answer" value="Login" onclick="showDiv2()" />  
@@ -161,8 +183,9 @@
 					</form>
 				</div>
 			</div>
-
-
+			</div>
+			
+			<div id="lower-section">
 			<div class="row">
 				<div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -256,10 +279,10 @@
 							</div>
 						</div>
 						<hr class="mb-4"></hr>
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Continue
-							to checkout</button>
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Submit Order</button>
 					</form>
 				</div>
+			</div>
 			</div>
 
 
