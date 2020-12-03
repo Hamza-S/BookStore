@@ -16,3 +16,16 @@
 	font-size: 50%;
  
 }
+#analytics {
+	width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#analyticsTable {
+	width: 70%;
+	margin: 0;
+	text-align: center;
+	padding: 0;
+ 
+}
