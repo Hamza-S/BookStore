@@ -60,16 +60,6 @@ public class bookStore extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) { // Search
-																										// functionality
-			try {
-				boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com",
-						"testing123");
-				System.out.println(registered);
-				System.out.println(book.login("hamzabman", "testing123"));
-			} catch (NoSuchAlgorithmException | SQLException e1) {
-				e1.printStackTrace();
-			}
-
 			String title = request.getParameter("bookTitle");
 			try {
 
@@ -81,8 +71,10 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
-		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login button handler
-			String username = request.getParameter("username");	
+		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
+																											// button
+																											// handler
+			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			try {
 				if (book.login(username, password)) {
@@ -90,9 +82,8 @@ public class bookStore extends HttpServlet {
 					request.getSession().setAttribute("UserBean", user);
 					System.out.println("Welcome back, " + username);
 					request.getRequestDispatcher("/home.jspx").forward(request, response);
-				}
-				else {
-					//throw error incorrect password/authentication failed
+				} else {
+					// throw error incorrect password/authentication failed
 					System.out.println("Incorrect password");
 					request.getRequestDispatcher("/login.jspx").forward(request, response);
 				}
@@ -100,6 +91,30 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 
+		} else if (request.getParameter("register") != null && request.getParameter("register").equals("true")) { // Login
+																											// button
+			String fName = request.getParameter("fname");
+			String lName = request.getParameter("lname");
+			String username = request.getParameter("username");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");// handler
+			String address = request.getParameter("address");
+			String country = request.getParameter("country");
+			String province = request.getParameter("province");
+			String zip = request.getParameter("zip");
+			try {
+				if (book.registerUser(fName, lName, username, email, password)) {
+					book.insertAddress(username, address, province, country, zip);
+					request.getRequestDispatcher("/login.jspx").forward(request, response);
+					System.out.println("Registered!");
+				} else {
+					// throw error incorrect password/authentication failed
+					System.out.println("Username already exists!");
+					request.getRequestDispatcher("/register.jspx").forward(request, response);
+				}
+			} catch (NoSuchAlgorithmException | SQLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {

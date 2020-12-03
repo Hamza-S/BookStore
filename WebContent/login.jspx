@@ -41,13 +41,13 @@ th, td {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+					<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Login"><h5>Login</h5></a></li>
+						href=""><h5>Login</h5></a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Register"><h5>Register</h5></a></li>
-					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
+						href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
+					<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore/Cart"><h5>Cart</h5></a>
 					</li>
 				</ul>
 			</div>
@@ -70,7 +70,7 @@ th, td {
 					</div>
 					</center>
 					<div class="card-body">
-						<form class="login" action="" method="POST">
+						<form class="login" action="/BookStore/bookStore" method="POST">
 							<div class="input-group form-group">
 								
 								<input type="text" name="username" class="form-control mb-4" placeholder="username"></input>

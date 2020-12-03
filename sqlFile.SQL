@@ -2,7 +2,7 @@ CREATE TABLE Users (
   firstName VARCHAR(50) NOT NULL,
   lastName VARCHAR(50) NOT NULL,
   username VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(1248) NOT NULL,
   email VARCHAR(50) NOT NULL,
   PRIMARY KEY(username)
 );

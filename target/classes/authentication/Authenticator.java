@@ -34,7 +34,6 @@ public class Authenticator {
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 		boolean authenticate = false;
 		String query = ("select password from users where username = '" + username + "'");
-		System.out.println(query);
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();

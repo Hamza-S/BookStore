@@ -6,6 +6,7 @@ import java.util.Map;
 import authentication.Authenticator;
 import bean.BookBean;
 import bean.UserBean;
+import dao.AddressDAO;
 import dao.BooksDAO;
 import dao.UsersDAO;
 
@@ -14,6 +15,7 @@ public class Books {
 	private BooksDAO bDAO;
 	private UsersDAO uDAO;
 	private Authenticator auth;
+	private AddressDAO aDAO;
  
 	private Books() {
 	 
@@ -24,6 +26,7 @@ public class Books {
 			instance.bDAO = new BooksDAO();
 			instance.auth = new Authenticator();
 			instance.uDAO = new UsersDAO();
+			instance.aDAO = new AddressDAO();
 		}
 		return instance;
 		
@@ -48,6 +51,11 @@ public class Books {
 			registered = true;
 		}
 		return registered;
+	}
+	
+	public int insertAddress(String username, String address, String province, String country, String zip) throws SQLException {
+		return aDAO.insertAddress(username, address, country, province, zip);
+		
 	}
 	
 	public boolean login(String username, String password) throws NoSuchAlgorithmException, SQLException {

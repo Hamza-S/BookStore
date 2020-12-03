@@ -38,7 +38,7 @@ th, td {
 <body>
 	<f:view>
 	<!-- Nav Bar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"
 			id="homeNav">
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -47,13 +47,13 @@ th, td {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+					<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Login"><h5>Login</h5></a></li>
+						href=""><h5>Login</h5></a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Register"><h5>Register</h5></a></li>
-					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
+						href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
+					<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore/Cart"><h5>Cart</h5></a>
 					</li>
 				</ul>
 			</div>
@@ -80,11 +80,11 @@ th, td {
 		    </div>
 		    <div class="col" >
 		    	
-		    	<form class="needs-validation">
+		    	<form class="needs-validation" action = "/BookStore/bookStore/Login" method = "POST">
 		    		<div class="row">
 			         	<div class="col-md-6 mb-3">
 			            	<label for="firstName">First Name</label>
-			            	<input type="text" class="form-control" id="firstName" placeholder="" value="" > </input>
+			            	<input name ="fname" type="text" class="form-control" id="firstName" placeholder="" value="" > </input>
 			            	<!-- Q: ask Ryan about how to do invalid-feedback -->
 			            	<div class="invalid-feedback">
 			              		Valid first name is required.
@@ -92,7 +92,7 @@ th, td {
 			          	</div>
 			          	<div class="col-md-6 mb-3">
 			            	<label for="lastName">Last Name</label>
-			            	<input type="text" class="form-control" id="lastName" placeholder="" value="" > </input>
+			            	<input name = "lname" type="text" class="form-control" id="lastName" placeholder="" value="" > </input>
 			            	<div class="invalid-feedback">
 			              		Valid last name is required.
 			            	</div>
@@ -102,14 +102,14 @@ th, td {
 			        <div class="row">
 			         	<div class="col-md-6 mb-3">
 			            	<label for="userName">User Name</label>
-			            	<input type="text" class="form-control" id="userName" placeholder="" value="" > </input>
+			            	<input name = "username" type="text" class="form-control" id="userName" placeholder="" value="" > </input>
 			            	<div class="invalid-feedback">
 			              		Valid user name is required.
 			            	</div>
 			          	</div>
 			          	<div class="col-md-6 mb-3">
 			            	<label for="email">Email</label>
-			            	<input type="email" class="form-control" id="email" placeholder="you@example.com" value="" > </input>
+			            	<input name = "email" type="email" class="form-control" id="email" placeholder="you@example.com" value="" > </input>
 			            	<div class="invalid-feedback">
 			              		Valid email is required.
 			            	</div>
@@ -124,7 +124,7 @@ th, td {
 			        	
 			        	<div class="col-md-6 mb-3">
 			        		<label for="password2">Confirm Password</label>
-			        		<input type="password" class="form-control" id="password2" placeholder="" value=""></input>
+			        		<input name = "password" type="password" class="form-control" id="password2" placeholder="" value=""></input>
 			        	</div>
 			        </div>
 			        
@@ -133,7 +133,7 @@ th, td {
 		
 			<h4>Default Billing/Shipping Info</h4>		                
           <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" > </input>
+          <input name = "address" type="text" class="form-control" id="address" placeholder="1234 Main St" > </input>
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
@@ -143,22 +143,22 @@ th, td {
         <div class="row">
           <div class="col-md-5 mb-3">
             <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" placeholder="" > </input>
+            <input name = "country" type="text" class="form-control" id="country" placeholder="" > </input>
           </div>
           <div class="col-md-4 mb-3">
             <label for="state">Province/state</label>
-            <input type="text" class="form-control" id="state" placeholder="" > </input>
+            <input name = "province" type="text" class="form-control" id="state" placeholder="" > </input>
           </div>
           <div class="col-md-3 mb-3">
             <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" > </input>
+            <input name = "zip" type="text" class="form-control" id="zip" placeholder="" > </input>
           </div>
         </div>
-			        <button class="btn btn-primary btn-lg btn-block" type="submit">Register Account</button>
+			        <button name = "register" value = "true" class="btn btn-primary btn-lg btn-block" type="submit">Register Account</button>
 		    	</form>
 		    	<HR />
 		    	<center>
-		    		<p> Have an account? <a href="login.jspx">Log In</a></p>
+		    		<p> Have an account? <a href="Login">Log In</a></p>
 		    	</center>
 		    </div>
 		  </div>
