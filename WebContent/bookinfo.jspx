@@ -38,28 +38,32 @@ th, td {
 <body>
 	<f:view>
 		<!-- Nav Bar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"
+			id="homeNav">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Login"><h5>Login</h5></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="bookStore/Register"><h5>Register</h5></a></li>
+					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 		<div class="jumbotron">
             <div class="container">
                 <h1 class="display-3">InstaBook</h1>
                 <p>Get your favorite books, instantly.</p>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarTogglerDemo01"
-                        aria-controls="navbarTogglerDemo01" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="#">Home
-                                    <span class="sr-only">(current)</span>
-                            </a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
-                        </ul>
-                    </div>
-                </nav>
+                
 
             </div>
         </div>
