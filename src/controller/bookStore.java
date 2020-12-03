@@ -71,24 +71,26 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
-		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login button handler																							 
+		} else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
+																											// button
+																											// handler
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			try {
 				if (book.login(username, password)) {
 					UserBean user = book.getUserBean(username);
 					request.getSession().setAttribute("UserBean", user);
-					String street = book.getAddressAttribute(username,"street"); 
-					String country = book.getAddressAttribute(username,"country");
-					String province = book.getAddressAttribute(username,"province");
-					String zip = book.getAddressAttribute(username,"zip");
+					String street = book.getAddressAttribute(username, "street");
+					String country = book.getAddressAttribute(username, "country");
+					String province = book.getAddressAttribute(username, "province");
+					String zip = book.getAddressAttribute(username, "zip");
 					request.getSession().setAttribute("street", street);
 					request.getSession().setAttribute("country", country);
 					request.getSession().setAttribute("province", province);
 					request.getSession().setAttribute("zip", zip);
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
-					request.getSession().setAttribute("userName", user.getUserName());//delete when log out
+					request.getSession().setAttribute("userName", user.getUserName());// delete when log out
 					request.getRequestDispatcher("/home.jspx").forward(request, response);
 				} else {
 					// throw error incorrect password/authentication failed
@@ -100,7 +102,7 @@ public class bookStore extends HttpServlet {
 			}
 
 		} else if (request.getParameter("register") != null && request.getParameter("register").equals("true")) { // Login
-																											// button
+			// button
 			String fName = request.getParameter("fname");
 			String lName = request.getParameter("lname");
 			String username = request.getParameter("username");
@@ -123,6 +125,17 @@ public class bookStore extends HttpServlet {
 			} catch (NoSuchAlgorithmException | SQLException e) {
 				e.printStackTrace();
 			}
+
+		}
+
+		else if (request.getParameter("logout") != null && request.getParameter("logout").equals("true")) { // Login
+			// button
+			
+			request.getSession().setAttribute("UserBean", new UserBean());
+			request.getSession().removeAttribute("isLoggedIn");
+			request.getSession().removeAttribute("userName");
+			request.getRequestDispatcher("/home.jspx").forward(request, response);
+		
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
