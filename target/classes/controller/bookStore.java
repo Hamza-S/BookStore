@@ -63,8 +63,8 @@ public class bookStore extends HttpServlet {
 		}
 		if (request.getParameter("search") != null && request.getParameter("search").equals("true")) {
 			try {
-				//boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com", "testing123");
-				//System.out.println(registered);
+				boolean registered = book.registerUser("Hamza", "Saleem", "hamzabman", "hamzabman@gmail.com", "testing123");
+				System.out.println(registered);
 				System.out.println(book.login("hamzabman", "testing123"));
 			} catch (NoSuchAlgorithmException | SQLException e1) {
 				// TODO Auto-generated catch block
