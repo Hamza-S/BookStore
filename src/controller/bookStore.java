@@ -18,10 +18,12 @@ import javax.servlet.http.HttpSession;
 
 import bean.BookBean;
 import bean.UserBean;
+import dao.BooksDAO;
 
 @WebServlet({ "/bookStore", "/bookStore/*" })
 public class bookStore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
 	public bookStore() {
 		super();
@@ -123,11 +125,23 @@ public class bookStore extends HttpServlet {
 			} catch (NoSuchAlgorithmException | SQLException e) {
 				e.printStackTrace();
 			}
+			
+			
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
 				request.getRequestDispatcher("/login.jspx").forward(request, response);
 			} else if (path.equals("/Register")) {
+				try {
+					BooksDAO bookDao=new BooksDAO();
+					bookDao.searchById("b001");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				request.getRequestDispatcher("/register.jspx").forward(request, response);
 			} else if (path.equals("/Cart")) {
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
