@@ -78,6 +78,14 @@ public class bookStore extends HttpServlet {
 				if (book.login(username, password)) {
 					UserBean user = book.getUserBean(username);
 					request.getSession().setAttribute("UserBean", user);
+					String street = book.getAddressAttribute(username,"street"); 
+					String country = book.getAddressAttribute(username,"country");
+					String province = book.getAddressAttribute(username,"province");
+					String zip = book.getAddressAttribute(username,"zip");
+					request.getSession().setAttribute("street", street);
+					request.getSession().setAttribute("country", country);
+					request.getSession().setAttribute("province", province);
+					request.getSession().setAttribute("zip", zip);
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
 					request.getSession().setAttribute("userName", user.getUserName());//delete when log out

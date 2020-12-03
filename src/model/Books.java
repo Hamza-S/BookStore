@@ -58,6 +58,11 @@ public class Books {
 		
 	}
 	
+	public String getAddressAttribute(String username, String attribute) throws SQLException {
+		return aDAO.getAddressAttribute(username, attribute);
+		
+	}
+	
 	public boolean login(String username, String password) throws NoSuchAlgorithmException, SQLException {
 		boolean authenticated = false;
 		if (!auth.userExists(username)) {
