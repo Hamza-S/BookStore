@@ -20,27 +20,42 @@
 </head>
 
 	<body class="bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<c:choose>
+					<c:when test="${not isLoggedIn}">
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5> </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
+					</c:when>
+					<c:when test="${not empty isLoggedIn}">
+						<li class="nav-item"><a class="nav-link active"
+							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5></a></li>
+						<form class="logout" action="/BookStore/bookStore" method="POST">
+							<button id="logout" name="logout" value="true" type='submit'>
+								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
+							</button>
+						</form>
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light"
-			id="homeNav">
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Login"><h5>Login</h5></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="bookStore/Register"><h5>Register</h5></a></li>
-					<li class="nav-item"><a class="nav-link" href="bookStore/Cart"><h5>Cart</h5></a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+					</c:when>
+				</c:choose>
+				<li class="nav-item"><a class="nav-link"
+					href="/BookStore/bookStore/Cart"><h5>Cart</h5></a></li>
+
+			</ul>
+		</div>
+	</nav>
 
 
 		<div class="py-5 text-center">

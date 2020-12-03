@@ -48,7 +48,7 @@ th, td {
 					<c:when test="${not empty isLoggedIn}">
 						<li class="nav-item"><a class="nav-link active" id = "welcomeBackText"><h6>Welcome back, ${userName} </h6></a></li>
 						<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5></a></li>
-						<form class="logout" action="bookStore" method="POST">
+						<form class="logout" action="/BookStore/bookStore" method="POST">
 							<button id = "logout" name = "logout" value = "true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
 							</button>				
