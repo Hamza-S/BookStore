@@ -69,10 +69,6 @@ public class BooksDAO {
 		r.close();
 		p.close();
 		con.close();
-		if(size>0) {
-			System.out.println("size of set:" +size);
-			System.out.println("book id:"+book.getBid());
-		}
 		return book;
 	}
 	

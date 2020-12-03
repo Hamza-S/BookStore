@@ -107,7 +107,7 @@ th, td {
 				  		</div>
 					</div> 
 					
-					<form class="add_to_cart" action = "/BookStore/bookInfo" method="POST">
+					<form class="add_to_cart" action = "/BookStore/bookStore" method="POST">
 					  <div class="form-group">
 						<div class="container">
 						  <div class="row">
