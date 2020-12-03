@@ -29,8 +29,7 @@ th, td {
 	type="text/css" title="cse4413" media="screen, print" />
 </head>
 <body>
-	<!-- Nav Bar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
+ 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -79,12 +78,12 @@ th, td {
 				<div class="card">
 					<center>
 						<div class="card-header">
-							<h3>Sign In</h3>
+							<h3>Admin Sign In</h3>
 
 						</div>
 					</center>
 					<div class="card-body">
-						<form class="login" action="/BookStore/bookStore" method="POST">
+						<form class="admin_login" action="/BookStore/bookStore/Admin" method="POST">
 							<div class="input-group form-group">
 
 								<input type="text" name="username" class="form-control mb-4"
@@ -100,13 +99,8 @@ th, td {
 								<input type="checkbox" id="rememberPass"><span>Remember
 									Password</span></input>
 							</div>
-							<!-- 
-							<div class="form-group">
-								<input type="submit" value="Login" class="btn  login_btn"></input>
-							</div>
-							-->
 							<button class="btn btn-primary btn-lg btn-block mb-2"
-								name='login' type="submit" value="true">Login</button>
+								name='login_admin' type="submit" value="true">Login</button>
 
 							<div class="">
 								<div class="d-flex justify-content-center links">
@@ -127,5 +121,5 @@ th, td {
 	</div>
 
 </body>
-	</html>
+</html>
 </jsp:root>
