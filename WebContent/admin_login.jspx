@@ -10,7 +10,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Login</title>
+<title>Admin Login</title>
 <style>
 th, td {
 	border: 1px solid black;
@@ -39,17 +39,17 @@ th, td {
 			<ul class="navbar-nav ml-auto">
 				<c:choose>
 					<c:when test="${not isLoggedIn}">
-						<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5>
+						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="bookStore/Login"><h5>Login</h5></a></li>
+							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="bookStore/Register"><h5>Register</h5></a></li>
+							href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
 					</c:when>
 					<c:when test="${not empty isLoggedIn}">
 						<li class="nav-item"><a class="nav-link active"
 							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
-						<li class="nav-item"><a class="nav-link" href="bookStore"><h5>Home</h5></a></li>
+						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5></a></li>
 						<form class="logout" action="/BookStore/bookStore" method="POST">
 							<button id="logout" name="logout" value="true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
@@ -61,11 +61,11 @@ th, td {
 				<c:choose>
 					<c:when test="${empty CartNum}">
 						<li class="nav-item"><a class="nav-link"
-							href="bookStore/Cart"><h5>Cart (0)</h5></a></li>
+							href="/BookStore/bookStore/Cart"><h5>Cart (0)</h5></a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link"
-							href="bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
+							href="/BookStore/bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
 					</c:otherwise>
 				</c:choose>
 
