@@ -22,7 +22,15 @@ width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
-
+#logout {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
 
 
 .card-header h3, .card-header h1, .card-header h2{

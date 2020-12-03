@@ -10,7 +10,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Search results</title>
+<title>Admin Login</title>
 <style>
 th, td {
 	border: 1px solid black;
@@ -25,8 +25,8 @@ th, td {
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous"></link>
 <link rel="StyleSheet"
-	href="${pageContext.request.contextPath}/res/css/admin_page.css"
-	type="text/css" />
+	href="${pageContext.request.contextPath}/res/css/login.css"
+	type="text/css" title="cse4413" media="screen, print" />
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
@@ -72,44 +72,61 @@ th, td {
 			</ul>
 		</div>
 	</nav>
-	<div class="jumbotron" id="searchJumbo">
+	<div class="jumbotron">
 		<div class="container">
-			<h1 class="display-5">Administrator Dashboard</h1>
-			<p>View order analytics</p>
+			<h1 class="display-3">InstaBook</h1>
+			<p>Get your favorite books, instantly.</p>
+
 		</div>
 	</div>
-	<div id="analytics">
-		<table class="table" id = "analyticsTable">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Book Name</th>
-					<th scope="col">Book ID</th>
-					<th scope="col">Rank</th>
-					<th scope="col">Number Of Orders</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">Harry Potter</th>
-					<td>b12301203</td>
-					<td>1</td>
-					<td>11232</td>
-				</tr>
-				<tr>
-					<th scope="row">Eiffel</th>
-					<td>b12301203</td>
-					<td>2</td>
-					<td>11232</td>
-				</tr>
-				<tr>
-					<th scope="row">Test</th>
-					<td>b12301203</td>
-					<td>3</td>
-					<td>11232</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="">
+		<div class="container">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card">
+					<center>
+						<div class="card-header">
+							<h3>Admin Sign In</h3>
+
+						</div>
+					</center>
+					<div class="card-body">
+						<form class="admin_login" action="/BookStore/bookStore/Admin" method="POST">
+							<div class="input-group form-group">
+
+								<input type="text" name="username" class="form-control mb-4"
+									placeholder="username"></input>
+
+							</div>
+							<div class="input-group form-group">
+
+								<input type="password" name="password" class="form-control mb-1"
+									placeholder="password"></input>
+							</div>
+							<div class="row align-items-center remember mb-5">
+								<input type="checkbox" id="rememberPass"><span>Remember
+									Password</span></input>
+							</div>
+							<button class="btn btn-primary btn-lg btn-block mb-2"
+								name='login_admin' type="submit" value="true">Login</button>
+
+							<div class="">
+								<div class="d-flex justify-content-center links">
+									Don't have an account?<a href="register.jspx">Sign Up</a>
+								</div>
+								<div class="d-flex justify-content-center">
+									<a href="#">Forgot your password?</a>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
 	</div>
+
 </body>
-	</html>
+</html>
 </jsp:root>

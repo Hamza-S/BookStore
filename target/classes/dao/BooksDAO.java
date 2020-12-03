@@ -55,6 +55,24 @@ public class BooksDAO {
 		con.close();
 		return rv;
 	}
+	
+	public BookBean getBookById(String bid) throws SQLException {
+		String query = ("select * from book where bid like '%" + bid + "%'");
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		BookBean book=null;
+		int size=r.getFetchSize();
+		while (r.next()) {
+			book = new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price")));
+		}
+		r.close();
+		p.close();
+		con.close();
+		return book;
+	}
+	
+	
 	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException {
 		String c = category.toLowerCase();
 		String query = ("select * from book WHERE lower(category) = '" + c + "'");
