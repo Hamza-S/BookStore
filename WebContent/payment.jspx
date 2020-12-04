@@ -15,196 +15,207 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous"></link>
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/res/js/payment.js">;</script>
+	src="${pageContext.request.contextPath}/res/js/payment.js">
+	;
+</script>
 </head>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ml-auto">
-				<c:choose>
-					<c:when test="${not isLoggedIn}">
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
-					</c:when>
-					<c:when test="${not empty isLoggedIn}">
-						<li class="nav-item"><a class="nav-link active"
-							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5></a></li>
-						<form class="logout" action="/BookStore/bookStore" method="POST">
-							<button id="logout" name="logout" value="true" type='submit'>
-								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
-							</button>
-						</form>
 
-					</c:when>
-				</c:choose>
-				<c:choose>
-					<c:when test="${empty CartNum}">
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Cart"><h5>Cart (0)</h5></a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
-					</c:otherwise>
-				</c:choose>
-
-			</ul>
-		</div>
-	</nav>
-	<body class="bg-light">
-
-		<div class="container">
-			<div class="py-5 text-center">
-
-				<h2>Payment</h2>
-				<p class="lead">Complete your book order below!</p>
-				<hr class="mb-4"></hr>
-			</div>
-			
-			<div id="upper-section">
-			<p class="lead"> Please select register or login to continue</p>
-			<input type="button" name="answer" value="Register" onclick="showDiv()" />
-			<input type="button" name="answer" value="Login" onclick="showDiv2()" />  
-			
-			
-	
-			<div id="register-div" style="display:none">
-			<div class="col">
-
-				<form class="needs-validation">
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="firstName">First Name</label> <input type="text"
-								class="form-control" id="firstName" placeholder="" value="">
-							</input>
-							<!-- Q: ask Ryan about how to do invalid-feedback -->
-							<div class="invalid-feedback">Valid first name is required.
-							</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="lastName">Last Name</label> <input type="text"
-								class="form-control" id="lastName" placeholder="" value="">
-							</input>
-							<div class="invalid-feedback">Valid last name is required.
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="userName">User Name</label> <input type="text"
-								class="form-control" id="userName" placeholder="" value="">
-							</input>
-							<div class="invalid-feedback">Valid user name is required.
-							</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="email">Email</label> <input type="email"
-								class="form-control" id="email" placeholder="you@example.com"
-								value=""> </input>
-							<div class="invalid-feedback">Valid email is required.</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="password1">Password</label> <input type="password"
-								class="form-control" id="password1" placeholder="" value=""></input>
-							<input type="checkbox" onclick="showPassword()" id="showPass"><span
-								class="text-muted">Show password</span></input>
-						</div>
-
-						<div class="col-md-6 mb-3">
-							<label for="password2">Confirm Password</label> <input
-								type="password" class="form-control" id="password2"
-								placeholder="" value=""></input>
-						</div>
-					</div>
-
-					<div class="mb-3">
-
-
-						<h4>Default Billing/Shipping Info</h4>
-						<label for="address">Address</label> <input type="text"
-							class="form-control" id="address" placeholder="1234 Main St">
-						</input>
-						<div class="invalid-feedback">Please enter your shipping
-							address.</div>
-					</div>
-
-
-					<div class="row">
-						<div class="col-md-5 mb-3">
-							<label for="country">Country</label> <input type="text"
-								class="form-control" id="country" placeholder=""> </input>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="state">Province/state</label> <input type="text"
-								class="form-control" id="state" placeholder=""> </input>
-						</div>
-						<div class="col-md-3 mb-3">
-							<label for="zip">Zip</label> <input type="text"
-								class="form-control" id="zip" placeholder=""> </input>
-						</div>
-					</div>
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Register
-						Account</button>
-				</form>
-				<HR />
-
-			</div>
-			</div>
-
-			<div id="login-div" style="display: none">
-				<div class="card-body">
-					<form>
-						<div class="input-group form-group">
-
-							<input type="text" class="form-control mb-4"
-								placeholder="username"></input>
-
-						</div>
-						<div class="input-group form-group">
-
-							<input type="password" class="form-control mb-1"
-								placeholder="password"></input>
-						</div>
-						<div class="row align-items-center remember mb-5">
-							<input type="checkbox" id="rememberPass"><span>Remember
-								Password</span></input>
-						</div>
-						<!-- 
-							<div class="form-group">
-								<input type="submit" value="Login" class="btn  login_btn"></input>
-							</div>
-							-->
-						<button class="btn btn-primary btn-lg btn-block mb-2"
-							type="submit">Login</button>
-
-						<div class="">
-							<div class="d-flex justify-content-center links">
-								Don't have an account?<a href="register.jspx">Sign Up</a>
-							</div>
-							<div class="d-flex justify-content-center">
-								<a href="#">Forgot your password?</a>
-							</div>
-						</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarNav" aria-controls="navbarNav"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav ml-auto">
+			<c:choose>
+				<c:when test="${not isLoggedIn}">
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore"><h5>Home</h5> </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore/Register"><h5>Register</h5></a></li>
+				</c:when>
+				<c:when test="${not empty isLoggedIn}">
+					<li class="nav-item"><a class="nav-link active"
+						id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore"><h5>Home</h5></a></li>
+					<form class="logout" action="/BookStore/bookStore" method="POST">
+						<button id="logout" name="logout" value="true" type='submit'>
+							<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
+						</button>
 					</form>
-				</div>
-			</div>
-			</div>
-			
-			<div id="lower-section">
+
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${empty CartNum}">
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore/Cart"><h5>Cart (0)</h5></a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item"><a class="nav-link"
+						href="/BookStore/bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
+				</c:otherwise>
+			</c:choose>
+
+		</ul>
+	</div>
+</nav>
+<body class="bg-light">
+
+	<div class="container">
+		<div class="py-5 text-center">
+
+			<h2>Payment</h2>
+			<p class="lead">Complete your book order below!</p>
+			<hr class="mb-4"></hr>
+		</div>
+					<c:choose>
+				<c:when test="${empty isLoggedIn}">
+		<div id="upper-section">
+			<p class="lead">Please select register or login to continue</p>
+			<input type="button" name="answer" value="Register"
+				onclick="showDiv()" /> <input type="button" name="answer"
+				value="Login" onclick="showDiv2()" />
+
+
+					<div id="register-div" style="display: none">
+						<div class="col">
+
+							<form class="needs-validation"
+								action="/BookStore/bookStore/Login" method="POST">
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="firstName">First Name</label> <input name="fname"
+											type="text" class="form-control" id="firstName"
+											placeholder="" value=""> </input>
+										<!-- Q: ask Ryan about how to do invalid-feedback -->
+										<div class="invalid-feedback">Valid first name is
+											required.</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="lastName">Last Name</label> <input name="lname"
+											type="text" class="form-control" id="lastName" placeholder=""
+											value=""> </input>
+										<div class="invalid-feedback">Valid last name is
+											required.</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="userName">User Name</label> <input name="username"
+											type="text" class="form-control" id="userName" placeholder=""
+											value=""> </input>
+										<div class="invalid-feedback">Valid user name is
+											required.</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="email">Email</label> <input name="email"
+											type="email" class="form-control" id="email"
+											placeholder="you@example.com" value=""> </input>
+										<div class="invalid-feedback">Valid email is required.</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="password1">Password</label> <input type="password"
+											class="form-control" id="password1" placeholder="" value=""></input>
+										<input type="checkbox" onclick="showPassword()" id="showPass"><span
+											class="text-muted">Show password</span></input>
+									</div>
+
+									<div class="col-md-6 mb-3">
+										<label for="password2">Confirm Password</label> <input
+											name="password" type="password" class="form-control"
+											id="password2" placeholder="" value=""></input>
+									</div>
+								</div>
+
+								<div class="mb-3">
+
+
+									<h4>Default Billing/Shipping Info</h4>
+									<label for="address">Address</label> <input name="address"
+										type="text" class="form-control" id="address"
+										placeholder="1234 Main St"> </input>
+									<div class="invalid-feedback">Please enter your shipping
+										address.</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-5 mb-3">
+										<label for="country">Country</label> <input name="country"
+											type="text" class="form-control" id="country" placeholder="">
+										</input>
+									</div>
+									<div class="col-md-4 mb-3">
+										<label for="state">Province/state</label> <input
+											name="province" type="text" class="form-control" id="state"
+											placeholder=""> </input>
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="zip">Zip</label> <input name="zip" type="text"
+											class="form-control" id="zip" placeholder=""> </input>
+									</div>
+								</div>
+								<input type="hidden" name="fromPayment" value="true"></input>
+								<button name="register" value="true"
+									class="btn btn-primary btn-lg btn-block" type="submit">Register
+									Account</button>
+							</form>
+							<HR />
+
+						</div>
+					</div>
+					<div id="login-div" style="display: none">
+						<div class="card-body">
+							<form class="login" action="/BookStore/bookStore" method="POST">
+								<div class="input-group form-group">
+
+									<input type="text" name="username" class="form-control mb-4"
+										placeholder="username"></input>
+
+								</div>
+								<div class="input-group form-group">
+
+									<input type="password" name="password"
+										class="form-control mb-1" placeholder="password"></input>
+								</div>
+								<div class="row align-items-center remember mb-5">
+									<input type="checkbox" id="rememberPass"><span>Remember
+										Password</span></input>
+								</div>
+								<input type="hidden" name="fromPayment" value="true"></input>
+								<button class="btn btn-primary btn-lg btn-block mb-2"
+									name='login' type="submit" value="true">Login</button>
+
+								<div class="">
+									<div class="d-flex justify-content-center links">
+										Don't have an account?<a href="register.jspx">Sign Up</a>
+									</div>
+									<div class="d-flex justify-content-center">
+										<a href="#">Forgot your password?</a>
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+		
+		</div>
+				</c:when>
+			</c:choose>
+
+		<div id="lower-section">
 			<div class="row">
 				<div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -248,10 +259,10 @@
 				<div class="col-md-8 order-md-1">
 
 
-						<hr class="mb-4"></hr>
+					<hr class="mb-4"></hr>
 
-						<h4 class="mb-3">Payment</h4>
-						<form class="needs-validation">
+					<h4 class="mb-3">Payment</h4>
+					<form class="needs-validation">
 						<div class="d-block my-3">
 							<div class="custom-control custom-radio">
 								<input id="credit" name="paymentMethod" type="radio"
@@ -298,18 +309,19 @@
 							</div>
 						</div>
 						<hr class="mb-4"></hr>
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Submit Order</button>
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Submit
+							Order</button>
 					</form>
 				</div>
 			</div>
-			</div>
-
-
-			<footer class="my-5 pt-5 text-muted text-center text-small">
-				<p class="mb-1">2020-2020 InstaBook (Bought out by Amazon, rip)</p>
-
-			</footer>
 		</div>
-	</body>
+
+
+		<footer class="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1">2020-2020 InstaBook (Bought out by Amazon, rip)</p>
+
+		</footer>
+	</div>
+</body>
 	</html>
 </jsp:root>
