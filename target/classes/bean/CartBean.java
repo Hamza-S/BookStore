@@ -83,6 +83,20 @@ public class CartBean {
 		for (Map.Entry<String, Integer> entry : this.cart.entrySet()) {
 			orderCount += 1;
 			try {
+<<<<<<< HEAD
+				System.out.println("JABRONI");
+				System.out.println(entry.getKey().toString());
+				String currentbid = entry.getKey().toString();
+				BookBean book = bd.getBookById(currentbid);
+				cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
+				cartString += "<div style=\"\"> <h6 class=\"my-0\">";
+				cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "</div>";
+				cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
+				cartString += book.getPrice() + "</div></span></div>";
+				cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
+				cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
+				cartString += "id=\"item" + orderCount + "quant\" placeholder=\"" + entry.getValue() +"\"> </input></div></div></li>";		
+=======
 				String currentbid = entry.getKey().toString();
                 BookBean book = bd.getBookById(currentbid);
                 cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
@@ -94,6 +108,7 @@ public class CartBean {
                 cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
                 cartString += "id=\"item" + orderCount + "quant\" placeholder=\"" + entry.getValue() +"\"> </input></div></div></li>";
                 cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\""+book.getBid()+"\"</input>";
+>>>>>>> a4ec387dc2519a9aa8e34a18d3cad398d9d76751
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -104,7 +119,11 @@ public class CartBean {
 	
 		
 	
+<<<<<<< HEAD
+		cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  id=\"update\" name=\"update\" value=\"true\" type='submit'> Update</button> ";
+=======
 		cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  id=\"update\" name=\"updateCart\" value=\"true\" type='submit'>Update</button> ";
+>>>>>>> a4ec387dc2519a9aa8e34a18d3cad398d9d76751
 		cartString += "<button class=\"btn btn-primary btn-lg btn-block\" id=\"checkout\" name=\"checkout\" value=\"true\" type='submit'>Continue to checkout</button></a></form>";
 		cartString += "</div></div>";
 		
