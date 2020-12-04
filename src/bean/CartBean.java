@@ -154,10 +154,11 @@ public class CartBean {
 					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
 					cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
 					cartString += "id=\"item" + orderCount + "quant\" value=\"" + entry.getValue()
-							+ "\"> </input></div></div></li>";
+							+ "\"readonly> </input></div></div></li>";
 					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
 							+ "\"</input>";
 				}
+				
          
 				
 			} catch (SQLException e) {
@@ -167,7 +168,7 @@ public class CartBean {
 		}
 		
 		
-			
+		cartString += "<li class=\"list-group-item d-flex justify-content-between\"><span>Total </span> <strong><div id=\"total\">$" + this.getCartPrice() +"</div></strong></li></ul>";	
 		cartString += "</div>";
 		
 				
