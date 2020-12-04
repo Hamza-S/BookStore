@@ -3,6 +3,9 @@ package model;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Map;
+
+import org.json.JSONObject;
+
 import authentication.Authenticator;
 import bean.BookBean;
 import bean.UserBean;
@@ -78,6 +81,15 @@ public class Books {
 	
 	public UserBean getUserBean(String username) throws SQLException {
 		return uDAO.getUserBean(username);
+		
+	}
+	
+	public String export_json(String bid) throws SQLException {
+		//get book by bid -> convert into json -> return json
+		BookBean book=bDAO.getBookById(bid);
+		JSONObject jsonObj = new JSONObject(book);
+		String json = jsonObj.toString(4);
+		return json;
 		
 	}
 
