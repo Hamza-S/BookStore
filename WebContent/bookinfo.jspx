@@ -34,6 +34,8 @@ th, td {
 
 	
 	<script src="https://kit.fontawesome.com/a076d05399.js">;</script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/res/js/bookinfo.js">;</script>
 	
 </head>
 <body>
@@ -147,6 +149,45 @@ th, td {
 	  		<Br/>
 	  		<p class="hr-line"></p>
 	  		<H1 class="display-3 d-flex justify-content-center">Reviews</H1>
+	  		<!-- Add Review button -->
+	  		<div>
+	  			<input id= "addReview" type="button" class="btn btn-info" name="answer" value="Add Review" onclick="showAddReview()" />
+	  			<div id="register-div" style="display:none">
+	  				<div class="container card" id="usrform">
+		  				<form class="card-body" action="/BookStore/bookStore" method="GET" name="usrform" id="reviewAdded">
+
+		  					
+		  					<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></input>
+								<label class="form-check-label" for="inlineRadio1">1</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"></input>
+								<label class="form-check-label" for="inlineRadio2">2</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"></input>
+								<label class="form-check-label" for="inlineRadio3">3</label>
+							</div>
+		  					
+		  					
+		  					<label for="reviewTitle">Review Title</label> 
+		  					<input type="text"
+									class="form-control mb-3" id="reviewTitle" placeholder="" value="" name="reviewTitle">
+							</input>
+														
+							<label for="review">Review</label> 
+							<textarea  id= "review" name="newReview" class="form-control mb-4" form="reviewAdded" rows="3" placeholder="Please enter your review. ">
+		  					.
+		  					</textarea>
+							<button type="submit" name="reviewAdded" class="btn btn-success" value="true">Submit Review</button>
+		  				</form>
+	  				</div>
+	  			</div>
+	  			
+	  			
+	  			
+	  		</div>
 	  		<!-- Total reviews -->
 	  		<div class="row">
 	  			<div class="col"> <!-- the rating box here -->

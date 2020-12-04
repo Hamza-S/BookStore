@@ -35,11 +35,12 @@ CREATE TABLE Review(
 	bid VARCHAR(20) NOT NULL,
 	title VARCHAR(50) NOT NULL,
 	text VARCHAR(1000) NOT NULL,
+	rating INT NOT NULL,
 	PRIMARY KEY(username, bid),
 	FOREIGN KEY(username) REFERENCES Users(username) ON DELETE CASCADE,
 	FOREIGN KEY(bid) REFERENCES Book(bid) ON DELETE CASCADE
 );
-insert into Review (username, bid, title, text) VALUES ('syed001','b001','This book is Ass','I cant read tbh.');
+insert into Review (username, bid, title, text, rating) VALUES ('syed001','b001','This book is Ass','I cant read tbh.');
 
 
 

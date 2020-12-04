@@ -110,6 +110,20 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/bookStore?bid="+bid+"&moreInfo=true").forward(request, response);
 
 		}
+		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
+			
+			String reviewTitle = request.getParameter("reviewTitle");
+			System.out.println("reviewTitle:"+reviewTitle);
+			String newReview = request.getParameter("newReview");
+			System.out.println("newReview:"+newReview);
+			request.getRequestDispatcher("home.jspx").forward(request, response);
+
+
+			
+			
+			
+		}
+
 		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
 																											// button
 																											// handler
