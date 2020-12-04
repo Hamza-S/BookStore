@@ -5,6 +5,7 @@ import model.Books;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.BookBean;
+import bean.ReviewBean;
 import bean.UserBean;
 import dao.BooksDAO;
 
@@ -106,12 +108,17 @@ public class bookStore extends HttpServlet {
 			request.getSession().setAttribute("CartNum", s.getCart().getTotalQuantity());
 			request.getRequestDispatcher("/bookStore?bid=" + bid + "&moreInfo=true").forward(request, response);
 
-		} else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) {
-
 		}
 		//Add a review if user is logged in
 		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
-			boolean loggedIn=(boolean)request.getSession().getAttribute("isLoggedIn");
+			System.out.println("in review added");
+			boolean loggedIn=false;
+			
+			if(request.getSession().getAttribute("isLoggedIn")!=null) {
+				loggedIn=(boolean)request.getSession().getAttribute("isLoggedIn");
+			}
+			
+			
 			if(loggedIn) {
 				if(true) {//did user review the book already?
 					String reviewTitle = request.getParameter("reviewTitle");
@@ -137,22 +144,19 @@ public class bookStore extends HttpServlet {
 			else {
 				System.out.println("Error: Guest tried to add a Review");
 			}
+			
+			try {
+				boolean reviewed=Books.getInstance().userReviewedTheBook("usama01", "b001");
+				System.out.println("book reviewd:"+reviewed);
+				ArrayList<ReviewBean> reviews=Books.getInstance().getBookReviews("b001");
+				System.out.println("reviews:"+reviews.toString());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-//			String reviewTitle = request.getParameter("reviewTitle");
-//			String bid = request.getParameter("bid");
-//			System.out.println("reviewTitle:"+reviewTitle);
-//			String newReview = request.getParameter("newReview");
-//			System.out.println("newReview:"+newReview);
-//			String rating = request.getParameter("rating");
-//			System.out.println("rating:"+rating);
-//			
-//			try {
-//				int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
-//				System.out.println("sucessModel:"+success);
-//			} catch (ClassNotFoundException | SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
+
 
 			request.getRequestDispatcher("home.jspx").forward(request, response);
 
@@ -281,7 +285,13 @@ public class bookStore extends HttpServlet {
 			request.getSession().setAttribute("genCheckoutHTML", genCheckoutCart);
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
-		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
+		} 
+		else if (request.getParameter("placeOrder") != null && request.getParameter("checkout").equals("true")) { // Login
+			// button
+			request.getRequestDispatcher("payment.jspx").forward(request, response);
+
+		}
+		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 			// button
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int itemsinCart = user.getCart().getCart().size();

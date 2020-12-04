@@ -1,26 +1,29 @@
 package model;
 
 import java.security.NoSuchAlgorithmException;
+
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.json.JSONObject;
-
-import authentication.Authenticator;
 import bean.BookBean;
+import bean.ReviewBean;
 import bean.UserBean;
 import dao.AddressDAO;
 import dao.BooksDAO;
 import dao.UsersDAO;
 import dao.reviewDAO;
+import dao.OrdersDAO;
 
 public class Books {
 	private static Books instance;
 	private BooksDAO bDAO;
 	private UsersDAO uDAO;
-	private Authenticator auth;
 	private AddressDAO aDAO;
 	private reviewDAO rDAO;
+	private OrdersDAO oDAO;
  
 	private Books() {
 	 
@@ -29,10 +32,10 @@ public class Books {
 		if (instance == null) {
 			instance = new Books();
 			instance.bDAO = new BooksDAO();
-			instance.auth = new Authenticator();
 			instance.uDAO = new UsersDAO();
 			instance.aDAO = new AddressDAO();
 			instance.rDAO= new reviewDAO();
+			instance.oDAO = new OrdersDAO();
 		}
 		return instance;
 		
@@ -49,11 +52,11 @@ public class Books {
 	
 	public boolean registerUser (String fname, String lname, String username, String email, String password) throws NoSuchAlgorithmException, SQLException {
 		boolean registered = false;
-		if (auth.userExists(username)) {
+		if (uDAO.userExists(username)) {
 			//throw error because user already exists
 		}
 		else {
-			auth.registerUser(fname, lname, username, email, password);
+			uDAO.registerUser(fname, lname, username, email, password);
 			registered = true;
 		}
 		return registered;
@@ -71,13 +74,13 @@ public class Books {
 	
 	public boolean login(String username, String password) throws NoSuchAlgorithmException, SQLException {
 		boolean authenticated = false;
-		if (!auth.userExists(username)) {
+		if (!uDAO.userExists(username)) {
 			System.out.println("the username doesnt exist");
 			//throw error because USER does not exist
 		}
 		else {
 			
-			authenticated = auth.authenticate(username, password);
+			authenticated = uDAO.authenticate(username, password);
 		}
 		return authenticated;
 	}
@@ -128,6 +131,13 @@ public class Books {
 		
 	}
 	
+	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
+		return oDAO.InsertOrderItem(id, bid, title, price, quantity);
+	}
+	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
+		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName);
+	}
+	
 	public BookBean getBook(String bid) throws SQLException {
 		BookBean book=bDAO.getBookById(bid);
 		return book;
@@ -136,4 +146,11 @@ public class Books {
 	public int addReview(String username, String bid, String title, String review, String rating)throws SQLException{
 		return rDAO.addReview(username, bid, title, review, rating);
 	}
+	public boolean userReviewedTheBook(String username, String bid)throws SQLException{
+		return rDAO.userReviewedTheBook(username, bid);
+	}
+	public ArrayList<ReviewBean>  getBookReviews(String bid)throws SQLException{
+		return rDAO.getBookReviews(bid);
+	}
+
 }
