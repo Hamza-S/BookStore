@@ -152,5 +152,8 @@ public class Books {
 	public ArrayList<ReviewBean>  getBookReviews(String bid)throws SQLException{
 		return rDAO.getBookReviews(bid);
 	}
+	public String generateReviewHTML(String bid) throws SQLException {
+		return rDAO.generateReviewHTML(bid);
+	}
 
 }

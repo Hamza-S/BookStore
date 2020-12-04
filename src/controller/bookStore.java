@@ -120,7 +120,7 @@ public class bookStore extends HttpServlet {
 			
 			
 			if(loggedIn) {
-				if(true) {//did user review the book already?
+				if(true) {//--FIIX---did user review the book already?
 					String reviewTitle = request.getParameter("reviewTitle");
 					String bid = request.getParameter("bid");
 					System.out.println("reviewTitle:"+reviewTitle);
