@@ -31,8 +31,8 @@
 			<ul class="navbar-nav ml-auto">
 				<c:choose>
 					<c:when test="${not isLoggedIn}">
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
-						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5> </a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
 						<li class="nav-item"><a class="nav-link"
@@ -41,7 +41,8 @@
 					<c:when test="${not empty isLoggedIn}">
 						<li class="nav-item"><a class="nav-link active"
 							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5></a></li>
 						<form class="logout" action="/BookStore/bookStore" method="POST">
 							<button id="logout" name="logout" value="true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
@@ -50,70 +51,15 @@
 
 					</c:when>
 				</c:choose>
-				<c:choose>
-					<c:when test="${empty CartNum}">
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Cart"><h5>Cart (0)</h5></a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link"
-							href="/BookStore/bookStore/Cart"><h5>Cart (${CartNum})</h5></a></li>
-					</c:otherwise>
-				</c:choose>
+				<li class="nav-item"><a class="nav-link"
+					href="/BookStore/bookStore/Cart"><h5>Cart</h5></a></li>
 
 			</ul>
 		</div>
 	</nav>
+		${genCartHTML}
 
-		<div class="py-5 text-center">
-			<div class="col-md-6 order-md-2 mb-6"
-				style="margin: auto; width: 50%;">
 		
-						<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-muted">Your cart</span> <span
-						class="badge badge-secondary badge-pill">3</span>
-				</h4>
-				${street}
-				
-					
-			
-							<ul class="list-group mb-3">
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div style="inline">
-							<h6 class="my-0"><div id="item-1">Item #1</div></h6>  <span class="text-muted"><div id="item-1-value">$6</div></span>
-						</div> 
-						<div class="col-md-3 mb-3"><div id="item-1-quantity"> <input name ="item1quant" type="text" class="form-control" id="item1quant" placeholder="1" > </input></div></div>		
-						 
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div style="inline">
-							<h6 class="my-0"><div id="item-2">Item #2</div></h6>  <span class="text-muted"><div id="item-2-value">$8</div></span> 
-						</div> 
-						<div class="col-md-3 mb-3"><div id="item-2-quantity"> <input name ="item2quant" type="text" class="form-control" id="item2quant" placeholder="1" > </input></div></div>			
-						 
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div style="inline">
-							<h6 class="my-0"><div id="item-3">Item #3</div></h6>  <span class="text-muted"><div id="item-3-value">$5</div></span>
-						</div> 
-						<div class="col-md-3 mb-3"><div id="item-3-quantity"> <input name ="item3quant" type="text" class="form-control" id="item3quant" placeholder="1" > </input></div></div>			
-						 
-					</li>
-					<li class="list-group-item d-flex justify-content-between"><span>Total
-							</span> <strong><div id="total">$20</div></strong></li>
-				</ul>
-				
-				<button class="btn btn-primary btn-lg btn-block btn-dark"  onclick="update()"> Update</button>
-
-				<form class="needs-validation">
-					<a href="payment.jspx"><button
-							class="btn btn-primary btn-lg btn-block" type="submit">Continue
-							to checkout</button></a>
-				</form>
-						
-
-			</div>
-		</div>
 
 	</body>
 
