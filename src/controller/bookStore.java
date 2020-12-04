@@ -270,6 +270,15 @@ public class bookStore extends HttpServlet {
 
 		} else if (request.getParameter("checkout") != null && request.getParameter("checkout").equals("true")) { // Login
 			// button
+			UserBean currUser = (UserBean) request.getSession().getAttribute("UserBean");
+			String genCheckoutCart = "";
+			try {
+				genCheckoutCart = currUser.getCart().generateCheckoutCartHTML();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.getSession().setAttribute("genCheckoutHTML", genCheckoutCart);
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
 		} 
@@ -336,6 +345,15 @@ public class bookStore extends HttpServlet {
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
 
 			} else if (path.equals("/Payment")) {
+				UserBean currUser = (UserBean) request.getSession().getAttribute("UserBean");
+				String genCheckoutCart = "";
+				try {
+					genCheckoutCart = currUser.getCart().generateCheckoutCartHTML();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.getSession().setAttribute("genCheckoutHTML", "hi mom");
 				request.getRequestDispatcher("/payment.jspx").forward(request, response);
 
 			} else if (path.equals("/AdminLogin")) {
