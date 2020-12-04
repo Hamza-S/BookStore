@@ -48,7 +48,6 @@ public class bookStore extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Books book = (Books) request.getServletContext().getAttribute("model");
-		request.getServletContext().setAttribute("placedOrderCount", 0);
 		HttpSession session = request.getSession();
 		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial
 														// visit/not logged in
