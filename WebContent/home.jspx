@@ -105,9 +105,9 @@ th, td {
 							<button id='fiction' name='filter' type='submit'
 								onclick="getBooksByCategory('/BookStore/bookStore', 'fiction');return false;"
 								value='fiction' class="btn btn-dark">Fiction</button>
-							<button id='sciencefiction' name='filter'
-								onclick="getBooksByCategory('/BookStore/bookStore', 'sciencefiction');return false;"
-								type='submit' value='sciencefiction' class="btn btn-dark">Science
+							<button id='science fiction' name='filter'
+								onclick="getBooksByCategory('/BookStore/bookStore', 'science fiction');return false;"
+								type='submit' value='science fiction' class="btn btn-dark">Science
 								Fiction</button>
 							<button id='fantasy' name='filter'
 								onclick="getBooksByCategory('/BookStore/bookStore', 'fantasy');return false;"
