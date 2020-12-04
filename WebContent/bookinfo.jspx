@@ -257,7 +257,9 @@ th, td {
 	  				<div class="row">
 	  					
 	  					<div class="col-xs-3 col-md-3 text-center">
-	  						<h1 class="rating-num mb-4 display-4">4.0</h1>
+	  						<h1 class="rating-num mb-4 display-4"> ${avgRating} </h1>
+	  						<p>Average Rating Based On:</p>
+	  						<!--
 	  						<div class="ratings">
 	  							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="gold" xmlns="http://www.w3.org/2000/svg">
   									<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -276,10 +278,11 @@ th, td {
 								</svg>
 	  							
 	  						</div>
+	  						-->
 	  						<div class="mt-2">
                             	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   									<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-								</svg><span>1000 Reviews</span>
+								</svg><span>${numOfReviews} Reviews</span>
                         	</div>
 	  					</div>
 	  					<!-- rating breakdown -->
@@ -292,13 +295,13 @@ th, td {
 	                            <div class="col-xs-6 col-md-6 mt-1">
 	                                <div class="progress progress-striped">
 	                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-	                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+	                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percent5}%">
 	                                        <span class="percent  ml-2"></span>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                           	<div class="col text-left">
-	                           		80%
+	                           		${percent5}%
 	                            </div>
 	                            <!-- end 5 -->
 	                            <div class="col-xs-3 col-md-3 text-right">
@@ -307,13 +310,13 @@ th, td {
 	                            <div class="col-xs-6 col-md-6 mt-1">
 	                                <div class="progress">
 	                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-	                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+	                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percent4}%">
 	                                        <span class="percent  ml-2"></span>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="col text-left">
-	                           		60%
+	                           		${percent4}%
 	                            </div>
 	                            <!-- end 4 -->
 	                            <div class="col-xs-3 col-md-3 text-right">
@@ -322,13 +325,13 @@ th, td {
 	                            <div class="col-xs-6 col-md-6 mt-1">
 	                                <div class="progress">
 	                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-	                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+	                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percent3}%">
 	                                        <span class="percent  ml-2"></span>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="col text-left">
-	                           		40%
+	                           		${percent3}%
 	                            </div>
 	                            <!-- end 3 -->
 	                            <div class="col-xs-3 col-md-3 text-right">
@@ -337,13 +340,13 @@ th, td {
 	                            <div class="col-xs-6 col-md-6 mt-1">
 	                                <div class="progress">
 	                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5"
-	                                        aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+	                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percent2}%">
 	                                        <span class="percent "></span>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="col text-left">
-	                           		0%
+	                           		${percent2}%
 	                            </div>
 	                            
 	                            <!-- end 2 -->
@@ -353,13 +356,13 @@ th, td {
 	                            <div class="col-xs-6 col-md-6 mt-1">
 	                                <div class="progress">
 	                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-	                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+	                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percent1}%">
 	                                        <span class="percent ml-2"></span>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                             <div class="col text-left">
-	                           		15%
+	                           		${percent1}%
 	                            </div>
 	                            <!-- end 1 -->
 	                        </div>

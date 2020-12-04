@@ -176,17 +176,20 @@ public class reviewDAO {
 				num5++;
 			}	
 		}
+		System.out.println("\nnum1:"+num1+"\nnum2:"+num2+"\nnum3:"+num3+"\nnum4:"+num4+"\nnum5:"+num5);
+		
 		double avgRating= (1*num1+2*num2+3*num3+4*num4+5*num5)/(5*numOfReviews);
 		double roundedAvgRating = avgRating*10;
 		roundedAvgRating = Math.round(roundedAvgRating);
 		roundedAvgRating = roundedAvgRating /10;
 		
-		long percent1=Math.round(num1/numOfReviews);
-		long percent2=Math.round(num2/numOfReviews);
-		long percent3=Math.round(num3/numOfReviews);
-		long percent4=Math.round(num4/numOfReviews);
-		long percent5=Math.round(num5/numOfReviews);
-		
+		long percent1=Math.round(((double)num1/numOfReviews)*100);
+		long percent2=Math.round(((double)num2/numOfReviews)*100);
+		long percent3=Math.round(((double)num3/numOfReviews)*100);
+		long percent4=Math.round(((double)num4/numOfReviews)*100);
+		long percent5=Math.round(((double)num5/numOfReviews)*100);
+		System.out.println("\npercent1:"+percent1+"\npercent2:"+percent2+"\nnpercent3:"+percent3+"\nnpercent4:"+percent4+"\npercent5:"+percent5);
+
 		Map<String, Long> results= new HashMap<String, Long>();
 		results.put("size", numOfReviews);
 		results.put("percent1", percent1);

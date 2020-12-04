@@ -91,6 +91,34 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("title", book.getBook(bid).getTitle());
 				String bookReviews=book.generateReviewHTML(bid);
 				request.setAttribute("bookReviews", bookReviews);
+				Map<String, Long> stats=book.getReviewStats(bid);
+				
+				//Stats Retrieved and Formated:
+				long size=stats.get("size");
+				long percent1=stats.get("percent1");
+				long percent2=stats.get("percent2");
+				long percent3=stats.get("percent3");
+				long percent4=stats.get("percent4");
+				long percent5=stats.get("percent5");
+			
+				double avgRating= (1*((double)percent1/100)+2*((double)percent2/100)+3*((double)percent3/100)+4*((double)percent4/100)+5*((double)percent5/100));
+				double roundedAvgRating = avgRating*10;
+				roundedAvgRating = Math.round(roundedAvgRating);
+				roundedAvgRating = roundedAvgRating /10;
+				System.out.println("Finalrating:"+roundedAvgRating);
+				//Save stats in request session
+				request.setAttribute("percent1", percent1);
+				request.setAttribute("percent2", percent2);
+				request.setAttribute("percent3", percent3);
+				request.setAttribute("percent4", percent4);
+				request.setAttribute("percent5", percent5);
+				request.setAttribute("numOfReviews", size);
+				request.setAttribute("avgRating", roundedAvgRating);
+
+				
+
+				
+				
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
