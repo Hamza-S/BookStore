@@ -45,6 +45,7 @@ public class bookStore extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("ECLIPSE SUCKS");
 		Books book = (Books) request.getServletContext().getAttribute("model");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial
@@ -168,7 +169,8 @@ public class bookStore extends HttpServlet {
 				double roundedAvgRating = avgRating * 10;
 				roundedAvgRating = Math.round(roundedAvgRating);
 				roundedAvgRating = roundedAvgRating / 10;
-				System.out.println("Finalrating:" + roundedAvgRating);
+//				System.out.println("Finalrating:" + roundedAvgRating);
+				System.out.println("in new statement");
 				// Save stats in request session
 				request.setAttribute("percent1", percent1);
 				request.setAttribute("percent2", percent2);
@@ -179,12 +181,34 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("avgRating", roundedAvgRating);
 				
 				//Set Showing the Review button
+				String userName=(String)request.getSession().getAttribute("userName");
+				boolean showAddRev=false;
+				System.out.println("get to if else");
+
+				if(request.getAttribute("isLoggedIn")!=null){
+					System.out.println("in if because not null");
+					if((boolean)request.getAttribute("isLoggedIn")!=true) {
+						if(book.userReviewedTheBook(userName, bid)) {
+							showAddRev=true;
+						}
+						else {
+							System.out.println("Hide: User reviewed the book already");
+						}
+					}
+					else {
+						System.out.println("Hide: Guest not logged in 2");
+					}
+				}
+				else {
+					System.out.println("Hide: Guest not logged in 1");
+				}
 				
-				request.setAttribute("showAddReview", "true");
+				request.setAttribute("showAddReview", showAddRev);
 
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 

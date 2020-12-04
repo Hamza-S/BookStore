@@ -45,6 +45,7 @@ public class bookStore extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("ECLIPSE SUCKS");
 		Books book = (Books) request.getServletContext().getAttribute("model");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial
@@ -52,6 +53,8 @@ public class bookStore extends HttpServlet {
 
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
+			session.setAttribute("orderRequestCount", Integer.parseInt("0"));
+			System.out.println("ORDER PROCESS # INIT:" +  session.getAttribute("orderRequestCount"));
 		} else {
 			UserBean user = (UserBean) session.getAttribute("UserBean");
 			;
@@ -166,7 +169,8 @@ public class bookStore extends HttpServlet {
 				double roundedAvgRating = avgRating * 10;
 				roundedAvgRating = Math.round(roundedAvgRating);
 				roundedAvgRating = roundedAvgRating / 10;
-				System.out.println("Finalrating:" + roundedAvgRating);
+//				System.out.println("Finalrating:" + roundedAvgRating);
+				System.out.println("in new statement");
 				// Save stats in request session
 				request.setAttribute("percent1", percent1);
 				request.setAttribute("percent2", percent2);
@@ -177,12 +181,34 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("avgRating", roundedAvgRating);
 				
 				//Set Showing the Review button
+				String userName=(String)request.getSession().getAttribute("userName");
+				boolean showAddRev=false;
+				System.out.println("get to if else");
+
+				if(request.getAttribute("isLoggedIn")!=null){
+					System.out.println("in if because not null");
+					if((boolean)request.getAttribute("isLoggedIn")!=true) {
+						if(book.userReviewedTheBook(userName, bid)) {
+							showAddRev=true;
+						}
+						else {
+							System.out.println("Hide: User reviewed the book already");
+						}
+					}
+					else {
+						System.out.println("Hide: Guest not logged in 2");
+					}
+				}
+				else {
+					System.out.println("Hide: Guest not logged in 1");
+				}
 				
-				request.setAttribute("showAddReview", "true");
+				request.setAttribute("showAddReview", showAddRev);
 
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
@@ -325,7 +351,14 @@ public class bookStore extends HttpServlet {
 			String billingcountry = request.getParameter("billingcountry");
 			String billingzip = request.getParameter("billingzip");
 			LocalDate date = java.time.LocalDate.now();
+			
+			
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
+			int currentCount = (int) session.getAttribute("orderRequestCount");
+			System.out.println("SESSION COUNTER: " + currentCount);
+			user.setOrderRequestCounter(currentCount + 1); 
+			System.out.println("\nCURRENT COUNTER:" + user.getOrderRequestCounter());
+			session.setAttribute("orderRequestCount",user.getOrderRequestCounter());
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
 			byte[] randomBytes = new byte[16];
@@ -336,27 +369,36 @@ public class bookStore extends HttpServlet {
 			int price = 0;
 			int quantity = 0;
 			BookBean bookb = null;
-			try {
-				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
-						billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-				bid = entry.getKey();
-				quantity = entry.getValue();
+			if (user.getOrderRequestCounter() % 3 != 0) {
 				try {
-					bookb = book.getBook(bid);
-					title = bookb.getTitle();
-					book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
-				} catch (SQLException e) {
-					e.printStackTrace();
+					book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
+							billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
+				for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+					bid = entry.getKey();
+					quantity = entry.getValue();
+					try {
+						bookb = book.getBook(bid);
+						title = bookb.getTitle();
+						book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				user.getCart().clearCart();
+				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+				request.getSession().setAttribute("UserBean", user);
+				request.getRequestDispatcher("/receipt.jspx").forward(request, response);
 			}
-			user.getCart().clearCart();
-			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
-			request.getSession().setAttribute("UserBean", user);
-			request.getRequestDispatcher("/receipt.jspx").forward(request, response);
+			//order request count = 0, meaning it is an every 3rd payment request
+			else { 
+				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+				request.getSession().setAttribute("UserBean", user);
+				request.getRequestDispatcher("/failedPayment.jspx").forward(request, response);
+			}
+			
 
 		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 																														// button

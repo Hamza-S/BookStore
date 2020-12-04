@@ -51,8 +51,26 @@ public class Books {
 		return bDAO.getBooksByCategory(category);
 	}
 	
+	//Sanitize inputs
+    public String sanitizeQuery(String s) {
+        s = s.replaceAll("%", "\\%")
+                .replaceAll("\"", "\\\"")
+                .replaceAll("'", "\\'")
+                .replaceAll("_","\\_")
+                .replaceAll("<", "&lt")
+                .replaceAll(">", "&gt");
+        return s;
+        
+    }
+    
+    //all inputs in methods below (that work with DAO for db manipulation) are sanitized before processing sql request
 	public boolean registerUser (String fname, String lname, String username, String email, String password) throws NoSuchAlgorithmException, SQLException {
 		boolean registered = false;
+		fname = sanitizeQuery (fname);
+		lname = sanitizeQuery (lname);
+		username = sanitizeQuery (username);
+		email = sanitizeQuery (email);
+		password = sanitizeQuery (password);
 		if (uDAO.userExists(username)) {
 			//throw error because user already exists
 		}
@@ -64,11 +82,18 @@ public class Books {
 	}
 	
 	public int insertAddress(String username, String address, String province, String country, String zip) throws SQLException {
+		username = sanitizeQuery (username);
+		address = sanitizeQuery (address);
+		province = sanitizeQuery (province);
+		country = sanitizeQuery (country);
+		zip = sanitizeQuery (zip);
 		return aDAO.insertAddress(username, address, country, province, zip);
 		
 	}
 	
 	public String getAddressAttribute(String username, String attribute) throws SQLException {
+		username = sanitizeQuery (username);
+		attribute = sanitizeQuery (attribute);
 		return aDAO.getAddressAttribute(username, attribute);
 		
 	}
@@ -93,6 +118,7 @@ public class Books {
 	
 	public String export_json(String bid) throws SQLException {
 		//get book by bid -> convert into json -> return json
+		bid = sanitizeQuery (bid);
 		BookBean book=bDAO.getBookById(bid);
 		JSONObject jsonObj = new JSONObject(book);
 		String json = jsonObj.toString(4);
@@ -106,27 +132,6 @@ public class Books {
 		for (Map.Entry<String, BookBean> i : data.entrySet()) {
 			b = i.getValue();
 			System.out.println(b.getTitle());
-//			books += "<div class=\"col-md-4\">";
-//			books += "<div class=\"card mb-4 shadow-sm\">";
-//			books += "<svg class=\"bd-placeholder-img card-img-top\" width=\"100%\" height=\"225\" xmlns=\"http://www.w3.org/2000/svg\"\r\n" + 
-//					"preserveAspectRatio=\"xMidYMid slice\" focusable=\"false\" role=\"img\">\r\n" + 
-//					"<image href=\"https://upload.wikimedia.org/wikipedia/en/c/c9/Harry_Potter_and_the_Goblet_of_Fire_Poster.jpg\"></image>\r\n" + 
-//					"</svg>";
-//			books += "<div class=\"card-body\">";
-//			books += "<h6 class=\"card-text\"> " + b.getTitle() + "</h6>";
-//			books += "<h7 class=\"card-text\"> " + b.getCategory() + "</h7>";
-//			books += "<br />";
-//			books += "<h7 class=\"card-text\"> $" + b.getPrice() + "</h7>";
-//			books += "<br />";
-//			books += "<div class=\"btn-group\">";
-//			books += "<form action=\"bookStore\" method=\"GET\">";
-//			books += "<input type=\"hidden\" name=\"bid\" value=\"" + b.getBid() + "\" />";
-//			books += "<button action='submit' class=\"btn btn-sm btn-outline-secondary\" name='moreInfo' value=\"true\">More Info</button>";
-//			books += "</form>";
-//			books += "</div>";
-//			books += "</div>";
-//			books += "</div>";
-//			books += "</div>";
 			books += "<div class=\"col-md-4\">";
 			books += "<div class=\"card mb-4 shadow-sm\">";
 		
@@ -153,13 +158,31 @@ public class Books {
 	}
 	
 	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
+		id = sanitizeQuery (id);
+		bid = sanitizeQuery (bid);
+		title = sanitizeQuery (title);
 		return oDAO.InsertOrderItem(id, bid, title, price, quantity);
 	}
 	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
+		id = sanitizeQuery (id);
+		street = sanitizeQuery (street);
+		province = sanitizeQuery (province);
+		country = sanitizeQuery (country);
+		zip = sanitizeQuery (zip);
+		billStreet = sanitizeQuery (billStreet);
+		billProvince = sanitizeQuery (billProvince);
+		billCountry = sanitizeQuery (billCountry);
+		billZip = sanitizeQuery (billZip);
+		username = sanitizeQuery (username);
+		firstName = sanitizeQuery (firstName);
+		lastName = sanitizeQuery (lastName);
+		date = sanitizeQuery (date);
+		
 		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName, date);
 	}
 	
 	public BookBean getBook(String bid) throws SQLException {
+		bid = sanitizeQuery (bid);
 		BookBean book=bDAO.getBookById(bid);
 		return book;
 	}
@@ -169,6 +192,11 @@ public class Books {
 	}
 	
 	public int addReview(String username, String bid, String title, String review, String rating)throws SQLException{
+		username = sanitizeQuery (username);
+		bid = sanitizeQuery (bid);
+		title = sanitizeQuery (title);
+		review = sanitizeQuery (review);
+		rating = sanitizeQuery (rating);
 		return rDAO.addReview(username, bid, title, review, rating);
 	}
 	public boolean userReviewedTheBook(String username, String bid)throws SQLException{
