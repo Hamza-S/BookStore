@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import bean.BookBean;
+import bean.ReviewBean;
 import bean.UserBean;
 
 public class reviewDAO {
@@ -43,29 +45,39 @@ public class reviewDAO {
 		con.close();
 		return success;
 	}
-	public int userReviewedTheBook(String username, String bid) throws SQLException {
+	public boolean userReviewedTheBook(String username, String bid) throws SQLException {
 		String query = ("select * from REVIEW where BID = '" + bid + "' and USERNAME = '"+username+"'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
-//		BookBean book=null;
 		int size=r.getFetchSize();
+		r.close();
+		p.close();
+		con.close();
+		if(size>0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public  ArrayList<ReviewBean> getBookReviews( String bid) throws SQLException {
+		String query = ("select * from REVIEW where BID = '" + bid + "'");
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		ArrayList<ReviewBean> reviews=new ArrayList<ReviewBean>();
 		while (r.next()) {
-//			book = new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price")));
+			ReviewBean review= 
+					new ReviewBean(r.getString("username"), r.getString("bid"), r.getString("title"), r.getString("text"), r.getInt("rating"));
+			reviews.add(review);
 		}
 		r.close();
 		p.close();
 		con.close();
-	
-		
-		
-		
-		return 1;
-	}
 
-	
-	
-	
-//	select * from REVIEW where BID = 'b001' and USERNAME = 'usama01';
+		return reviews;
+	}
 
 }

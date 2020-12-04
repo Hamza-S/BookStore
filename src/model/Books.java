@@ -4,10 +4,12 @@ import java.security.NoSuchAlgorithmException;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.json.JSONObject;
 import bean.BookBean;
+import bean.ReviewBean;
 import bean.UserBean;
 import dao.AddressDAO;
 import dao.BooksDAO;
@@ -144,4 +146,11 @@ public class Books {
 	public int addReview(String username, String bid, String title, String review, String rating)throws SQLException{
 		return rDAO.addReview(username, bid, title, review, rating);
 	}
+	public boolean userReviewedTheBook(String username, String bid)throws SQLException{
+		return rDAO.userReviewedTheBook(username, bid);
+	}
+	public ArrayList<ReviewBean>  getBookReviews(String bid)throws SQLException{
+		return rDAO.getBookReviews(bid);
+	}
+
 }
