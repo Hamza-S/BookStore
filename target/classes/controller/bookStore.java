@@ -117,11 +117,7 @@ public class bookStore extends HttpServlet {
 			String newReview = request.getParameter("newReview");
 			System.out.println("newReview:"+newReview);
 			request.getRequestDispatcher("home.jspx").forward(request, response);
-
-
-			
-			
-			
+	
 		}
 
 		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
@@ -148,7 +144,13 @@ public class bookStore extends HttpServlet {
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
 					request.getSession().setAttribute("userName", user.getUserName());// delete when log out
-					request.getRequestDispatcher("/home.jspx").forward(request, response);
+					
+					if (request.getParameter("fromPayment") != null) {
+						request.getRequestDispatcher("/payment.jspx").forward(request, response);
+					}
+					else {
+						request.getRequestDispatcher("/home.jspx").forward(request, response);
+					}
 				} else {
 					// throw error incorrect password/authentication failed
 					System.out.println("Incorrect password");
@@ -232,15 +234,74 @@ public class bookStore extends HttpServlet {
 			request.getSession().removeAttribute("userName");
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
 
-		} else if (path != null) { // Page redirections based on request
+		}else if (request.getParameter("checkout") != null && request.getParameter("checkout").equals("true")) { // Login
+			// button
+			request.getRequestDispatcher("payment.jspx").forward(request, response);
+
+		} 
+		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
+			// button
+			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
+			int itemsinCart = user.getCart().getCart().size();
+			String quantityParam = "";
+			String bidParam = "";
+			for (int i = 0; i < itemsinCart; i++) {
+				 int paramNum = i + 1;
+				 bidParam = "bid" + paramNum + "quant";
+				 quantityParam = "item" + paramNum + "quant";
+				 
+				 bidParam = request.getParameter(bidParam);
+				 quantityParam = request.getParameter(quantityParam);
+				 System.out.println(bidParam);
+				 System.out.println(quantityParam);
+				 
+				 user.getCart().updateQuantity(bidParam, Integer.parseInt(quantityParam));
+			}
+			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+			request.getSession().setAttribute("UserBean", user);
+			String genCart = "";
+			try {
+				genCart = user.getCart().generateCartHTML();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 
+			request.getSession().setAttribute("genCartHTML", genCart);
+			
+			request.getRequestDispatcher("cart.jspx").forward(request, response);
+
+		} 
+		else if (request.getParameter("update") != null && request.getParameter("update").equals("true")) { // Login
+			// button
+			request.getRequestDispatcher("cart.jspx").forward(request, response);
+
+		} 
+		else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
 				request.getRequestDispatcher("/login.jspx").forward(request, response);
 			} else if (path.equals("/Register")) {
 				request.getRequestDispatcher("/register.jspx").forward(request, response);
 			} else if (path.equals("/Cart")) {
+				UserBean currUser = (UserBean) request.getSession().getAttribute("UserBean");
+				String genCart = "";
+				try {
+					genCart = currUser.getCart().generateCartHTML();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.getSession().setAttribute("genCartHTML", genCart);
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
+		
 
-			} else if (path.equals("/AdminLogin")) {
+			} 
+			else if (path.equals("/Payment")) {
+				request.getRequestDispatcher("/payment.jspx").forward(request, response);
+		
+
+			}
+			else if (path.equals("/AdminLogin")) {
 
 				request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
 
