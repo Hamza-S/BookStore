@@ -128,15 +128,7 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("home.jspx").forward(request, response);
-<<<<<<< HEAD
 
-
-			
-			 
-			
-=======
-	
->>>>>>> a4ec387dc2519a9aa8e34a18d3cad398d9d76751
 		}
 
 		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
