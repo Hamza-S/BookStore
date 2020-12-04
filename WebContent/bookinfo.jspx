@@ -151,8 +151,8 @@ th, td {
 	  		
 	  		<!-- Add Review button -->
 	  		<c:choose>
-	  			<c:when test="${not isLoggedIn}">
-	  			
+	  			<c:when test="${not showAddReview}">
+	  				<p>dont show review btn</p>
 	  			</c:when>
 	  			
 	  			<c:otherwise>
