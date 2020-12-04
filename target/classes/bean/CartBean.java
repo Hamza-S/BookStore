@@ -28,6 +28,9 @@ public class CartBean {
 	public void removeItem(String bid) {
 		this.cart.remove(bid); //might have to error check
 	}
+	public void clearCart() {
+		cart.clear();
+	}
 	public void updateQuantity(String bid, int newQuantity) {
 		this.cart.replace(bid, newQuantity);
 		if (newQuantity == 0) {
@@ -154,10 +157,18 @@ public class CartBean {
 					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
 					cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
 					cartString += "id=\"item" + orderCount + "quant\" value=\"" + entry.getValue()
+<<<<<<< HEAD
 							+ "\"> </input></div></div></li>";
 					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
 							+ "\"</input>";
 				}
+=======
+							+ "\"readonly> </input></div></div></li>";
+					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
+							+ "\"</input>";
+				}
+				
+>>>>>>> 104534f10c4d2e09567f4f82e5eced2c7e41bff6
          
 				
 			} catch (SQLException e) {
@@ -167,7 +178,11 @@ public class CartBean {
 		}
 		
 		
+<<<<<<< HEAD
 			
+=======
+		cartString += "<li class=\"list-group-item d-flex justify-content-between\"><span>Total </span> <strong><div id=\"total\">$" + this.getCartPrice() +"</div></strong></li></ul>";	
+>>>>>>> 104534f10c4d2e09567f4f82e5eced2c7e41bff6
 		cartString += "</div>";
 		
 				

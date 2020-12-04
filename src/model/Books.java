@@ -134,8 +134,8 @@ public class Books {
 	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
 		return oDAO.InsertOrderItem(id, bid, title, price, quantity);
 	}
-	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
-		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName);
+	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
+		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName, date);
 	}
 	
 	public BookBean getBook(String bid) throws SQLException {

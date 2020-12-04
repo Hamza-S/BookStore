@@ -30,12 +30,15 @@ public class OrdersDAO {
 		p.setInt(4, price);
 		p.setInt(5, quantity);
 		int success = p.executeUpdate();
+		System.out.println(query);
 		p.close();
 		con.close();
+	
 		return success;
 	}
-	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
-		String query = ("INSERT INTO ORDERITEMS values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
+		String query = ("INSERT INTO ORDERS values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		System.out.println(query);
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		p.setString(1, id);
@@ -50,7 +53,10 @@ public class OrdersDAO {
 		p.setString(10, username);
 		p.setString(11, firstName);
 		p.setString(12, lastName);
+		p.setString(13,  date);
+		System.out.println(query);
 		int success = p.executeUpdate();
+		
 		p.close();
 		con.close();
 		return success;
