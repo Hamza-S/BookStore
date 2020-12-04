@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.InitialContext;
@@ -65,6 +66,9 @@ public class OrdersDAO {
 		
 		p.close();
 		con.close();
+		if (success == 1) {
+			
+		}
 		return success;
 	}
 	
@@ -83,5 +87,28 @@ public class OrdersDAO {
 		p.close();
 		con.close();
 		return ordersinMonth;
+	}
+	
+	public Map<String, Integer> getTopTen() throws SQLException {
+		String query = ("SELECT * FROM ORDERITEMS");
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		Map<String, Integer> orderItems= new HashMap<String, Integer>();
+		while (r.next()) {
+			String key = r.getString("bid") + ", " + r.getString("name");
+			int quantity = r.getInt("quantity");
+			if (orderItems.containsKey(key)) {
+				orderItems.put(key, orderItems.get(key) + quantity);
+			}
+			else {
+				orderItems.put(key, quantity);
+			}
+			
+		}
+		r.close();
+		p.close();
+		con.close();
+		return orderItems;
 	}
 }
