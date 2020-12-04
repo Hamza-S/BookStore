@@ -157,6 +157,7 @@ public class Books {
 	public ArrayList<ReviewBean>  getBookReviews(String bid)throws SQLException{
 		return rDAO.getBookReviews(bid);
 	}
+<<<<<<< HEAD
 	
 	public String getMonth(String month) {
 		String monthString;
@@ -191,4 +192,13 @@ public class Books {
 	}
 		return monthString;
 	}
+=======
+	public String generateReviewHTML(String bid) throws SQLException {
+		return rDAO.generateReviewHTML(bid);
+	}
+	public Map<String, Long> getReviewStats(String bid) throws SQLException {
+		return rDAO.generateReviewStats(bid);
+	}
+
+>>>>>>> 6a1e865daa5af0076f4652526ca55161cf16ff47
 }

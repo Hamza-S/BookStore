@@ -59,7 +59,12 @@ public void setRating(int rating) {
 	this.rating = rating;
 }
 	
-	
-	
+public String toString() { 
+    
+	return "bid: '" + this.bid + "', username: '" + this.username + "', title: '" 
+	+ this.title + "'"+ "', review: '" + this.review + "'"
+	+ "', rating: '" + this.rating + "'"
+	;
+} 
 
 }
