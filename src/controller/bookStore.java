@@ -47,7 +47,6 @@ public class bookStore extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ECLIPSE SUCKS");
 		Books book = (Books) request.getServletContext().getAttribute("model");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial

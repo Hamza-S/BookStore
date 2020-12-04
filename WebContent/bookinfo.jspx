@@ -152,14 +152,12 @@ th, td {
 	  		<!-- Add Review button -->
 	  		<c:choose>
 	  			<c:when test="${not showAddReview}">
-	  				<p>dont show review btn</p>
+	  				
 	  			</c:when>
 	  			
 	  			<c:otherwise>
+	  			<p>show review button</p>
 	  			
-	  			</c:otherwise>
-	  		
-	  		</c:choose>
 	  		
 	  		<div>
 	  			<input id= "addReview" type="button" class="btn btn-info" name="answer" value="Add Review" onclick="showAddReview()" />
@@ -261,7 +259,9 @@ th, td {
 	  			
 	  			
 	  		</div>
+	  		</c:otherwise>
 	  		
+	  		</c:choose>
 	  		
 	  		
 	  		<!-- Total reviews -->
