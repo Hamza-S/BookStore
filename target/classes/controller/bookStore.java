@@ -297,12 +297,8 @@ public class bookStore extends HttpServlet {
 			String billingprovince  = request.getParameter("billingprovince");
 			String billingcountry  = request.getParameter("billingcountry");
 			String billingzip  = request.getParameter("billingzip");
-			String username  = request.getParameter("username");
-			String firstName  = request.getParameter("firstName");
-			String lastName  = request.getParameter("lastName");
 			
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
-			int totalItems = user.getCart().getCart().size();
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
 			byte[] randomBytes = new byte[16];
@@ -314,7 +310,7 @@ public class bookStore extends HttpServlet {
 			int quantity = 0;
 			BookBean bookb = null;
 			try {
-				book.InsertOrder(bid, street, province, country, billingzip, billingstreet, billingprovince, billingcountry, billingzip, username, firstName, lastName);
+				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -324,12 +320,15 @@ public class bookStore extends HttpServlet {
 				try {
 					bookb = book.getBook(bid);
 					title = bookb.getTitle();
-					book.InsertOrderItem(id, bid, title, price, quantity);
+					book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}			
 			}		
-			request.getRequestDispatcher("receipt.jspx").forward(request, response);
+			user.getCart().clearCart();
+			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+			request.getSession().setAttribute("UserBean", user);
+			request.getRequestDispatcher("/receipt.jspx").forward(request, response);
 
 		}
 		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login button
@@ -369,7 +368,7 @@ public class bookStore extends HttpServlet {
 
 		} else if (request.getParameter("update") != null && request.getParameter("update").equals("true")) { // Login
 			// button
-			request.getRequestDispatcher("cart.jspx").forward(request, response);
+			request.getRequestDispatcher("/cart.jspx").forward(request, response);
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {

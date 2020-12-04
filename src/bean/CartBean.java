@@ -28,6 +28,9 @@ public class CartBean {
 	public void removeItem(String bid) {
 		this.cart.remove(bid); //might have to error check
 	}
+	public void clearCart() {
+		cart.clear();
+	}
 	public void updateQuantity(String bid, int newQuantity) {
 		this.cart.replace(bid, newQuantity);
 		if (newQuantity == 0) {
