@@ -4,6 +4,7 @@ import model.Books;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Map;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import bean.BookBean;
 import bean.UserBean;
 import dao.BooksDAO;
@@ -282,13 +282,53 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
 		} 
-		else if (request.getParameter("placeOrder") != null && request.getParameter("checkout").equals("true")) { // Login
+		else if (request.getParameter("PlaceOrder") != null && request.getParameter("PlaceOrder").equals("true")) { // Login
 			// button
-			request.getRequestDispatcher("payment.jspx").forward(request, response);
+			//String id = request.getParameter("id");
+			String street = request.getParameter("street");
+			String province = request.getParameter("province");
+			String country = request.getParameter("country");
+			String zip = request.getParameter("zip");
+			String billingstreet  = request.getParameter("billingstreet");
+			String billingprovince  = request.getParameter("billingprovince");
+			String billingcountry  = request.getParameter("billingcountry");
+			String billingzip  = request.getParameter("billingzip");
+			String username  = request.getParameter("username");
+			String firstName  = request.getParameter("firstName");
+			String lastName  = request.getParameter("lastName");
+			
+			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
+			int totalItems = user.getCart().getCart().size();
+			Map<String, Integer> cart = user.getCart().getCart();
+			SecureRandom rand = new SecureRandom();
+			byte[] randomBytes = new byte[16];
+			rand.nextBytes(randomBytes);
+			String id = randomBytes.toString();
+			String bid = "";
+			String title = "";
+			int price = 0;
+			int quantity = 0;
+			BookBean bookb = null;
+			try {
+				book.InsertOrder(bid, street, province, country, billingzip, billingstreet, billingprovince, billingcountry, billingzip, username, firstName, lastName);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			for(Map.Entry<String, Integer> entry: cart.entrySet()) {
+				bid = entry.getKey();
+				quantity = entry.getValue();
+				try {
+					bookb = book.getBook(bid);
+					title = bookb.getTitle();
+					book.InsertOrderItem(id, bid, title, price, quantity);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}			
+			}		
+			request.getRequestDispatcher("receipt.jspx").forward(request, response);
 
 		}
-		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
-			// button
+		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login button
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int itemsinCart = user.getCart().getCart().size();
 			String genCart = "";

@@ -71,7 +71,7 @@ public class CartBean {
 	public String generateCartHTML() throws ClassNotFoundException {
 		BooksDAO bd = new BooksDAO();
 		String cartString = "";
-		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"GET\">";
+		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"POST\">";
 		cartString += "<div class=\"col-md-6 order-md-2 mb-6\"";
 		cartString += "style=\"margin: auto; width: 50%;\">";
 		cartString += "<h4 class=\"d-flex justify-content-between align-items-center mb-3\">";
@@ -121,6 +121,54 @@ public class CartBean {
 		}
 			
 		cartString += "</div></div>";
+		
+				
+		return cartString;
+	}
+	
+	public String generateCheckoutCartHTML() throws ClassNotFoundException {
+		BooksDAO bd = new BooksDAO();
+		String cartString = "";
+		cartString += "<div class=\"col-md-4 order-md-2 mb-4\">";
+		cartString += "<h4 class=\"d-flex justify-content-between align-items-center mb-3\">";
+		cartString += "<span class=\"text-muted\">Your cart</span> ";
+		cartString += "<span class=\"badge badge-secondary badge-pill\">";
+		cartString += this.getTotalQuantity();
+		cartString += "</span> </h4>";
+		cartString += "<ul class=\"list-group mb-3\">";
+		
+		//Generate li items from cart
+		int orderCount = 0;
+		for (Map.Entry<String, Integer> entry : this.cart.entrySet()) {
+			orderCount += 1;
+			try {
+				String currentbid = entry.getKey().toString();
+				int currentQuant = entry.getValue();
+				if (currentQuant > 0) {
+					BookBean book = bd.getBookById(currentbid);
+					cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
+					cartString += "<div style=\"\"> <h6 class=\"my-0\">";
+					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "</div>";
+					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
+					cartString += book.getPrice() + "</div></span></div>";
+					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
+					cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
+					cartString += "id=\"item" + orderCount + "quant\" value=\"" + entry.getValue()
+							+ "\"> </input></div></div></li>";
+					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
+							+ "\"</input>";
+				}
+         
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+			
+		cartString += "</div>";
 		
 				
 		return cartString;
