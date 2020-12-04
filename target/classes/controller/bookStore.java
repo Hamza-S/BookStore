@@ -110,23 +110,50 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/bookStore?bid="+bid+"&moreInfo=true").forward(request, response);
 
 		}
+		//Add a review if user is logged in
 		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
-			
-			String reviewTitle = request.getParameter("reviewTitle");
-			String bid = request.getParameter("bid");
-			System.out.println("reviewTitle:"+reviewTitle);
-			String newReview = request.getParameter("newReview");
-			System.out.println("newReview:"+newReview);
-			String rating = request.getParameter("rating");
-			System.out.println("rating:"+rating);
-			
-			try {
-				int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
-				System.out.println("sucessModel:"+success);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			boolean loggedIn=(boolean)request.getSession().getAttribute("isLoggedIn");
+			if(loggedIn) {
+				if(true) {//did user review the book already?
+					String reviewTitle = request.getParameter("reviewTitle");
+					String bid = request.getParameter("bid");
+					System.out.println("reviewTitle:"+reviewTitle);
+					String newReview = request.getParameter("newReview");
+					System.out.println("newReview:"+newReview);
+					String rating = request.getParameter("rating");
+					System.out.println("rating:"+rating);
+					
+					try {
+						int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
+						System.out.println("sucessModel:"+success);
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else {
+					System.out.println("Error: User already left a Review");
+				}
 			}
+			else {
+				System.out.println("Error: Guest tried to add a Review");
+			}
+
+//			String reviewTitle = request.getParameter("reviewTitle");
+//			String bid = request.getParameter("bid");
+//			System.out.println("reviewTitle:"+reviewTitle);
+//			String newReview = request.getParameter("newReview");
+//			System.out.println("newReview:"+newReview);
+//			String rating = request.getParameter("rating");
+//			System.out.println("rating:"+rating);
+//			
+//			try {
+//				int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
+//				System.out.println("sucessModel:"+success);
+//			} catch (ClassNotFoundException | SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			request.getRequestDispatcher("home.jspx").forward(request, response);
 
 		}

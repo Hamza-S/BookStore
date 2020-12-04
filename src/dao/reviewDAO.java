@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import bean.BookBean;
 import bean.UserBean;
 
 public class reviewDAO {
@@ -40,9 +41,31 @@ public class reviewDAO {
 
 		p.close();
 		con.close();
-		
-
 		return success;
 	}
+	public int userReviewedTheBook(String username, String bid) throws SQLException {
+		String query = ("select * from REVIEW where BID = '" + bid + "' and USERNAME = '"+username+"'");
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+//		BookBean book=null;
+		int size=r.getFetchSize();
+		while (r.next()) {
+//			book = new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price")));
+		}
+		r.close();
+		p.close();
+		con.close();
+	
+		
+		
+		
+		return 1;
+	}
+
+	
+	
+	
+//	select * from REVIEW where BID = 'b001' and USERNAME = 'usama01';
 
 }

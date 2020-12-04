@@ -124,7 +124,7 @@ th, td {
 					    		<label class="font-weight-bold" for="bookQuantity">Quantity:</label>
 						    </div>
 						    <div class="col-sm">
-					    		<input name = "quantity" type="number" class="form-control" id="bookQuantity"  placeholder="0" min="1" max="100"></input>
+					    		<input name = "quantity" type="number" class="form-control" id="bookQuantity"  placeholder="1" min="1" max="100"></input>
 					    		<small id="emailHelp" class="form-text text-muted">Limit 100 per customer.</small>
 					    		<input name = "bookid" type="hidden" value = "${bid}"></input>
 					    		
@@ -152,7 +152,7 @@ th, td {
 	  		<!-- Add Review button -->
 	  		<div>
 	  			<input id= "addReview" type="button" class="btn btn-info" name="answer" value="Add Review" onclick="showAddReview()" />
-	  			<div id="register-div" style="display:none">
+	  			<div id="register-div" style="display:none" class="mb-4">
 	  				<div class="container card" id="usrform">
 		  				<form class="card-body" action="/BookStore/bookStore" method="GET" name="usrform" id="reviewAdded">
 							<div class="form-group">
