@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 import bean.BookBean;
+import bean.OrderBean;
 import bean.ReviewBean;
 import bean.UserBean;
 import dao.AddressDAO;
@@ -154,13 +155,17 @@ public class Books {
 	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
 		return oDAO.InsertOrderItem(id, bid, title, price, quantity);
 	}
-	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
-		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName);
+	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
+		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName, date);
 	}
 	
 	public BookBean getBook(String bid) throws SQLException {
 		BookBean book=bDAO.getBookById(bid);
 		return book;
+	}
+	
+	public ArrayList<OrderBean> getOrdersByMonth(String month) throws SQLException {
+		return oDAO.getOrdersByMonth(month);
 	}
 	
 	public int addReview(String username, String bid, String title, String review, String rating)throws SQLException{
@@ -171,6 +176,46 @@ public class Books {
 	}
 	public ArrayList<ReviewBean>  getBookReviews(String bid)throws SQLException{
 		return rDAO.getBookReviews(bid);
+	}
+	
+	public String getMonth(String month) {
+		String monthString;
+		switch (month) {
+          case "01":  monthString = "January";
+                   break;
+          case "02":  monthString = "February";
+                   break;
+          case "03":  monthString = "March";
+                   break;
+          case "04":  monthString = "April";
+                   break;
+          case "05":  monthString = "May";
+                   break;
+          case "06":  monthString = "June";
+                   break;
+          case "07":  monthString = "July";
+                   break;
+          case "08":  monthString = "August";
+                   break;
+          case "09":  monthString = "September";
+                   break;
+          case "10": monthString = "October";
+                   break;
+          case "11": monthString = "November";
+                   break;
+          case "12": monthString = "December";
+                   break;
+          default: monthString = "Invalid month";
+                   break;
+   	
+	}
+		return monthString;
+	}
+	public String generateReviewHTML(String bid) throws SQLException {
+		return rDAO.generateReviewHTML(bid);
+	}
+	public Map<String, Long> getReviewStats(String bid) throws SQLException {
+		return rDAO.generateReviewStats(bid);
 	}
 
 }
