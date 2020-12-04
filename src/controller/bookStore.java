@@ -272,7 +272,13 @@ public class bookStore extends HttpServlet {
 			// button
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
-		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
+		} 
+		else if (request.getParameter("placeOrder") != null && request.getParameter("checkout").equals("true")) { // Login
+			// button
+			request.getRequestDispatcher("payment.jspx").forward(request, response);
+
+		}
+		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 			// button
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int itemsinCart = user.getCart().getCart().size();
