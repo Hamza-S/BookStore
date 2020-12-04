@@ -86,51 +86,51 @@ public class bookStore extends HttpServlet {
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
 		}
-		// Request to a BookInfo more info
-		else if (request.getParameter("moreInfo") != null && request.getParameter("moreInfo").equals("true")) {
-			System.out.println("In more info");
-			String bid = request.getParameter("bid");
-			try {
-				request.setAttribute("bid", book.getBook(bid).getBid());
-				request.setAttribute("category", book.getBook(bid).getCategory());
-				request.setAttribute("price", book.getBook(bid).getPrice());
-				request.setAttribute("title", book.getBook(bid).getTitle());
-				String bookReviews = book.generateReviewHTML(bid);
-				request.setAttribute("bookReviews", bookReviews);
-				Map<String, Long> stats = book.getReviewStats(bid);
+//		// Request to a BookInfo more info
+//		else if (request.getParameter("moreInfo") != null && request.getParameter("moreInfo").equals("true")) {
+//			System.out.println("In more info");
+//			String bid = request.getParameter("bid");
+//			try {
+//				request.setAttribute("bid", book.getBook(bid).getBid());
+//				request.setAttribute("category", book.getBook(bid).getCategory());
+//				request.setAttribute("price", book.getBook(bid).getPrice());
+//				request.setAttribute("title", book.getBook(bid).getTitle());
+//				String bookReviews = book.generateReviewHTML(bid);
+//				request.setAttribute("bookReviews", bookReviews);
+//				Map<String, Long> stats = book.getReviewStats(bid);
+//
+//				// Stats Retrieved and Formated:
+//				long size = stats.get("size");
+//				long percent1 = stats.get("percent1");
+//				long percent2 = stats.get("percent2");
+//				long percent3 = stats.get("percent3");
+//				long percent4 = stats.get("percent4");
+//				long percent5 = stats.get("percent5");
+//
+//				double avgRating = (1 * ((double) percent1 / 100) + 2 * ((double) percent2 / 100)
+//						+ 3 * ((double) percent3 / 100) + 4 * ((double) percent4 / 100)
+//						+ 5 * ((double) percent5 / 100));
+//				double roundedAvgRating = avgRating * 10;
+//				roundedAvgRating = Math.round(roundedAvgRating);
+//				roundedAvgRating = roundedAvgRating / 10;
+//				System.out.println("Finalrating:" + roundedAvgRating);
+//				// Save stats in request session
+//				request.setAttribute("percent1", percent1);
+//				request.setAttribute("percent2", percent2);
+//				request.setAttribute("percent3", percent3);
+//				request.setAttribute("percent4", percent4);
+//				request.setAttribute("percent5", percent5);
+//				request.setAttribute("numOfReviews", size);
+//				request.setAttribute("avgRating", roundedAvgRating);
+//
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
 
-				// Stats Retrieved and Formated:
-				long size = stats.get("size");
-				long percent1 = stats.get("percent1");
-				long percent2 = stats.get("percent2");
-				long percent3 = stats.get("percent3");
-				long percent4 = stats.get("percent4");
-				long percent5 = stats.get("percent5");
-
-				double avgRating = (1 * ((double) percent1 / 100) + 2 * ((double) percent2 / 100)
-						+ 3 * ((double) percent3 / 100) + 4 * ((double) percent4 / 100)
-						+ 5 * ((double) percent5 / 100));
-				double roundedAvgRating = avgRating * 10;
-				roundedAvgRating = Math.round(roundedAvgRating);
-				roundedAvgRating = roundedAvgRating / 10;
-				System.out.println("Finalrating:" + roundedAvgRating);
-				// Save stats in request session
-				request.setAttribute("percent1", percent1);
-				request.setAttribute("percent2", percent2);
-				request.setAttribute("percent3", percent3);
-				request.setAttribute("percent4", percent4);
-				request.setAttribute("percent5", percent5);
-				request.setAttribute("numOfReviews", size);
-				request.setAttribute("avgRating", roundedAvgRating);
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
-
-		} else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
+		 else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
 			UserBean s = (UserBean) request.getSession().getAttribute("UserBean");
 			String bid = request.getParameter("bookid");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -170,9 +170,8 @@ public class bookStore extends HttpServlet {
 				double roundedAvgRating = avgRating * 10;
 				roundedAvgRating = Math.round(roundedAvgRating);
 				roundedAvgRating = roundedAvgRating / 10;
-//				System.out.println("Finalrating:" + roundedAvgRating);
-				System.out.println("in new statement");
-				// Save stats in request session
+				
+				// Save Stats in request session
 				request.setAttribute("percent1", percent1);
 				request.setAttribute("percent2", percent2);
 				request.setAttribute("percent3", percent3);
@@ -184,13 +183,15 @@ public class bookStore extends HttpServlet {
 				//Set Showing the Review button
 				String userName=(String)request.getSession().getAttribute("userName");
 				boolean showAddRev=false;
-				System.out.println("get to if else");
+				System.out.println("User logged-in:"+request.getSession().getAttribute("isLoggedIn"));
 
-				if(request.getAttribute("isLoggedIn")!=null){
-					System.out.println("in if because not null");
-					if((boolean)request.getAttribute("isLoggedIn")!=true) {
-						if(book.userReviewedTheBook(userName, bid)) {
+				if(request.getSession().getAttribute("isLoggedIn")!=null){
+					
+					System.out.println("username:"+userName+"\nbid:"+bid);
+					if(((boolean)request.getSession().getAttribute("isLoggedIn"))==true) {
+						if(!book.userReviewedTheBook(userName, bid)) {
 							showAddRev=true;
+							System.out.println("not Hide: User logged in and didnt review");
 						}
 						else {
 							System.out.println("Hide: User reviewed the book already");

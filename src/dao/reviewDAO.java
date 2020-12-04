@@ -52,7 +52,10 @@ public class reviewDAO {
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
-		int size=r.getFetchSize();
+		int size=0;
+		while(r.next()) {
+			 size++;
+		}
 		r.close();
 		p.close();
 		con.close();

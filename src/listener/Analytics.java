@@ -93,7 +93,6 @@ public class Analytics implements ServletContextAttributeListener {
 			int i = 0; 
 			Map<String, Integer> topTen = new LinkedHashMap<String, Integer>();
 			for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
-				//System.out.println("#" + i + " " + entry.getKey() +" sold " + entry.getValue() + " copies"); //Generate a top ten map
 				topTen.put(entry.getKey(), entry.getValue());
 				i++;
 				if (i == 10) {
@@ -101,10 +100,6 @@ public class Analytics implements ServletContextAttributeListener {
 				}
 			}
 			
-			for (Map.Entry<String, Integer> entry : topTen.entrySet()) {
-				System.out.println("#" + i + " " + entry.getKey() +" sold " + entry.getValue() + " copies"); //Generate a top ten map
-			
-			}
 			event.getServletContext().setAttribute("topTenOrders", topTen);
 
 		}

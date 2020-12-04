@@ -99,9 +99,8 @@ public class CartBean {
 					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
 					cartString += book.getPrice() + "</div></span></div>";
 					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
-					cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
-					cartString += "id=\"item" + orderCount + "quant\" value=\"" + entry.getValue()
-							+ "\"> </input></div></div></li>";
+					cartString += "<input name=\"item" + orderCount + "quant\" type=\"number\" class=\"form-control\"";
+					cartString += "id=\"itemquant\" value=\"" + entry.getValue()+ "\" min=\"0\" max=\"100\"> </input></div></div></li>";
 					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
 							+ "\"</input>";
 				}
