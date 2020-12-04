@@ -141,7 +141,7 @@ public class bookStore extends HttpServlet {
 			System.out.println(Arrays.toString(s.getCart().getCart().entrySet().toArray()));
 			request.getSession().setAttribute("UserBean", s);
 			request.getSession().setAttribute("CartNum", s.getCart().getTotalQuantity());
-			request.getRequestDispatcher("/bookStore?bid=" + bid + "&moreInfo=true").forward(request, response);
+			request.getRequestDispatcher("/home.jspx").forward(request, response);
 
 		}
 		// Add a review if user is logged in
@@ -530,7 +530,11 @@ public class bookStore extends HttpServlet {
 
 				request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
-			} else {
+			} 
+			else if (path.equals("/Info")) {
+				request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
+			}
+			else {
 				request.getRequestDispatcher("/home.jspx").forward(request, response);
 			}
 

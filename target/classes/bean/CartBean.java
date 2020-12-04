@@ -95,9 +95,9 @@ public class CartBean {
 					BookBean book = bd.getBookById(currentbid);
 					cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
 					cartString += "<div style=\"\"> <h6 class=\"my-0\">";
-					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "</div>";
-					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
-					cartString += book.getPrice() + "</div></span></div>";
+					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "   <i>$" +book.getPrice() + "</i></div>";
+					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\" >";
+					cartString += "</div></span></div>";
 					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
 					cartString += "<input name=\"item" + orderCount + "quant\" type=\"number\" class=\"form-control\"";
 					cartString += "id=\"itemquant\" value=\"" + entry.getValue()+ "\" min=\"0\" max=\"100\"> </input></div></div></li>";
