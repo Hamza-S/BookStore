@@ -113,14 +113,25 @@ public class bookStore extends HttpServlet {
 		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
 			
 			String reviewTitle = request.getParameter("reviewTitle");
+			String bid = request.getParameter("bid");
 			System.out.println("reviewTitle:"+reviewTitle);
 			String newReview = request.getParameter("newReview");
 			System.out.println("newReview:"+newReview);
+			String rating = request.getParameter("rating");
+			System.out.println("rating:"+rating);
+			
+			try {
+				int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
+				System.out.println("sucessModel:"+success);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			request.getRequestDispatcher("home.jspx").forward(request, response);
 
 
 			
-			
+			 
 			
 		}
 
@@ -238,7 +249,18 @@ public class bookStore extends HttpServlet {
 			} else if (path.equals("/Register")) {
 				request.getRequestDispatcher("/register.jspx").forward(request, response);
 			} else if (path.equals("/Cart")) {
+				UserBean currUser = (UserBean) request.getSession().getAttribute("UserBean");
+				String genCart = "";
+				try {
+					genCart = currUser.getCart().generateCartHTML();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.getSession().setAttribute("genCartHTML", genCart);
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
+			
+				
 
 			} else if (path.equals("/AdminLogin")) {
 

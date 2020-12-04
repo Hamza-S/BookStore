@@ -3,7 +3,7 @@
  */
 
 function showAddReview(){
-	alert("wow");
+//	alert("wow");
 	console.log("initial:"+document.getElementById('register-div').style.display);
 
 	//Show Review Form

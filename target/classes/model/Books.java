@@ -12,6 +12,7 @@ import bean.UserBean;
 import dao.AddressDAO;
 import dao.BooksDAO;
 import dao.UsersDAO;
+import dao.reviewDAO;
 
 public class Books {
 	private static Books instance;
@@ -19,6 +20,7 @@ public class Books {
 	private UsersDAO uDAO;
 	private Authenticator auth;
 	private AddressDAO aDAO;
+	private reviewDAO rDAO;
  
 	private Books() {
 	 
@@ -30,6 +32,7 @@ public class Books {
 			instance.auth = new Authenticator();
 			instance.uDAO = new UsersDAO();
 			instance.aDAO = new AddressDAO();
+			instance.rDAO= new reviewDAO();
 		}
 		return instance;
 		
@@ -128,5 +131,9 @@ public class Books {
 	public BookBean getBook(String bid) throws SQLException {
 		BookBean book=bDAO.getBookById(bid);
 		return book;
+	}
+	
+	public int addReview(String username, String bid, String title, String review, String rating)throws SQLException{
+		return rDAO.addReview(username, bid, title, review, rating);
 	}
 }
