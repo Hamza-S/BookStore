@@ -191,7 +191,7 @@
 										class="form-control mb-1" placeholder="password" required="required"></input>
 								</div>
 								<div class="row align-items-center remember mb-5">
-									<input type="checkbox" id="rememberPass" required="required"><span>Remember
+									<input type="checkbox" id="rememberPass" ><span>Remember
 										Password</span></input>
 								</div>
 								<input type="hidden" name="fromPayment" value="true" required="required"></input>
@@ -202,9 +202,7 @@
 									<div class="d-flex justify-content-center links">
 										Don't have an account?<a href="register.jspx">Sign Up</a>
 									</div>
-									<div class="d-flex justify-content-center">
-										<a href="#">Forgot your password?</a>
-									</div>
+								
 								</div>
 							</form>
 						</div>

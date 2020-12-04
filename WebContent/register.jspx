@@ -108,7 +108,7 @@ th, td {
 						<div class="col-md-6 mb-3">
 							<label for="firstName">First Name</label> <input name="fname"
 								type="text" class="form-control" id="firstName" placeholder=""
-								value=""> </input>
+								value="" required="required"> </input>
 							<!-- Q: ask Ryan about how to do invalid-feedback -->
 							<div class="invalid-feedback">Valid first name is required.
 							</div>
@@ -116,7 +116,7 @@ th, td {
 						<div class="col-md-6 mb-3">
 							<label for="lastName">Last Name</label> <input name="lname"
 								type="text" class="form-control" id="lastName" placeholder=""
-								value=""> </input>
+								value="" required="required"> </input>
 							<div class="invalid-feedback">Valid last name is required.
 							</div>
 						</div>
@@ -126,21 +126,21 @@ th, td {
 						<div class="col-md-6 mb-3">
 							<label for="userName">User Name</label> <input name="username"
 								type="text" class="form-control" id="userName" placeholder=""
-								value=""> </input>
+								value="" required="required"> </input>
 							<div class="invalid-feedback">Valid user name is required.
 							</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="email">Email</label> <input name="email" type="email"
 								class="form-control" id="email" placeholder="you@example.com"
-								value=""> </input>
+								value="" required="required"> </input>
 							<div class="invalid-feedback">Valid email is required.</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="password1">Password</label> <input type="password"
-								class="form-control" id="password1" placeholder="" value=""></input>
+								class="form-control" id="password1" placeholder="" value="" required="required"></input>
 							<input type="checkbox" onclick="showPassword()" id="showPass"><span
 								class="text-muted">Show password</span></input>
 						</div>
@@ -148,7 +148,7 @@ th, td {
 						<div class="col-md-6 mb-3">
 							<label for="password2">Confirm Password</label> <input
 								name="password" type="password" class="form-control"
-								id="password2" placeholder="" value=""></input>
+								id="password2" placeholder="" value="" required="required"></input>
 						</div>
 					</div>
 
@@ -158,7 +158,7 @@ th, td {
 						<h4>Default Billing/Shipping Info</h4>
 						<label for="address">Address</label> <input name="address"
 							type="text" class="form-control" id="address"
-							placeholder="1234 Main St"> </input>
+							placeholder="1234 Main St" required="required"> </input>
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
 					</div>
@@ -167,17 +167,17 @@ th, td {
 					<div class="row">
 						<div class="col-md-5 mb-3">
 							<label for="country">Country</label> <input name="country"
-								type="text" class="form-control" id="country" placeholder="">
+								type="text" class="form-control" id="country" placeholder="" required="required">
 							</input>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="state">Province/state</label> <input name="province"
-								type="text" class="form-control" id="state" placeholder="">
+								type="text" class="form-control" id="state" placeholder="" required="required">
 							</input>
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="zip">Zip</label> <input name="zip" type="text"
-								class="form-control" id="zip" placeholder=""> </input>
+								class="form-control" id="zip" placeholder="" required="required"> </input>
 						</div>
 					</div>
 					<button name="register" value="true"
