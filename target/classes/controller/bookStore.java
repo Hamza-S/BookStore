@@ -47,6 +47,7 @@ public class bookStore extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("ECLIPSE SUCKS");
 		Books book = (Books) request.getServletContext().getAttribute("model");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("UserBean") == null) { // Initialize a guest user with an empty cart upon initial
@@ -169,7 +170,8 @@ public class bookStore extends HttpServlet {
 				double roundedAvgRating = avgRating * 10;
 				roundedAvgRating = Math.round(roundedAvgRating);
 				roundedAvgRating = roundedAvgRating / 10;
-				System.out.println("Finalrating:" + roundedAvgRating);
+//				System.out.println("Finalrating:" + roundedAvgRating);
+				System.out.println("in new statement");
 				// Save stats in request session
 				request.setAttribute("percent1", percent1);
 				request.setAttribute("percent2", percent2);
@@ -178,9 +180,36 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("percent5", percent5);
 				request.setAttribute("numOfReviews", size);
 				request.setAttribute("avgRating", roundedAvgRating);
+				
+				//Set Showing the Review button
+				String userName=(String)request.getSession().getAttribute("userName");
+				boolean showAddRev=false;
+				System.out.println("get to if else");
+
+				if(request.getAttribute("isLoggedIn")!=null){
+					System.out.println("in if because not null");
+					if((boolean)request.getAttribute("isLoggedIn")!=true) {
+						if(book.userReviewedTheBook(userName, bid)) {
+							showAddRev=true;
+						}
+						else {
+							System.out.println("Hide: User reviewed the book already");
+						}
+					}
+					else {
+						System.out.println("Hide: Guest not logged in 2");
+					}
+				}
+				else {
+					System.out.println("Hide: Guest not logged in 1");
+				}
+				
+				request.setAttribute("showAddReview", showAddRev);
+
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
@@ -342,8 +371,13 @@ public class bookStore extends HttpServlet {
 			BookBean bookb = null;
 			if (user.getOrderRequestCounter() % 3 != 0) {
 				try {
+<<<<<<< HEAD
+					book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
+							billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+=======
 					success =  book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
 
+>>>>>>> 9572fb9b213851f7ace4548577a298f2062e5c07
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -359,11 +393,14 @@ public class bookStore extends HttpServlet {
 					}
 				}
 				user.getCart().clearCart();
+<<<<<<< HEAD
+=======
 				if (success == 1) {
 					int oldCount = (int) request.getServletContext().getAttribute("placedOrderCount");
 					request.getServletContext().setAttribute("placedOrderCount", oldCount + 1);
 					System.out.println("order placed");
 				}
+>>>>>>> 9572fb9b213851f7ace4548577a298f2062e5c07
 				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
 				request.getSession().setAttribute("UserBean", user);
 				request.getRequestDispatcher("/receipt.jspx").forward(request, response);
