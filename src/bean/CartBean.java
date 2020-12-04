@@ -68,7 +68,7 @@ public class CartBean {
 	public String generateCartHTML() throws ClassNotFoundException {
 		BooksDAO bd = new BooksDAO();
 		String cartString = "";
-		cartString += "<div class=\"py-5 text-center\">";
+		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"POST\">";
 		cartString += "<div class=\"col-md-6 order-md-2 mb-6\"";
 		cartString += "style=\"margin: auto; width: 50%;\">";
 		cartString += "<h4 class=\"d-flex justify-content-between align-items-center mb-3\">";
@@ -102,8 +102,11 @@ public class CartBean {
 			}
 		}
 		cartString += "<li class=\"list-group-item d-flex justify-content-between\"><span>Total </span> <strong><div id=\"total\">$" + this.getCartPrice() +"</div></strong></li></ul>";
-		cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  onclick=\"update()\"> Update</button>";
-		cartString += "<form class=\"needs-validation\"> <a href=\"payment.jspx\"><button class=\"btn btn-primary btn-lg btn-block\" type=\"submit\">Continue to checkout</button></a></form>";
+	
+		
+	
+		cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  id=\"update\" name=\"update\" value=\"true\" type='submit'> Update</button> ";
+		cartString += "<button class=\"btn btn-primary btn-lg btn-block\" id=\"checkout\" name=\"checkout\" value=\"true\" type='submit'>Continue to checkout</button></a></form>";
 		cartString += "</div></div>";
 		
 				
