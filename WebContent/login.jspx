@@ -95,13 +95,13 @@ th, td {
 							<div class="input-group form-group">
 
 								<input type="text" name="username" class="form-control mb-4"
-									placeholder="username"></input>
+									placeholder="username" required="required"></input>
 
 							</div>
 							<div class="input-group form-group">
 
 								<input type="password" name="password" class="form-control mb-1"
-									placeholder="password"></input>
+									placeholder="password" required="required"></input>
 							</div>
 							<div class="row align-items-center remember mb-5">
 								<input type="checkbox" id="rememberPass"><span>Remember
