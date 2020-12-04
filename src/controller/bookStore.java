@@ -24,7 +24,6 @@ import dao.BooksDAO;
 @WebServlet({ "/bookStore", "/bookStore/*" })
 public class bookStore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 
 	public bookStore() {
 		super();
@@ -50,7 +49,8 @@ public class bookStore extends HttpServlet {
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
 		} else {
-			UserBean user = (UserBean) session.getAttribute("UserBean");;
+			UserBean user = (UserBean) session.getAttribute("UserBean");
+			;
 			System.out.println(Arrays.toString(user.getCart().getCart().entrySet().toArray()));
 			// Do nothing, userbean already generated, or the user is logged in.
 		}
@@ -77,26 +77,23 @@ public class bookStore extends HttpServlet {
 			}
 			request.getRequestDispatcher("/searchresults.jspx").forward(request, response);
 		}
-		//Request to a BookInfo more info
-		else if(request.getParameter("moreInfo") != null && request.getParameter("moreInfo").equals("true")) {
+		// Request to a BookInfo more info
+		else if (request.getParameter("moreInfo") != null && request.getParameter("moreInfo").equals("true")) {
 			System.out.println("In more info");
-			String bid=request.getParameter("bid");
+			String bid = request.getParameter("bid");
 			try {
 				request.setAttribute("bid", book.getBook(bid).getBid());
 				request.setAttribute("category", book.getBook(bid).getCategory());
 				request.setAttribute("price", book.getBook(bid).getPrice());
 				request.setAttribute("title", book.getBook(bid).getTitle());
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
-			
 
-		}
-		else if(request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
+			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
+
+		} else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
 			System.out.println("asipdniasnd");
 			UserBean s = (UserBean) request.getSession().getAttribute("UserBean");
 			String bid = request.getParameter("bookid");
@@ -107,17 +104,16 @@ public class bookStore extends HttpServlet {
 			System.out.println(Arrays.toString(s.getCart().getCart().entrySet().toArray()));
 			request.getSession().setAttribute("UserBean", s);
 			request.getSession().setAttribute("CartNum", s.getCart().getTotalQuantity());
-			request.getRequestDispatcher("/bookStore?bid="+bid+"&moreInfo=true").forward(request, response);
+			request.getRequestDispatcher("/bookStore?bid=" + bid + "&moreInfo=true").forward(request, response);
 
-		}
-		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
-			
+		} else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) {
+
 			String reviewTitle = request.getParameter("reviewTitle");
-			System.out.println("reviewTitle:"+reviewTitle);
+			System.out.println("reviewTitle:" + reviewTitle);
 			String newReview = request.getParameter("newReview");
-			System.out.println("newReview:"+newReview);
+			System.out.println("newReview:" + newReview);
 			request.getRequestDispatcher("home.jspx").forward(request, response);
-	
+
 		}
 
 		else if (request.getParameter("login") != null && request.getParameter("login").equals("true")) { // Login
@@ -127,7 +123,7 @@ public class bookStore extends HttpServlet {
 			String password = request.getParameter("password");
 			try {
 				if (book.login(username, password)) {
-					//If they login, we want to save their cart
+					// If they login, we want to save their cart
 					UserBean usr = (UserBean) request.getSession().getAttribute("UserBean");
 					Map<String, Integer> usrCart = usr.getCart().getCart();
 					UserBean user = book.getUserBean(username);
@@ -144,11 +140,10 @@ public class bookStore extends HttpServlet {
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
 					request.getSession().setAttribute("userName", user.getUserName());// delete when log out
-					
+
 					if (request.getParameter("fromPayment") != null) {
 						request.getRequestDispatcher("/payment.jspx").forward(request, response);
-					}
-					else {
+					} else {
 						request.getRequestDispatcher("/home.jspx").forward(request, response);
 					}
 				} else {
@@ -182,8 +177,7 @@ public class bookStore extends HttpServlet {
 						request.getSession().setAttribute("isLoggedIn", true);
 						request.getSession().setAttribute("userName", user.getUserName());// delete when log out
 						request.getRequestDispatcher("/home.jspx").forward(request, response);
-					}
-					else {
+					} else {
 						System.out.println("Wrong password");
 						request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
 					}
@@ -219,8 +213,6 @@ public class bookStore extends HttpServlet {
 			} catch (NoSuchAlgorithmException | SQLException e) {
 				e.printStackTrace();
 			}
-			
-			
 
 		}
 
@@ -234,50 +226,51 @@ public class bookStore extends HttpServlet {
 			request.getSession().removeAttribute("userName");
 			request.getRequestDispatcher("/home.jspx").forward(request, response);
 
-		}else if (request.getParameter("checkout") != null && request.getParameter("checkout").equals("true")) { // Login
+		} else if (request.getParameter("checkout") != null && request.getParameter("checkout").equals("true")) { // Login
 			// button
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
-		} 
-		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
+		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 			// button
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int itemsinCart = user.getCart().getCart().size();
+			String genCart = "";
 			String quantityParam = "";
 			String bidParam = "";
+			int paramNum = 0;
+			System.out.println(itemsinCart);
+
 			for (int i = 0; i < itemsinCart; i++) {
-				 int paramNum = i + 1;
-				 bidParam = "bid" + paramNum + "quant";
-				 quantityParam = "item" + paramNum + "quant";
-				 
-				 bidParam = request.getParameter(bidParam);
-				 quantityParam = request.getParameter(quantityParam);
-				 System.out.println(bidParam);
-				 System.out.println(quantityParam);
-				 
-				 user.getCart().updateQuantity(bidParam, Integer.parseInt(quantityParam));
+				System.out.println("Iterations = " + i + "items in cart = " + itemsinCart);
+				paramNum = i + 1;
+				bidParam = "bid" + paramNum + "quant";
+				quantityParam = "item" + paramNum + "quant";
+
+				bidParam = request.getParameter(bidParam);
+				quantityParam = request.getParameter(quantityParam);
+
+				user.getCart().updateQuantity(bidParam, Integer.parseInt(quantityParam));
 			}
 			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
 			request.getSession().setAttribute("UserBean", user);
-			String genCart = "";
+
 			try {
+
 				genCart = user.getCart().generateCartHTML();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
- 
+
 			request.getSession().setAttribute("genCartHTML", genCart);
-			
+
 			request.getRequestDispatcher("cart.jspx").forward(request, response);
 
-		} 
-		else if (request.getParameter("update") != null && request.getParameter("update").equals("true")) { // Login
+		} else if (request.getParameter("update") != null && request.getParameter("update").equals("true")) { // Login
 			// button
 			request.getRequestDispatcher("cart.jspx").forward(request, response);
 
-		} 
-		else if (path != null) { // Page redirections based on request
+		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
 				request.getRequestDispatcher("/login.jspx").forward(request, response);
 			} else if (path.equals("/Register")) {
@@ -293,15 +286,11 @@ public class bookStore extends HttpServlet {
 				}
 				request.getSession().setAttribute("genCartHTML", genCart);
 				request.getRequestDispatcher("/cart.jspx").forward(request, response);
-		
 
-			} 
-			else if (path.equals("/Payment")) {
+			} else if (path.equals("/Payment")) {
 				request.getRequestDispatcher("/payment.jspx").forward(request, response);
-		
 
-			}
-			else if (path.equals("/AdminLogin")) {
+			} else if (path.equals("/AdminLogin")) {
 
 				request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
 

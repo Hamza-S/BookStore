@@ -30,6 +30,9 @@ public class CartBean {
 	}
 	public void updateQuantity(String bid, int newQuantity) {
 		this.cart.replace(bid, newQuantity);
+		if (newQuantity == 0) {
+			this.removeItem(bid);
+		}
 	}
 
 	public Map<String, Integer> getCart() {
@@ -68,7 +71,7 @@ public class CartBean {
 	public String generateCartHTML() throws ClassNotFoundException {
 		BooksDAO bd = new BooksDAO();
 		String cartString = "";
-		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"POST\">";
+		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"GET\">";
 		cartString += "<div class=\"col-md-6 order-md-2 mb-6\"";
 		cartString += "style=\"margin: auto; width: 50%;\">";
 		cartString += "<h4 class=\"d-flex justify-content-between align-items-center mb-3\">";
@@ -84,28 +87,39 @@ public class CartBean {
 			orderCount += 1;
 			try {
 				String currentbid = entry.getKey().toString();
-                BookBean book = bd.getBookById(currentbid);
-                cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
-                cartString += "<div style=\"\"> <h6 class=\"my-0\">";
-                cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "</div>";
-                cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
-                cartString += book.getPrice() + "</div></span></div>";
-                cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
-                cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
-                cartString += "id=\"item" + orderCount + "quant\" placeholder=\"" + entry.getValue() +"\"> </input></div></div></li>";
-                cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\""+book.getBid()+"\"</input>";
+				int currentQuant = entry.getValue();
+				if (currentQuant > 0) {
+					BookBean book = bd.getBookById(currentbid);
+					cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
+					cartString += "<div style=\"\"> <h6 class=\"my-0\">";
+					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "</div>";
+					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\">$";
+					cartString += book.getPrice() + "</div></span></div>";
+					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
+					cartString += "<input name=\"item" + orderCount + "quant\" type=\"text\" class=\"form-control\"";
+					cartString += "id=\"item" + orderCount + "quant\" value=\"" + entry.getValue()
+							+ "\"> </input></div></div></li>";
+					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
+							+ "\"</input>";
+				}
+         
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		cartString += "<li class=\"list-group-item d-flex justify-content-between\"><span>Total </span> <strong><div id=\"total\">$" + this.getCartPrice() +"</div></strong></li></ul>";
-	
 		
-	
-		cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  id=\"update\" name=\"updateCart\" value=\"true\" type='submit'>Update</button> ";
-		cartString += "<button class=\"btn btn-primary btn-lg btn-block\" id=\"checkout\" name=\"checkout\" value=\"true\" type='submit'>Continue to checkout</button></a></form>";
+		if (orderCount > 0) {
+			cartString += "<li class=\"list-group-item d-flex justify-content-between\"><span>Total </span> <strong><div id=\"total\">$" + this.getCartPrice() +"</div></strong></li></ul>";
+			cartString += "<button class=\"btn btn-primary btn-lg btn-block btn-dark\"  id=\"update\" name=\"updateCart\" value=\"true\" type='submit'>Update</button> ";
+			cartString += "<button class=\"btn btn-primary btn-lg btn-block\" id=\"checkout\" name=\"checkout\" value=\"true\" type='submit'>Continue to checkout</button></a></form>";
+			
+		}
+		else {
+			cartString += "You have no items in your cart!";
+		}
+			
 		cartString += "</div></div>";
 		
 				
