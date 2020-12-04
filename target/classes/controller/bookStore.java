@@ -175,6 +175,11 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("percent5", percent5);
 				request.setAttribute("numOfReviews", size);
 				request.setAttribute("avgRating", roundedAvgRating);
+				
+				//Set Showing the Review button
+				
+				request.setAttribute("showAddReview", "true");
+
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
