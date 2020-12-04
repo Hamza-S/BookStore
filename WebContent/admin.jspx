@@ -39,8 +39,8 @@ th, td {
 			<ul class="navbar-nav ml-auto">
 				<c:choose>
 					<c:when test="${not isLoggedIn}">
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
-						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5> </a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
 						<li class="nav-item"><a class="nav-link"
@@ -49,7 +49,8 @@ th, td {
 					<c:when test="${not empty isLoggedIn}">
 						<li class="nav-item"><a class="nav-link active"
 							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5></a></li>
 						<form class="logout" action="/BookStore/bookStore" method="POST">
 							<button id="logout" name="logout" value="true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
@@ -75,40 +76,37 @@ th, td {
 	<div class="jumbotron" id="searchJumbo">
 		<div class="container">
 			<h1 class="display-5">Administrator Dashboard</h1>
-			<p>View order analytics</p>
+			<br/>
+			<form action = "/BookStore/bookStore" method = "POST" id = "monthReport" class="form-inline">
+				<label class="my-1 mr-2" for="inlineFormCustomSelectPref"><h6>View books sold by month:</h6></label>
+				<select name = "month" value = "01" form = "monthReport" class="custom-select my-1 mr-sm-2"
+					id="inlineFormCustomSelectPref">
+					<option value="01" selected = "selected">January</option>
+					<option value="02">February</option>
+					<option value="03">March</option>
+					<option value="04">April</option>
+					<option value="05">May</option>
+					<option value="06">June</option>
+					<option value="07">July</option>
+					<option value="08">August</option>
+					<option value="09">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12">December</option>
+				</select>
+				<button name = "ordersbyMonth" value = "true" type="submit" class="btn btn-dark">Generate Report</button>
+			</form>
+			<br/>
+			<form action = "/BookStore/bookStore" method = "POST" class="form-inline">
+				<label class="my-1 mr-3" for="inlineFormCustomSelectPref"><h6>View most popular books:</h6></label>
+				
+				<button name = "mostPopular" value = "true" type="submit" class="btn btn-dark">Generate Report</button>
+			</form>
 		</div>
+
 	</div>
 	<div id="analytics">
-		<table class="table" id = "analyticsTable">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Book Name</th>
-					<th scope="col">Book ID</th>
-					<th scope="col">Rank</th>
-					<th scope="col">Number Of Orders</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">Harry Potter</th>
-					<td>b12301203</td>
-					<td>1</td>
-					<td>11232</td>
-				</tr>
-				<tr>
-					<th scope="row">Eiffel</th>
-					<td>b12301203</td>
-					<td>2</td>
-					<td>11232</td>
-				</tr>
-				<tr>
-					<th scope="row">Test</th>
-					<td>b12301203</td>
-					<td>3</td>
-					<td>11232</td>
-				</tr>
-			</tbody>
-		</table>
+		${ordersByMonth}
 	</div>
 </body>
 	</html>

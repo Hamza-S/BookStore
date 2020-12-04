@@ -62,7 +62,6 @@ public class BooksDAO {
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
 		BookBean book=null;
-		int size=r.getFetchSize();
 		while (r.next()) {
 			book = new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price")));
 		}

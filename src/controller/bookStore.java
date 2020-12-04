@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import bean.BookBean;
+import bean.OrderBean;
 import bean.ReviewBean;
 import bean.UserBean;
 import dao.BooksDAO;
@@ -110,54 +111,44 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/bookStore?bid=" + bid + "&moreInfo=true").forward(request, response);
 
 		}
-		//Add a review if user is logged in
-		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) { 
+		// Add a review if user is logged in
+		else if (request.getParameter("reviewAdded") != null && request.getParameter("reviewAdded").equals("true")) {
 			System.out.println("in review added");
-			boolean loggedIn=false;
-			
-			if(request.getSession().getAttribute("isLoggedIn")!=null) {
-				loggedIn=(boolean)request.getSession().getAttribute("isLoggedIn");
+			boolean loggedIn = false;
+
+			if (request.getSession().getAttribute("isLoggedIn") != null) {
+				loggedIn = (boolean) request.getSession().getAttribute("isLoggedIn");
 			}
-			
-			
-			if(loggedIn) {
-				if(true) {//did user review the book already?
-					String reviewTitle = request.getParameter("reviewTitle");
-					String bid = request.getParameter("bid");
-					System.out.println("reviewTitle:"+reviewTitle);
-					String newReview = request.getParameter("newReview");
-					System.out.println("newReview:"+newReview);
-					String rating = request.getParameter("rating");
-					System.out.println("rating:"+rating);
-					
-					try {
-						int success=Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
-						System.out.println("sucessModel:"+success);
-					} catch (ClassNotFoundException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
+			if (loggedIn) {
+				String reviewTitle = request.getParameter("reviewTitle");
+				String bid = request.getParameter("bid");
+				System.out.println("reviewTitle:" + reviewTitle);
+				String newReview = request.getParameter("newReview");
+				System.out.println("newReview:" + newReview);
+				String rating = request.getParameter("rating");
+				System.out.println("rating:" + rating);
+
+				try {
+					int success = Books.getInstance().addReview("usama02", bid, reviewTitle, newReview, rating);
+					System.out.println("sucessModel:" + success);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				else {
-					System.out.println("Error: User already left a Review");
-				}
-			}
-			else {
+			} else {
 				System.out.println("Error: Guest tried to add a Review");
 			}
-			
+
 			try {
-				boolean reviewed=Books.getInstance().userReviewedTheBook("usama01", "b001");
-				System.out.println("book reviewd:"+reviewed);
-				ArrayList<ReviewBean> reviews=Books.getInstance().getBookReviews("b001");
-				System.out.println("reviews:"+reviews.toString());
+				boolean reviewed = Books.getInstance().userReviewedTheBook("usama01", "b001");
+				System.out.println("book reviewd:" + reviewed);
+				ArrayList<ReviewBean> reviews = Books.getInstance().getBookReviews("b001");
+				System.out.println("reviews:" + reviews.toString());
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
-
 
 			request.getRequestDispatcher("home.jspx").forward(request, response);
 
@@ -286,19 +277,18 @@ public class bookStore extends HttpServlet {
 			request.getSession().setAttribute("genCheckoutHTML", genCheckoutCart);
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
-		} 
-		else if (request.getParameter("PlaceOrder") != null && request.getParameter("PlaceOrder").equals("true")) { // Login
+		} else if (request.getParameter("PlaceOrder") != null && request.getParameter("PlaceOrder").equals("true")) { // Login
 			// button
-			//String id = request.getParameter("id");
+			// String id = request.getParameter("id");
 			String street = request.getParameter("street");
 			String province = request.getParameter("province");
 			String country = request.getParameter("country");
 			String zip = request.getParameter("zip");
-			String billingstreet  = request.getParameter("billingstreet");
-			String billingprovince  = request.getParameter("billingprovince");
-			String billingcountry  = request.getParameter("billingcountry");
-			String billingzip  = request.getParameter("billingzip");
-			LocalDate date =  java.time.LocalDate.now();
+			String billingstreet = request.getParameter("billingstreet");
+			String billingprovince = request.getParameter("billingprovince");
+			String billingcountry = request.getParameter("billingcountry");
+			String billingzip = request.getParameter("billingzip");
+			LocalDate date = java.time.LocalDate.now();
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
@@ -311,11 +301,12 @@ public class bookStore extends HttpServlet {
 			int quantity = 0;
 			BookBean bookb = null;
 			try {
-				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
+						billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			for(Map.Entry<String, Integer> entry: cart.entrySet()) {
+			for (Map.Entry<String, Integer> entry : cart.entrySet()) {
 				bid = entry.getKey();
 				quantity = entry.getValue();
 				try {
@@ -324,15 +315,15 @@ public class bookStore extends HttpServlet {
 					book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}			
-			}		
+				}
+			}
 			user.getCart().clearCart();
 			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
 			request.getSession().setAttribute("UserBean", user);
 			request.getRequestDispatcher("/receipt.jspx").forward(request, response);
 
-		}
-		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login button
+		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
+																														// button
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int itemsinCart = user.getCart().getCart().size();
 			String genCart = "";
@@ -367,9 +358,34 @@ public class bookStore extends HttpServlet {
 
 			request.getRequestDispatcher("cart.jspx").forward(request, response);
 
-		} else if (request.getParameter("update") != null && request.getParameter("update").equals("true")) { // Login
-			// button
-			request.getRequestDispatcher("/cart.jspx").forward(request, response);
+		} else if (request.getParameter("ordersbyMonth") != null
+				&& request.getParameter("ordersbyMonth").equals("true")) { // Login // button
+			ArrayList<OrderBean> orders = null;
+			String month = request.getParameter("month");
+			try {
+				orders = book.getOrdersByMonth(month);
+				String monthName = book.getMonth(month);
+				OrderBean order = null;
+				String output = "<h3>" + monthName + " Report</h3><br/>";
+				output += "<table class=\"table\" id=\"analyticsTable\">";
+				output += "<thead class=\"thead-dark\"><tr><th scope=\"col\">Order ID</th><th scope=\"col\">Book ID</th><th scope=\"col\">Title</th><th scope=\"col\">Price</th><th scope=\"col\">Quantity</th></tr></thead><tbody>";
+				for (int i = 0; i < orders.size(); i++) {
+					order = orders.get(i);
+					output += "<tr><td>" + order.getId() + "</td>" + "<td>" + order.getBid() + "</td>" + "<td>"
+							+ order.getTitle() + "</td>" + "<td>" + order.getPrice() + "</td>" + "<td>"
+							+ order.getQuantity() + "</td></tr>";
+
+				}
+				output += "</tbody></table>";
+				request.getServletContext().setAttribute("ordersByMonth", output);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher("/admin.jspx").forward(request, response);
+
+		} else if (request.getParameter("mostPopular") != null && request.getParameter("mostPopular").equals("true")) { // Login // button
+			
+			request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
 		} else if (path != null) { // Page redirections based on request
 			if (path.equals("/Login")) {
