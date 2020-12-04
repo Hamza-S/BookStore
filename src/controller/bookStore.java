@@ -38,11 +38,12 @@ public class bookStore extends HttpServlet {
 		super.init(config);
 		ServletContext svcnxt = getServletContext();
 		try {
-			svcnxt.setAttribute("model", Books.getInstance()); // Singleton design pattern for model
 			svcnxt.setAttribute("placedOrderCount", 0);
+			svcnxt.setAttribute("model", Books.getInstance()); // Singleton design pattern for model
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		svcnxt.setAttribute("placedOrderCount", 0);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -461,14 +462,35 @@ public class bookStore extends HttpServlet {
 
 				}
 				output += "</tbody></table>";
-				request.getServletContext().setAttribute("ordersByMonth", output);
+				request.getServletContext().setAttribute("adminAnalytics", output);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
 		} else if (request.getParameter("mostPopular") != null && request.getParameter("mostPopular").equals("true")) { // Login
+			Map<String, Integer> topTen = null;
+		
+			ServletContext svcnxt = getServletContext();
+			
+			topTen = (Map<String, Integer>) svcnxt.getAttribute("topTenOrders");
+			String titleReport = "Most Popular Books";
+			String output = "<h3>" + titleReport + " Report</h3><br/>";
+			output += "<table class=\"table\" id=\"analyticsTable\">"; 
+			output += "<thead class=\"thead-dark\"><tr><th scope=\"col\">Rank</th><th scope=\"col\">Book ID</th><th scope=\"col\">Title</th><th scope=\"col\">Copies Sold</th></tr></thead><tbody>";
+			int rank = 1;
+			for (Map.Entry<String, Integer> entry : topTen.entrySet()) {
+			    String split[]= entry.getKey().split(", ");
+			    String bid = split[0];
+			    String title = split[1];
+			    int quantity = entry.getValue();
+				output += "<tr><td>" + rank + "</td>" + "<td>" + bid + "</td>" + "<td>" + title
+						 + "<td>" + quantity + "</td></tr>";
+				rank++;
 
+			}
+			output += "</tbody></table>";
+			request.getServletContext().setAttribute("adminAnalytics", output);
 			request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
 		} else if (path != null) { // Page redirections based on request

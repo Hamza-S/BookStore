@@ -106,7 +106,7 @@ th, td {
 
 	</div>
 	<div id="analytics">
-		${ordersByMonth}
+		${adminAnalytics}
 	</div>
 </body>
 	</html>
