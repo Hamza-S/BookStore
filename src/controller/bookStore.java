@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -297,7 +298,7 @@ public class bookStore extends HttpServlet {
 			String billingprovince  = request.getParameter("billingprovince");
 			String billingcountry  = request.getParameter("billingcountry");
 			String billingzip  = request.getParameter("billingzip");
-			
+			LocalDate date =  java.time.LocalDate.now();
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
@@ -310,7 +311,7 @@ public class bookStore extends HttpServlet {
 			int quantity = 0;
 			BookBean bookb = null;
 			try {
-				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName());
+				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}

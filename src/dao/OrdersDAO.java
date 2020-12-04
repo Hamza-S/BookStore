@@ -36,7 +36,7 @@ public class OrdersDAO {
 	
 		return success;
 	}
-	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
+	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
 		String query = ("INSERT INTO ORDERS values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		System.out.println(query);
 		Connection con = (this.ds).getConnection();
@@ -53,6 +53,7 @@ public class OrdersDAO {
 		p.setString(10, username);
 		p.setString(11, firstName);
 		p.setString(12, lastName);
+		p.setString(13,  date);
 		System.out.println(query);
 		int success = p.executeUpdate();
 		
