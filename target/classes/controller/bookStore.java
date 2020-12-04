@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -38,6 +39,7 @@ public class bookStore extends HttpServlet {
 		ServletContext svcnxt = getServletContext();
 		try {
 			svcnxt.setAttribute("model", Books.getInstance()); // Singleton design pattern for model
+			svcnxt.setAttribute("placedOrderCount", 0);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -129,7 +131,6 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
 
 		} else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
-			System.out.println("asipdniasnd");
 			UserBean s = (UserBean) request.getSession().getAttribute("UserBean");
 			String bid = request.getParameter("bookid");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -361,18 +362,22 @@ public class bookStore extends HttpServlet {
 			session.setAttribute("orderRequestCount",user.getOrderRequestCounter());
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
-			byte[] randomBytes = new byte[16];
-			rand.nextBytes(randomBytes);
-			String id = randomBytes.toString();
+			String id = UUID.randomUUID().toString();
 			String bid = "";
 			String title = "";
 			int price = 0;
 			int quantity = 0;
+			int success = 0;
 			BookBean bookb = null;
 			if (user.getOrderRequestCounter() % 3 != 0) {
 				try {
+<<<<<<< HEAD
 					book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
 							billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+=======
+					success =  book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+
+>>>>>>> 9572fb9b213851f7ace4548577a298f2062e5c07
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -388,6 +393,14 @@ public class bookStore extends HttpServlet {
 					}
 				}
 				user.getCart().clearCart();
+<<<<<<< HEAD
+=======
+				if (success == 1) {
+					int oldCount = (int) request.getServletContext().getAttribute("placedOrderCount");
+					request.getServletContext().setAttribute("placedOrderCount", oldCount + 1);
+					System.out.println("order placed");
+				}
+>>>>>>> 9572fb9b213851f7ace4548577a298f2062e5c07
 				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
 				request.getSession().setAttribute("UserBean", user);
 				request.getRequestDispatcher("/receipt.jspx").forward(request, response);
@@ -462,8 +475,6 @@ public class bookStore extends HttpServlet {
 			request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
 		} else if (request.getParameter("mostPopular") != null && request.getParameter("mostPopular").equals("true")) { // Login
-																														// //
-																														// button
 
 			request.getRequestDispatcher("/admin.jspx").forward(request, response);
 
