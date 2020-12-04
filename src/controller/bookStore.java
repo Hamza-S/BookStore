@@ -52,6 +52,8 @@ public class bookStore extends HttpServlet {
 
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
+			session.setAttribute("orderRequestCount", Integer.parseInt("0"));
+			System.out.println("ORDER PROCESS # INIT:" +  session.getAttribute("orderRequestCount"));
 		} else {
 			UserBean user = (UserBean) session.getAttribute("UserBean");
 			;
@@ -325,7 +327,14 @@ public class bookStore extends HttpServlet {
 			String billingcountry = request.getParameter("billingcountry");
 			String billingzip = request.getParameter("billingzip");
 			LocalDate date = java.time.LocalDate.now();
+			
+			
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
+			int currentCount = (int) session.getAttribute("orderRequestCount");
+			System.out.println("SESSION COUNTER: " + currentCount);
+			user.setOrderRequestCounter(currentCount + 1); 
+			System.out.println("\nCURRENT COUNTER:" + user.getOrderRequestCounter());
+			session.setAttribute("orderRequestCount",user.getOrderRequestCounter());
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
 			byte[] randomBytes = new byte[16];
@@ -336,27 +345,36 @@ public class bookStore extends HttpServlet {
 			int price = 0;
 			int quantity = 0;
 			BookBean bookb = null;
-			try {
-				book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
-						billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-				bid = entry.getKey();
-				quantity = entry.getValue();
+			if (user.getOrderRequestCounter() % 3 != 0) {
 				try {
-					bookb = book.getBook(bid);
-					title = bookb.getTitle();
-					book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
-				} catch (SQLException e) {
-					e.printStackTrace();
+					book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry,
+							billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
+				for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+					bid = entry.getKey();
+					quantity = entry.getValue();
+					try {
+						bookb = book.getBook(bid);
+						title = bookb.getTitle();
+						book.InsertOrderItem(id, bid, title, bookb.getPrice(), quantity);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				user.getCart().clearCart();
+				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+				request.getSession().setAttribute("UserBean", user);
+				request.getRequestDispatcher("/receipt.jspx").forward(request, response);
 			}
-			user.getCart().clearCart();
-			request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
-			request.getSession().setAttribute("UserBean", user);
-			request.getRequestDispatcher("/receipt.jspx").forward(request, response);
+			//order request count = 0, meaning it is an every 3rd payment request
+			else { 
+				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
+				request.getSession().setAttribute("UserBean", user);
+				request.getRequestDispatcher("/failedPayment.jspx").forward(request, response);
+			}
+			
 
 		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 																														// button
