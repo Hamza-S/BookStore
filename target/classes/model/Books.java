@@ -134,13 +134,8 @@ public class Books {
 	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
 		return oDAO.InsertOrderItem(id, bid, title, price, quantity);
 	}
-<<<<<<< HEAD
-	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName) throws SQLException {
-		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName);
-=======
 	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
 		return oDAO.InsertOrder(id, street, province, country, zip, billStreet, billProvince, billCountry, billZip, username, firstName, lastName, date);
->>>>>>> 104534f10c4d2e09567f4f82e5eced2c7e41bff6
 	}
 	
 	public BookBean getBook(String bid) throws SQLException {
@@ -159,6 +154,9 @@ public class Books {
 	}
 	public String generateReviewHTML(String bid) throws SQLException {
 		return rDAO.generateReviewHTML(bid);
+	}
+	public Map<String, Long> getReviewStats(String bid) throws SQLException {
+		return rDAO.generateReviewStats(bid);
 	}
 
 }

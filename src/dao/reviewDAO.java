@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -139,15 +141,63 @@ public class reviewDAO {
 			"<div class=\"review-block-title\">"+reviews.get(i).getTitle()+"</div>"+
 			"<div class=\"review-block-description\">"+reviews.get(i).getReview()+"</div>"+
 			"</div>"+
-			"</div>"+
-			"<hr/>";			
+			"</div>";
+			if(i<reviews.size()-1) {
+				result+="<hr/>";	
+			}
+					
 		}
-		
-		
-		
-		
 		return result;
 	}
+	
+	public Map<String, Long> generateReviewStats(String bid) throws SQLException {
+		ArrayList<ReviewBean> reviews=getBookReviews(bid);
+		long numOfReviews=reviews.size();
+		int num1=0;
+		int num2=0;
+		int num3=0;
+		int num4=0;
+		int num5=0;
+		for(int i =0; i<reviews.size(); i++ ) {
+			int rating=reviews.get(i).getRating();
+			if(rating==1) {
+				num1++;
+			}
+			else if(rating==2){
+				num2++;
+			}
+			else if(rating==3){
+				num3++;
+			}
+			else if(rating==4){
+				num4++;
+			}
+			else if(rating==5){
+				num5++;
+			}	
+		}
+		double avgRating= (1*num1+2*num2+3*num3+4*num4+5*num5)/(5*numOfReviews);
+		double roundedAvgRating = avgRating*10;
+		roundedAvgRating = Math.round(roundedAvgRating);
+		roundedAvgRating = roundedAvgRating /10;
+		
+		long percent1=Math.round(num1/numOfReviews);
+		long percent2=Math.round(num2/numOfReviews);
+		long percent3=Math.round(num3/numOfReviews);
+		long percent4=Math.round(num4/numOfReviews);
+		long percent5=Math.round(num5/numOfReviews);
+		
+		Map<String, Long> results= new HashMap<String, Long>();
+		results.put("size", numOfReviews);
+		results.put("percent1", percent1);
+		results.put("percent2", percent2);
+		results.put("percent3", percent3);
+		results.put("percent4", percent4);
+		results.put("percent5", percent5);
+		
+		return results;
+	}
+
 		
 	
 

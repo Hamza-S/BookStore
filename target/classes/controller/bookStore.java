@@ -89,6 +89,9 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("category", book.getBook(bid).getCategory());
 				request.setAttribute("price", book.getBook(bid).getPrice());
 				request.setAttribute("title", book.getBook(bid).getTitle());
+				String bookReviews=book.generateReviewHTML(bid);
+				request.setAttribute("bookReviews", bookReviews);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -284,22 +287,10 @@ public class bookStore extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getSession().setAttribute("genCheckoutHTML", genCheckoutCart);
-<<<<<<< HEAD
-			request.getRequestDispatcher("payment.jspx").forward(request, response);
-
-		} 
-		else if (request.getParameter("placeOrder") != null && request.getParameter("checkout").equals("true")) { // Login
-			// button
-			request.getRequestDispatcher("payment.jspx").forward(request, response);
-
-		}
-		else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
-=======
 			request.getRequestDispatcher("payment.jspx").forward(request, response);
 
 		} 
 		else if (request.getParameter("PlaceOrder") != null && request.getParameter("PlaceOrder").equals("true")) { // Login
->>>>>>> 104534f10c4d2e09567f4f82e5eced2c7e41bff6
 			// button
 			//String id = request.getParameter("id");
 			String street = request.getParameter("street");

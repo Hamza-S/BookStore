@@ -89,6 +89,9 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("category", book.getBook(bid).getCategory());
 				request.setAttribute("price", book.getBook(bid).getPrice());
 				request.setAttribute("title", book.getBook(bid).getTitle());
+				String bookReviews=book.generateReviewHTML(bid);
+				request.setAttribute("bookReviews", bookReviews);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -155,5 +155,8 @@ public class Books {
 	public String generateReviewHTML(String bid) throws SQLException {
 		return rDAO.generateReviewHTML(bid);
 	}
+	public Map<String, Long> getReviewStats(String bid) throws SQLException {
+		return rDAO.generateReviewStats(bid);
+	}
 
 }
