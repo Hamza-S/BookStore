@@ -111,4 +111,57 @@ public class OrdersDAO {
 		con.close();
 		return orderItems;
 	}
+	
+	public Map<String,OrderBean> getOrderItemsByBID(String bid) throws SQLException {
+		String query = "Select * from orderitems where bid='" + bid +"'";
+		
+		Connection con = (this.ds).getConnection();
+		PreparedStatement p = con.prepareStatement(query);
+		ResultSet r = p.executeQuery();
+		OrderBean order=null;
+		Map<String,OrderBean> orders2 = null;
+		ArrayList<OrderBean> ordersforBID= new ArrayList<OrderBean>();
+		while (r.next()) {
+			order = new OrderBean(r.getString("id"), r.getString("bid"), r.getString("name"), r.getInt("price"), r.getInt("quantity"));
+			ordersforBID.add(order);
+		}
+		r.close();
+		p.close();
+		con.close();
+		
+		System.out.println("Array list size: " + ordersforBID.size());
+		orders2= new HashMap<String,OrderBean>();
+		for (int i = 0; i < ordersforBID.size(); i ++) {
+			String query2 = "Select * from orders where id='" + ordersforBID.get(i).getId() +"'";
+			Connection con2 = (this.ds).getConnection();
+			PreparedStatement p2 = con2.prepareStatement(query2);
+			ResultSet r2 = p2.executeQuery();
+			//OrderBean order2=null;
+			
+			while (r2.next()) {
+				ordersforBID.get(i).setStreet(r2.getString("street"));
+				ordersforBID.get(i).setCountry(r2.getString("country"));
+				ordersforBID.get(i).setProvince(r2.getString("province"));
+				ordersforBID.get(i).setZip(r2.getString("zip"));
+				ordersforBID.get(i).setStreetBill(r2.getString("billingstreet"));
+				ordersforBID.get(i).setCountryBill(r2.getString("billingcountry"));
+				ordersforBID.get(i).setProvinceBill(r2.getString("billingprovince"));
+				ordersforBID.get(i).setZipBill(r2.getString("billingzip"));
+				ordersforBID.get(i).setUsername(r2.getString("username"));
+				ordersforBID.get(i).setFirstname(r2.getString("firstname"));
+				ordersforBID.get(i).setLastname(r2.getString("lastname"));
+				ordersforBID.get(i).setDate(r2.getString("date"));
+			}
+			r2.close();
+			p2.close();
+			con2.close();
+			
+			orders2.put(ordersforBID.get(i).getId(),ordersforBID.get(i));
+		}
+		
+	
+		
+		
+		return orders2;
+	}
 }
