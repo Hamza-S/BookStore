@@ -33,3 +33,13 @@
 ::placeholder {
   font-size: 24px;
 }
+
+#wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+}
+
+#price{
+	color: #008a60;
+}
