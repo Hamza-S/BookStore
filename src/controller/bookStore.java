@@ -57,7 +57,7 @@ public class bookStore extends HttpServlet {
 			UserBean user = new UserBean();
 			session.setAttribute("UserBean", user);
 			session.setAttribute("orderRequestCount", Integer.parseInt("0"));
-			System.out.println("ORDER PROCESS # INIT:" +  session.getAttribute("orderRequestCount"));
+			System.out.println("ORDER PROCESS # INIT:" + session.getAttribute("orderRequestCount"));
 		} else {
 			UserBean user = (UserBean) session.getAttribute("UserBean");
 			;
@@ -131,7 +131,7 @@ public class bookStore extends HttpServlet {
 //
 //			request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
 
-		 else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
+		else if (request.getParameter("addtoCart") != null && request.getParameter("addtoCart").equals("true")) {
 			UserBean s = (UserBean) request.getSession().getAttribute("UserBean");
 			String bid = request.getParameter("bookid");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -171,7 +171,7 @@ public class bookStore extends HttpServlet {
 				double roundedAvgRating = avgRating * 10;
 				roundedAvgRating = Math.round(roundedAvgRating);
 				roundedAvgRating = roundedAvgRating / 10;
-				
+
 				// Save Stats in request session
 				request.setAttribute("percent1", percent1);
 				request.setAttribute("percent2", percent2);
@@ -180,38 +180,34 @@ public class bookStore extends HttpServlet {
 				request.setAttribute("percent5", percent5);
 				request.setAttribute("numOfReviews", size);
 				request.setAttribute("avgRating", roundedAvgRating);
-				
-				//Set Showing the Review button
-				String userName=(String)request.getSession().getAttribute("userName");
-				boolean showAddRev=false;
-				System.out.println("User logged-in:"+request.getSession().getAttribute("isLoggedIn"));
 
-				if(request.getSession().getAttribute("isLoggedIn")!=null){
-					
-					System.out.println("username:"+userName+"\nbid:"+bid);
-					if(((boolean)request.getSession().getAttribute("isLoggedIn"))==true) {
-						if(!book.userReviewedTheBook(userName, bid)) {
-							showAddRev=true;
+				// Set Showing the Review button
+				String userName = (String) request.getSession().getAttribute("userName");
+				boolean showAddRev = false;
+				System.out.println("User logged-in:" + request.getSession().getAttribute("isLoggedIn"));
+
+				if (request.getSession().getAttribute("isLoggedIn") != null) {
+
+					System.out.println("username:" + userName + "\nbid:" + bid);
+					if (((boolean) request.getSession().getAttribute("isLoggedIn")) == true) {
+						if (!book.userReviewedTheBook(userName, bid)) {
+							showAddRev = true;
 							System.out.println("not Hide: User logged in and didnt review");
-						}
-						else {
+						} else {
 							System.out.println("Hide: User reviewed the book already");
 						}
-					}
-					else {
+					} else {
 						System.out.println("Hide: Guest not logged in 2");
 					}
-				}
-				else {
+				} else {
 					System.out.println("Hide: Guest not logged in 1");
 				}
-				
-				request.setAttribute("showAddReview", showAddRev);
 
+				request.setAttribute("showAddReview", showAddRev);
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				
+
 				e.printStackTrace();
 			}
 
@@ -354,14 +350,13 @@ public class bookStore extends HttpServlet {
 			String billingcountry = request.getParameter("billingcountry");
 			String billingzip = request.getParameter("billingzip");
 			LocalDate date = java.time.LocalDate.now();
-			
-			
+
 			UserBean user = (UserBean) request.getSession().getAttribute("UserBean");
 			int currentCount = (int) session.getAttribute("orderRequestCount");
 			System.out.println("SESSION COUNTER: " + currentCount);
-			user.setOrderRequestCounter(currentCount + 1); 
+			user.setOrderRequestCounter(currentCount + 1);
 			System.out.println("\nCURRENT COUNTER:" + user.getOrderRequestCounter());
-			session.setAttribute("orderRequestCount",user.getOrderRequestCounter());
+			session.setAttribute("orderRequestCount", user.getOrderRequestCounter());
 			Map<String, Integer> cart = user.getCart().getCart();
 			SecureRandom rand = new SecureRandom();
 			String id = UUID.randomUUID().toString();
@@ -373,7 +368,9 @@ public class bookStore extends HttpServlet {
 			BookBean bookb = null;
 			if (user.getOrderRequestCounter() % 3 != 0) {
 				try {
-					success =  book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince, billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(), date.toString());
+					success = book.InsertOrder(id, street, province, country, zip, billingstreet, billingprovince,
+							billingcountry, billingzip, user.getUserName(), user.getFirstName(), user.getLastName(),
+							date.toString());
 
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -399,13 +396,12 @@ public class bookStore extends HttpServlet {
 				request.getSession().setAttribute("UserBean", user);
 				request.getRequestDispatcher("/receipt.jspx").forward(request, response);
 			}
-			//order request count = 0, meaning it is an every 3rd payment request
-			else { 
+			// order request count = 0, meaning it is an every 3rd payment request
+			else {
 				request.getSession().setAttribute("CartNum", user.getCart().getTotalQuantity());
 				request.getSession().setAttribute("UserBean", user);
 				request.getRequestDispatcher("/failedPayment.jspx").forward(request, response);
 			}
-			
 
 		} else if (request.getParameter("updateCart") != null && request.getParameter("updateCart").equals("true")) { // Login
 																														// button
@@ -470,22 +466,22 @@ public class bookStore extends HttpServlet {
 
 		} else if (request.getParameter("mostPopular") != null && request.getParameter("mostPopular").equals("true")) { // Login
 			Map<String, Integer> topTen = null;
-		
+
 			ServletContext svcnxt = getServletContext();
-			
+
 			topTen = (Map<String, Integer>) svcnxt.getAttribute("topTenOrders");
 			String titleReport = "Most Popular Books";
 			String output = "<h3>" + titleReport + " Report</h3><br/>";
-			output += "<table class=\"table\" id=\"analyticsTable\">"; 
+			output += "<table class=\"table\" id=\"analyticsTable\">";
 			output += "<thead class=\"thead-dark\"><tr><th scope=\"col\">Rank</th><th scope=\"col\">Book ID</th><th scope=\"col\">Title</th><th scope=\"col\">Copies Sold</th></tr></thead><tbody>";
 			int rank = 1;
 			for (Map.Entry<String, Integer> entry : topTen.entrySet()) {
-			    String split[]= entry.getKey().split(", ");
-			    String bid = split[0];
-			    String title = split[1];
-			    int quantity = entry.getValue();
-				output += "<tr><td>" + rank + "</td>" + "<td>" + bid + "</td>" + "<td>" + title
-						 + "<td>" + quantity + "</td></tr>";
+				String split[] = entry.getKey().split(", ");
+				String bid = split[0];
+				String title = split[1];
+				int quantity = entry.getValue();
+				output += "<tr><td>" + rank + "</td>" + "<td>" + bid + "</td>" + "<td>" + title + "<td>" + quantity
+						+ "</td></tr>";
 				rank++;
 
 			}
@@ -525,17 +521,37 @@ public class bookStore extends HttpServlet {
 			} else if (path.equals("/AdminLogin")) {
 
 				request.getRequestDispatcher("/admin_login.jspx").forward(request, response);
+			
 
-			} else if (path.equals("/Admin")) {
-
-				request.getRequestDispatcher("/admin.jspx").forward(request, response);
-
-			} 
-			else if (path.equals("/Info")) {
-				request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
 			}
-			else {
-				request.getRequestDispatcher("/home.jspx").forward(request, response);
+			else if (path.contentEquals("/404")) {
+				request.setAttribute("errorMessage", "404 ERROR PAGE NOT FOUND!");
+				request.getRequestDispatcher("/404.jspx").forward(request, response);
+			}
+			else if (path.contentEquals("/403")) {
+				request.setAttribute("errorMessage", "403 ERROR ACCESS DENIED!");
+				request.getRequestDispatcher("/404.jspx").forward(request, response);
+			}
+			else if (path.equals("/Admin")) {
+
+				String username = (String) request.getSession().getAttribute("userName");
+				if (username != null) {
+					if (!username.contentEquals("admin")) {
+						request.setAttribute("errorMessage", "403 ERROR ACCESS DENIED!");
+						response.sendRedirect(request.getContextPath() + "/bookStore/403");
+					} else if (username.contentEquals("admin")) {
+						request.getRequestDispatcher("/admin.jspx").forward(request, response);
+					}
+				} else {
+					request.setAttribute("errorMessage", "403 ERROR ACCESS DENIED!");
+					response.sendRedirect(request.getContextPath() + "/bookStore/403");
+				}
+
+			} else if (path.equals("/Info")) {
+				request.getRequestDispatcher("/bookinfo.jspx").forward(request, response);
+			} else {
+				request.setAttribute("errorMessage", "404 ERROR PAGE NOT FOUND!");
+				response.sendRedirect(request.getContextPath() + "/bookStore/404");
 			}
 
 		} else if (request.getParameter("fetch") != null && request.getParameter("fetch").equals("true")) {
@@ -552,8 +568,12 @@ public class bookStore extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
-			request.getRequestDispatcher("/home.jspx").forward(request, response);
+		} 
+		
+		else {
+	 
+				request.getRequestDispatcher("/home.jspx").forward(request, response);
+		 
 		}
 	}
 

@@ -10,6 +10,10 @@
     <servlet-name>Jersey</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+ <error-page>
+ <error-code>404</error-code>
+ <location>/404.jspx</location>
+ </error-page>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
