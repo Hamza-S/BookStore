@@ -25,6 +25,9 @@ th, td {
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous"></link>
 <link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
+<link rel="StyleSheet"
 	href="${pageContext.request.contextPath}/res/css/admin_page.css"
 	type="text/css" />
 </head>

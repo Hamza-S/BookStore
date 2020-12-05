@@ -27,6 +27,9 @@ th, td {
 <link rel="StyleSheet"
 	href="${pageContext.request.contextPath}/res/css/searchresults.css"
 	type="text/css" />
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="homeNav">
