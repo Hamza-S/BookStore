@@ -104,7 +104,9 @@ th, td {
 					class="img-fluid" alt="Book Img"> </img>
 			</div>
 			<div class="col">
-
+				<c:if test="${not empty registerError}">
+					<h6 style="color: red">*${registerError}</h6>
+				</c:if>
 				<form class="needs-validation" action="/BookStore/bookStore/Login"
 					method="POST">
 					<div class="row">
@@ -112,7 +114,6 @@ th, td {
 							<label for="firstName">First Name</label> <input name="fname"
 								type="text" class="form-control" id="firstName" placeholder=""
 								value="" required="required"> </input>
-							<!-- Q: ask Ryan about how to do invalid-feedback -->
 							<div class="invalid-feedback">Valid first name is required.
 							</div>
 						</div>
@@ -143,14 +144,14 @@ th, td {
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="password1">Password</label> <input type="password"
-								class="form-control" id="password1" placeholder="" value="" required="required" onkeyup="check()"></input>
+								class="form-control" id="password1" name = "password" placeholder="" value="" required="required" onkeyup="check()"></input>
 							<input type="checkbox" onclick="showPassword()" id="showPass"><span
 								class="text-muted">Show password</span></input>
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<label for="password2">Confirm Password</label> <input
-								name="password" type="password" class="form-control"
+								name="password2" type="password" class="form-control"
 								id="password2" placeholder="" value="" required="required" onkeyup="check()">
 								
 								<span class="" id="message"></span>

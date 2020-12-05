@@ -229,7 +229,7 @@ public class bookStore extends HttpServlet {
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
 					request.getSession().setAttribute("userName", user.getUserName());// delete when log out
-
+					request.getSession().removeAttribute("loginError");
 					if (request.getParameter("fromPayment") != null) {
 						request.getRequestDispatcher("/payment.jspx").forward(request, response);
 					} else {
@@ -237,7 +237,7 @@ public class bookStore extends HttpServlet {
 					}
 				} else {
 					// throw error incorrect password/authentication failed
-					System.out.println("Incorrect password");
+					request.getSession().setAttribute("loginError", "Incorrect password or the username does not exist!");
 					request.getRequestDispatcher("/login.jspx").forward(request, response);
 				}
 			} catch (NoSuchAlgorithmException | SQLException e) {
@@ -285,18 +285,27 @@ public class bookStore extends HttpServlet {
 			String username = request.getParameter("username");
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");// handler
+			String password2 = request.getParameter("password2");
 			String address = request.getParameter("address");
 			String country = request.getParameter("country");
 			String province = request.getParameter("province");
 			String zip = request.getParameter("zip");
 			try {
-				if (book.registerUser(fName, lName, username, email, password)) {
+				if (book.registerUser(fName, lName, username, email, password) && (password.contentEquals(password2))) {
 					book.insertAddress(username, address, province, country, zip);
 					request.getRequestDispatcher("/login.jspx").forward(request, response);
 					System.out.println("Registered!");
+					request.getSession().removeAttribute("registerError");
 				} else {
 					// throw error incorrect password/authentication failed
-					System.out.println("Username already exists!");
+					if (!(password.contentEquals(password2))) {
+						request.getSession().setAttribute("registerError", "Error, both passwords must match!");
+					}
+					else {
+						request.getSession().setAttribute("registerError", "Error, username already exists!");
+					}
+				
+					
 					request.getRequestDispatcher("/register.jspx").forward(request, response);
 				}
 			} catch (NoSuchAlgorithmException | SQLException e) {
