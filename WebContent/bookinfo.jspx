@@ -30,7 +30,9 @@ th, td {
 	crossorigin="anonymous"></link>
 	
 		<link rel="StyleSheet" href="${pageContext.request.contextPath}/res/css/bookinfo.css" type="text/css" title="cse4413" media="screen, print" />
-	
+	<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
 
 	
 	<script src="https://kit.fontawesome.com/a076d05399.js">;</script>

@@ -18,6 +18,9 @@
 <link rel="StyleSheet"
 	href="${pageContext.request.contextPath}/res/css/main.css"
 	type="text/css" />
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/res/js/cart.js">;</script>
 

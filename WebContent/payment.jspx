@@ -77,14 +77,14 @@
 			<p class="lead">Complete your book order below!</p>
 			<hr class="mb-4"></hr>
 		</div>
-					<c:choose>
-				<c:when test="${empty isLoggedIn}">
-		<div id="upper-section">
-			<p class="lead">Please select register or login to continue</p>
-			<input type="button" name="answer" value="Register" 
-				onclick="showDiv()" class="btn btn-dark mr-2"></input> 
-				<input type="button" name="answer"
-				value="Login" onclick="showDiv2()" class="btn btn-dark"/>
+		<c:choose>
+			<c:when test="${empty isLoggedIn}">
+				<div id="upper-section">
+					<p class="lead">Please select register or login to continue</p>
+					<input type="button" name="answer" value="Register"
+						onclick="showDiv()" class="btn btn-dark mr-2"></input> <input
+						type="button" name="answer" value="Login" onclick="showDiv2()"
+						class="btn btn-dark" />
 
 
 					<div id="register-div" style="display: none">
@@ -121,24 +121,26 @@
 									<div class="col-md-6 mb-3">
 										<label for="email">Email</label> <input name="email"
 											type="email" class="form-control" id="email"
-											placeholder="you@example.com" value="" required="required"> </input>
+											placeholder="you@example.com" value="" required="required">
+										</input>
 										<div class="invalid-feedback">Valid email is required.</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6 mb-3">
 										<label for="password1">Password</label> <input type="password"
-											class="form-control" id="password1" placeholder="" value="" required="required" onkeyup="check()"></input>
-										<input type="checkbox" onclick="showPassword()" id="showPass"><span
+											class="form-control" id="password1" placeholder="" value=""
+											required="required" onkeyup="check()"></input> <input
+											type="checkbox" onclick="showPassword()" id="showPass"><span
 											class="text-muted">Show password</span></input>
 									</div>
 
 									<div class="col-md-6 mb-3">
 										<label for="password2">Confirm Password</label> <input
 											name="password" type="password" class="form-control"
-											id="password2" placeholder="" value="" required="required" onkeyup="check()">
-											<span class="" id="message"></span>
-											</input>
+											id="password2" placeholder="" value="" required="required"
+											onkeyup="check()"><span class="" id="message"></span>
+										</input>
 									</div>
 								</div>
 
@@ -148,7 +150,7 @@
 									<h4>Default Billing/Shipping Info</h4>
 									<label for="address">Address</label> <input name="address"
 										type="text" class="form-control" id="address"
-										placeholder="1234 Main St" > </input>
+										placeholder="1234 Main St"> </input>
 									<div class="invalid-feedback">Please enter your shipping
 										address.</div>
 								</div>
@@ -191,13 +193,15 @@
 								<div class="input-group form-group">
 
 									<input type="password" name="password"
-										class="form-control mb-1" placeholder="password" required="required"></input>
+										class="form-control mb-1" placeholder="password"
+										required="required"></input>
 								</div>
 								<div class="row align-items-center remember mb-5">
-									<input type="checkbox" id="rememberPass" ><span>Remember
+									<input type="checkbox" id="rememberPass"><span>Remember
 										Password</span></input>
 								</div>
-								<input type="hidden" name="fromPayment" value="true" required="required"></input>
+								<input type="hidden" name="fromPayment" value="true"
+									required="required"></input>
 								<button class="btn btn-primary btn-lg btn-block mb-2"
 									name='login' type="submit" value="true">Login</button>
 
@@ -205,24 +209,25 @@
 									<div class="d-flex justify-content-center links">
 										Don't have an account?<a href="register.jspx">Sign Up</a>
 									</div>
-								
+
 								</div>
 							</form>
 						</div>
 
 					</div>
-		
-		</div>
-				</c:when>
-				<c:otherwise>
-					<form class="needs-validation" action="/BookStore/bookStore/Login">
+
+				</div>
+			</c:when>
+			<c:otherwise>
+				<form class="needs-validation" action="/BookStore/bookStore" method = "POST">
 					<div class="mb-3">
 
 
 						<h4>Billing Info</h4>
-						<label for="billingstreet">Street</label> <input name="billingstreet"
-							type="text" class="form-control" id="billingstreet"
-							placeholder="1234 Main St" required="required"> </input>
+						<label for="billingstreet">Street</label> <input
+							name="billingstreet" type="text" class="form-control"
+							id="billingstreet" placeholder="1234 Main St" required="required">
+						</input>
 						<div class="invalid-feedback">Please enter your shipping
 							address.</div>
 					</div>
@@ -230,21 +235,24 @@
 
 					<div class="row">
 						<div class="col-md-5 mb-3">
-							<label for="billingcountry">Country</label> <input name="billingcountry"
-								type="text" class="form-control" id="billingcountry" placeholder="" required="required">
+							<label for="billingcountry">Country</label> <input
+								name="billingcountry" type="text" class="form-control"
+								id="billingcountry" placeholder="" required="required">
 							</input>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="billingprovince">Province/state</label> <input name="billingprovince"
-								type="text" class="form-control" id="billingprovince" placeholder="" required="required">
+							<label for="billingprovince">Province/state</label> <input
+								name="billingprovince" type="text" class="form-control"
+								id="billingprovince" placeholder="" required="required">
 							</input>
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="billingzip">Zip</label> <input name="billingzip" type="text"
-								class="form-control" id="billingzip" placeholder="" required="required"> </input>
+							<label for="billingzip">Zip</label> <input name="billingzip"
+								type="text" class="form-control" id="billingzip" placeholder=""
+								required="required"> </input>
 						</div>
 					</div>
-					
+
 					<div class="mb-3">
 
 
@@ -260,87 +268,95 @@
 					<div class="row">
 						<div class="col-md-5 mb-3">
 							<label for="country">Country</label> <input name="country"
-								type="text" class="form-control" id="country" placeholder="" required="required">
-							</input>
+								type="text" class="form-control" id="country" placeholder=""
+								required="required"> </input>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="province">Province/state</label> <input name="province"
-								type="text" class="form-control" id="province" placeholder="" required="required">
-							</input>
+							<label for="province">Province/state</label> <input
+								name="province" type="text" class="form-control" id="province"
+								placeholder="" required="required"> </input>
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="zip">Zip</label> <input name="zip" type="text"
-								class="form-control" id="zip" placeholder="" required="required"> </input>
+								class="form-control" id="zip" placeholder="" required="required">
+							</input>
 						</div>
 					</div>
-					
+
 					<div id="lower-section">
-			<div class="row">
-				${genCheckoutHTML}
-				<div class="col-md-8 order-md-1">
-
-
-					<hr class="mb-4"></hr>
-
-					<h4 class="mb-3">Payment</h4>
-						<div class="d-block my-3">
-							<div class="custom-control custom-radio">
-								<input id="credit" name="paymentMethod" type="radio"
-									class="custom-control-input" required="required" checked="checked"> </input> <label
-									class="custom-control-label" for="credit">Credit card</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input id="debit" name="paymentMethod" type="radio"
-									class="custom-control-input" required="required"> </input> <label
-									class="custom-control-label" for="debit">Debit card</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input id="paypal" name="paymentMethod" type="radio"
-									class="custom-control-input" required="required"> </input> <label
-									class="custom-control-label" for="paypal">PayPal</label>
-							</div>
-						</div>
 						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label for="cc-name">Name on card</label> <input type="text"
-									class="form-control" id="cc-name" placeholder="" required="required" pattern="[a-zA-Z]*"> </input> <small
-									class="text-muted">Full name as displayed on card</small>
-								<div class="invalid-feedback">Name on card is required</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label for="cc-number">Credit card number (16 digits)</label> <input
-									type="text" class="form-control" id="cc-number" placeholder="" required="required"  pattern="\d*" minlength="16" maxlength="16">
-								</input>
-								<div class="invalid-feedback">Credit card number is
-									required</div>
+							${genCheckoutHTML}
+							<div class="col-md-8 order-md-1">
+
+
+								<hr class="mb-4"></hr>
+
+								<h4 class="mb-3">Payment</h4>
+								<div class="d-block my-3">
+									<div class="custom-control custom-radio">
+										<input id="credit" name="paymentMethod" type="radio"
+											class="custom-control-input" required="required"
+											checked="checked"> </input> <label
+											class="custom-control-label" for="credit">Credit card</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input id="debit" name="paymentMethod" type="radio"
+											class="custom-control-input" required="required"> </input> <label
+											class="custom-control-label" for="debit">Debit card</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input id="paypal" name="paymentMethod" type="radio"
+											class="custom-control-input" required="required"> </input> <label
+											class="custom-control-label" for="paypal">PayPal</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label for="cc-name">Name on card</label> <input type="text"
+											class="form-control" id="cc-name" placeholder=""
+											required="required" pattern="[a-zA-Z]*"> </input> <small
+											class="text-muted">Full name as displayed on card</small>
+										<div class="invalid-feedback">Name on card is required</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="cc-number">Credit card number (16 digits)</label>
+										<input type="text" class="form-control" id="cc-number"
+											placeholder="" required="required" pattern="\d*"
+											minlength="16" maxlength="16"> </input>
+										<div class="invalid-feedback">Credit card number is
+											required</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-3 mb-3">
+										<label for="cc-expiration">Expiration Date</label> <input
+											type="date" class="form-control" id="cc-expiration"
+											placeholder="" required="required"> </input>
+										<div class="invalid-feedback">Expiration date required</div>
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="cc-cvv">CVV (3 digits)</label> <input type="text"
+											class="form-control" id="cc-cvv" placeholder=""
+											required="required" pattern="\d*" minlength="3" maxlength="3">
+										</input>
+										<div class="invalid-feedback">3-digit Security code
+											required</div>
+									</div>
+								</div>
+								<hr class="mb-4"></hr>
+								<button class="btn btn-primary btn-lg btn-block"
+									name="PlaceOrder" value="true" type="submit">Place
+									Order</button>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-3 mb-3">
-								<label for="cc-expiration">Expiration Date</label> <input type="date"
-									class="form-control" id="cc-expiration" placeholder="" required="required">
-								</input>
-								<div class="invalid-feedback">Expiration date required</div>
-							</div>
-							<div class="col-md-3 mb-3">
-								<label for="cc-cvv">CVV (3 digits)</label> <input type="text"
-									class="form-control" id="cc-cvv" placeholder="" required="required" pattern="\d*" minlength="3" maxlength="3"> </input>
-								<div class="invalid-feedback">3-digit Security code required</div>
-							</div>
-						</div>
-						<hr class="mb-4"></hr>
-						<button class="btn btn-primary btn-lg btn-block" name="PlaceOrder" value="true" type="submit">Place
-							Order</button>
-				</div>
-			</div>
-		</div>
-					
+					</div>
+
 				</form>
-				
-				</c:otherwise>
-			</c:choose>
 
-		
+			</c:otherwise>
+		</c:choose>
+
+
 
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
