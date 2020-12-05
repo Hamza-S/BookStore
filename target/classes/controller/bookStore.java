@@ -210,6 +210,8 @@ public class bookStore extends HttpServlet {
 																											// handler
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
+			request.getSession().removeAttribute("loginError");
+			request.getSession().removeAttribute("registerError");
 			try {
 				if (book.login(username, password)) {
 					// If they login, we want to save their cart
@@ -229,7 +231,6 @@ public class bookStore extends HttpServlet {
 					System.out.println("Welcome back, " + username);
 					request.getSession().setAttribute("isLoggedIn", true);
 					request.getSession().setAttribute("userName", user.getUserName());// delete when log out
-					request.getSession().removeAttribute("loginError");
 					if (request.getParameter("fromPayment") != null) {
 						request.getRequestDispatcher("/payment.jspx").forward(request, response);
 					} else {
@@ -238,7 +239,11 @@ public class bookStore extends HttpServlet {
 				} else {
 					// throw error incorrect password/authentication failed
 					request.getSession().setAttribute("loginError", "Incorrect password or the username does not exist!");
-					request.getRequestDispatcher("/login.jspx").forward(request, response);
+					if (request.getParameter("fromPayment") != null) {
+						request.getRequestDispatcher("/payment.jspx").forward(request, response);
+					} else {
+						request.getRequestDispatcher("/login.jspx").forward(request, response);
+					}
 				}
 			} catch (NoSuchAlgorithmException | SQLException e) {
 				e.printStackTrace();
@@ -290,12 +295,13 @@ public class bookStore extends HttpServlet {
 			String country = request.getParameter("country");
 			String province = request.getParameter("province");
 			String zip = request.getParameter("zip");
+			request.getSession().removeAttribute("loginError");
+			request.getSession().removeAttribute("registerError");
 			try {
 				if (book.registerUser(fName, lName, username, email, password) && (password.contentEquals(password2))) {
 					book.insertAddress(username, address, province, country, zip);
 					request.getRequestDispatcher("/login.jspx").forward(request, response);
 					System.out.println("Registered!");
-					request.getSession().removeAttribute("registerError");
 				} else {
 					// throw error incorrect password/authentication failed
 					if (!(password.contentEquals(password2))) {
@@ -304,9 +310,13 @@ public class bookStore extends HttpServlet {
 					else {
 						request.getSession().setAttribute("registerError", "Error, username already exists!");
 					}
-				
 					
-					request.getRequestDispatcher("/register.jspx").forward(request, response);
+					if (request.getParameter("fromPayment") != null) {
+						request.getRequestDispatcher("/payment.jspx").forward(request, response);
+					} else {
+						request.getRequestDispatcher("/register.jspx").forward(request, response);
+					}
+					
 				}
 			} catch (NoSuchAlgorithmException | SQLException e) {
 				e.printStackTrace();

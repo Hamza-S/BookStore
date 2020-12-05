@@ -86,7 +86,9 @@
 						type="button" name="answer" value="Login" onclick="showDiv2()"
 						class="btn btn-dark" />
 
-
+					<c:if test="${not empty registerError}">
+						<h6 style="color: red">*${registerError}</h6>
+					</c:if>
 					<div id="register-div" style="display: none">
 						<div class="col">
 
@@ -129,15 +131,15 @@
 								<div class="row">
 									<div class="col-md-6 mb-3">
 										<label for="password1">Password</label> <input type="password"
-											class="form-control" id="password1" placeholder="" value=""
-											required="required" onkeyup="check()"></input> <input
-											type="checkbox" onclick="showPassword()" id="showPass"><span
+											name="password" class="form-control" id="password1"
+											placeholder="" value="" required="required" onkeyup="check()"></input>
+										<input type="checkbox" onclick="showPassword()" id="showPass"><span
 											class="text-muted">Show password</span></input>
 									</div>
 
 									<div class="col-md-6 mb-3">
 										<label for="password2">Confirm Password</label> <input
-											name="password" type="password" class="form-control"
+											name="password2" type="password" class="form-control"
 											id="password2" placeholder="" value="" required="required"
 											onkeyup="check()"><span class="" id="message"></span>
 										</input>
@@ -181,8 +183,12 @@
 
 						</div>
 					</div>
+					<c:if test="${not empty loginError}">
+						<h6 style="color: red">*${loginError}</h6>
+					</c:if>
 					<div id="login-div" style="display: none">
 						<div class="card-body">
+
 							<form class="login" action="/BookStore/bookStore" method="POST">
 								<div class="input-group form-group">
 
@@ -219,7 +225,8 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<form class="needs-validation" action="/BookStore/bookStore" method = "POST">
+				<form class="needs-validation" action="/BookStore/bookStore"
+					method="POST">
 					<div class="mb-3">
 
 
@@ -360,7 +367,7 @@
 
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">2020-2020 InstaBook (Bought out by Amazon, rip)</p>
+			<p class="mb-1">2020-2020 InstaBook</p> 
 
 		</footer>
 	</div>
