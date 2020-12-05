@@ -317,7 +317,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-3 mb-3">
-								<label for="cc-expiration">Expiration</label> <input type="text"
+								<label for="cc-expiration">Expiration Date</label> <input type="date"
 									class="form-control" id="cc-expiration" placeholder="" required="required">
 								</input>
 								<div class="invalid-feedback">Expiration date required</div>
