@@ -245,5 +245,20 @@ public class Books {
 	public Map<String, Long> getReviewStats(String bid) throws SQLException {
 		return rDAO.generateReviewStats(bid);
 	}
+	
+	public String getBookOrdersById(String bid) throws SQLException {
+		Map<String,OrderBean> orders = oDAO.getOrderItemsByBID(bid);
+		System.out.println(orders.size());
+		String json = "";
+		for (Map.Entry<String, OrderBean> entry : orders.entrySet()) {
+			System.out.println("YOOOO");
+			System.out.println(entry.getValue().getId());	
+			JSONObject jsonObj = new JSONObject(entry.getValue());
+			json += jsonObj.toString(4);
+		
+		}
+		return json;
+	}
+	
 
 }

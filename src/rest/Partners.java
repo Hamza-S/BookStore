@@ -23,6 +23,17 @@ public class Partners {
 		return json;	
 		
 	}
+	
+	@GET
+    @Path("/getOrdersByBook")
+	@Produces("text/plain")
+	public String getBookOrder(@QueryParam("bid") String bid) throws Exception{
+		String json = "Purchase Orders for Book ID: " + bid + "\n";
+		json += Books.getInstance().getBookOrdersById(bid);
+		System.out.println(json);
+		return json;	
+		
+	}
 
 
 }
