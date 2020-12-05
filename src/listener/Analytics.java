@@ -74,9 +74,7 @@ public class Analytics implements ServletContextAttributeListener {
 	}
 
 	void handleEvent(ServletContextAttributeEvent event) throws ClassNotFoundException, SQLException {
-		if (event.getName().equals("placedOrderCount")) {
-
-			int orderCount = (int) event.getServletContext().getAttribute("placedOrderCount");
+		if (event.getName().equals("placedOrderCount")) { //Listen to whenever an order is placed and then update the top 10
 			OrdersDAO oDAO = new OrdersDAO();
 			Map<String, Integer> allOrders = oDAO.getTopTen();
 			List<Map.Entry<String, Integer>> sortedOrders = new LinkedList<Map.Entry<String, Integer>>(
@@ -85,12 +83,12 @@ public class Analytics implements ServletContextAttributeListener {
 				public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 					return (o2.getValue()).compareTo(o1.getValue());
 				}
-			});
-			Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>(); //Sort the map
+			}); //Code to sort HashMap
+			Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
 			for (Map.Entry<String, Integer> entry : sortedOrders) {
 				sortedMap.put(entry.getKey(), entry.getValue());
 			}
-			int i = 0; 
+			int i = 0; //Get top 10 
 			Map<String, Integer> topTen = new LinkedHashMap<String, Integer>();
 			for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
 				topTen.put(entry.getKey(), entry.getValue());
@@ -100,7 +98,7 @@ public class Analytics implements ServletContextAttributeListener {
 				}
 			}
 			
-			event.getServletContext().setAttribute("topTenOrders", topTen);
+			event.getServletContext().setAttribute("topTenOrders", topTen); //Store top ten into servlet
 
 		}
 	}

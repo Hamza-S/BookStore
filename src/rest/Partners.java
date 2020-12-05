@@ -15,7 +15,7 @@ import model.Books;
 public class Partners {
 	
 	@GET
-    @Path("/getProductInfo")
+    @Path("/getProductInfo") //Partner rest api for getting book info for certain book id
 	@Produces("text/plain")
 	public String getInfo(@QueryParam("bid") String bid) throws Exception{
 		String json = Books.getInstance().export_json(bid);
@@ -25,7 +25,7 @@ public class Partners {
 	}
 	
 	@GET
-    @Path("/getOrdersByBook")
+    @Path("/getOrdersByBook") //Partner rest api for getting all orders for a certain book id
 	@Produces("text/plain")
 	public String getBookOrder(@QueryParam("bid") String bid) throws Exception{
 		String json = "Purchase Orders for Book ID: " + bid + "\n";

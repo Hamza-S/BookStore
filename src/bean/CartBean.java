@@ -55,7 +55,7 @@ public class CartBean {
 		this.cart = cart;
 	}
 	
-	public int getCartPrice() throws ClassNotFoundException {
+	public int getCartPrice() throws ClassNotFoundException { //gets total price of cart based onn items
 		BooksDAO bd = new BooksDAO();
 		int totalCartPrice = 0;
 		for (Map.Entry<String, Integer> entry : this.cart.entrySet()) {
@@ -71,7 +71,7 @@ public class CartBean {
 	}
 	
 	
-	public String generateCartHTML() throws ClassNotFoundException {
+	public String generateCartHTML() throws ClassNotFoundException { //Generates cart html to use for front end
 		BooksDAO bd = new BooksDAO();
 		String cartString = "";
 		cartString += "<div class=\"py-5 text-center\"> <form class=\"update\" action=\"/BookStore/bookStore\" method=\"POST\">";
@@ -95,12 +95,12 @@ public class CartBean {
 					BookBean book = bd.getBookById(currentbid);
 					cartString += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">";
 					cartString += "<div style=\"\"> <h6 class=\"my-0\">";
-					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "   <i>$" +book.getPrice() + "</i></div>";
+					cartString += "<div id=\"item-" + orderCount + "\">" + book.getTitle() + "   <i class=\"ml-5\" id = \"price\">$" +book.getPrice() + "</i></div>";
 					cartString += "</h6> <span class=\"text-muted\"><div id=\"item-" + orderCount + "-value\" >";
 					cartString += "</div></span></div>";
 					cartString += "<div class=\"col-md-3 mb-3\"> <div id=\"item-" + orderCount + "-quantity\">";
 					cartString += "<input name=\"item" + orderCount + "quant\" type=\"number\" class=\"form-control\"";
-					cartString += "id=\"itemquant\" value=\"" + entry.getValue()+ "\" min=\"0\" max=\"100\"> </input></div></div></li>";
+					cartString += "required = \"required\" id=\"itemquant\" value=\"" + entry.getValue()+ "\" min=\"0\" max=\"100\"> </input></div></div></li>";
 					cartString += "<input name=\"bid" + orderCount + "quant\" type=\"hidden\" value=\"" + book.getBid()
 							+ "\"</input>";
 				}
@@ -128,7 +128,7 @@ public class CartBean {
 		return cartString;
 	}
 	
-	public String generateCheckoutCartHTML() throws ClassNotFoundException {
+	public String generateCheckoutCartHTML() throws ClassNotFoundException { //Generate checkout cart html
 		BooksDAO bd = new BooksDAO();
 		String cartString = "";
 		cartString += "<div class=\"col-md-4 order-md-2 mb-4\">";

@@ -27,7 +27,7 @@ public class OrdersDAO {
 			e.printStackTrace();
 		}
 	}
-	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException {
+	public int InsertOrderItem(String id, String bid, String title, int price, int quantity) throws SQLException { //Insert order item into orderitems table
 		String query = ("INSERT INTO ORDERITEMS values(?, ?, ?, ?, ?)");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -37,15 +37,14 @@ public class OrdersDAO {
 		p.setInt(4, price);
 		p.setInt(5, quantity);
 		int success = p.executeUpdate();
-		System.out.println(query);
 		p.close();
 		con.close();
 	
 		return success;
 	}
 	public int InsertOrder(String id, String street, String province, String country, String zip, String billStreet, String billProvince, String billCountry, String billZip, String username, String firstName, String lastName, String date) throws SQLException {
+		//Insert an order into the orders table
 		String query = ("INSERT INTO ORDERS values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		System.out.println(query);
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		p.setString(1, id);
@@ -61,7 +60,6 @@ public class OrdersDAO {
 		p.setString(11, firstName);
 		p.setString(12, lastName);
 		p.setString(13,  date);
-		System.out.println(query);
 		int success = p.executeUpdate();
 		
 		p.close();
@@ -72,7 +70,7 @@ public class OrdersDAO {
 		return success;
 	}
 	
-	public ArrayList<OrderBean> getOrdersByMonth(String month) throws SQLException {
+	public ArrayList<OrderBean> getOrdersByMonth(String month) throws SQLException { //get all orders in a given month
 		String query = ("select * from orderitems where id in (select id from orders where date like '%-" + month + "-%')");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -89,7 +87,7 @@ public class OrdersDAO {
 		return ordersinMonth;
 	}
 	
-	public Map<String, Integer> getTopTen() throws SQLException {
+	public Map<String, Integer> getTopTen() throws SQLException { //get the orderitems to get the top ten books sold
 		String query = ("SELECT * FROM ORDERITEMS");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -112,7 +110,7 @@ public class OrdersDAO {
 		return orderItems;
 	}
 	
-	public Map<String,OrderBean> getOrderItemsByBID(String bid) throws SQLException {
+	public Map<String,OrderBean> getOrderItemsByBID(String bid) throws SQLException { //Get orders by bid
 		String query = "Select * from orderitems where bid='" + bid +"'";
 		
 		Connection con = (this.ds).getConnection();
@@ -129,7 +127,6 @@ public class OrdersDAO {
 		p.close();
 		con.close();
 		
-		System.out.println("Array list size: " + ordersforBID.size());
 		orders2= new HashMap<String,OrderBean>();
 		for (int i = 0; i < ordersforBID.size(); i ++) {
 			String query2 = "Select * from orders where id='" + ordersforBID.get(i).getId() +"'";

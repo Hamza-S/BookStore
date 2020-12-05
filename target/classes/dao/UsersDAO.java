@@ -29,7 +29,7 @@ public class UsersDAO {
 			e.printStackTrace();
 		}
 	}
-	public UserBean getUserBean(String username) throws SQLException {
+	public UserBean getUserBean(String username) throws SQLException { //Get's userbean corresponding to username from Users table
 		String query = ("select * from users where username = '" + username + "'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -46,13 +46,13 @@ public class UsersDAO {
 		return user;
 	}
 	
-	public String cypherPassword(String password) throws NoSuchAlgorithmException {
+	public String cypherPassword(String password) throws NoSuchAlgorithmException { //Cypher's given password
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 		String encryptedPassword = passwordEncryptor.encryptPassword(password);;
 		return encryptedPassword;
 	}
 
-	public boolean authenticate(String username, String password) throws NoSuchAlgorithmException, SQLException {
+	public boolean authenticate(String username, String password) throws NoSuchAlgorithmException, SQLException { //authenticates user entered password against cypher algo
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 		boolean authenticate = false;
 		String query = ("select password from users where username = '" + username + "'");
@@ -74,7 +74,7 @@ public class UsersDAO {
 		return authenticate;
 
 	}
-	public int registerUser (String fname, String lname, String username, String email, String password) throws SQLException, NoSuchAlgorithmException {
+	public int registerUser (String fname, String lname, String username, String email, String password) throws SQLException, NoSuchAlgorithmException { //register a user into the website
 		String hashedPassword = this.cypherPassword(password);
 		String hashedP = hashedPassword.toString();
 		String query = ("INSERT INTO USERS values(?, ?, ?, ?, ?)");
@@ -91,7 +91,7 @@ public class UsersDAO {
 		return success;
 
 	}
-	public boolean userExists(String username) throws SQLException {
+	public boolean userExists(String username) throws SQLException { //check if user with username exists in users table
 		boolean exists = false;
 		String query = ("select * from users where username = '" + username + "'");
 		Connection con = (this.ds).getConnection();

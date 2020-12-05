@@ -27,7 +27,7 @@ public class reviewDAO {
 		}
 	}
 
-	public int addReview(String username, String bid, String title, String review, String rating) throws SQLException {
+	public int addReview(String username, String bid, String title, String review, String rating) throws SQLException { //add a review with appropriate info
 		String query = ("INSERT INTO  REVIEW values(?, ?, ?, ?, ?)");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -37,9 +37,7 @@ public class reviewDAO {
 		p.setString(4, review);
 		int ratingVal = Integer.parseInt(rating);
 		p.setInt(5, ratingVal);
-		System.out.println(query);
 		int success = p.executeUpdate();
-		System.out.println("sucess:" + success);
 
 //		insert into Review (username, bid, title, text, rating) VALUES ('syed001','b001','This book is Ass','I cant read tbh.', 4);
 
@@ -48,7 +46,7 @@ public class reviewDAO {
 		return success;
 	}
 
-	public boolean userReviewedTheBook(String username, String bid) throws SQLException {
+	public boolean userReviewedTheBook(String username, String bid) throws SQLException { //check if user reviewed a book
 		String query = ("select * from REVIEW where BID = '" + bid + "' and USERNAME = '" + username + "'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -67,7 +65,7 @@ public class reviewDAO {
 		}
 	}
 
-	public ArrayList<ReviewBean> getBookReviews(String bid) throws SQLException {
+	public ArrayList<ReviewBean> getBookReviews(String bid) throws SQLException { //get reivews for a book
 		String query = ("select * from REVIEW where BID = '" + bid + "'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -144,7 +142,7 @@ public class reviewDAO {
 		return result;
 	}
 
-	public Map<String, Long> generateReviewStats(String bid) throws SQLException {
+	public Map<String, Long> generateReviewStats(String bid) throws SQLException { //generate the review stats for each book
 		ArrayList<ReviewBean> reviews = getBookReviews(bid);
 		long numOfReviews = reviews.size();
 		int num1 = 0;
@@ -166,8 +164,6 @@ public class reviewDAO {
 				num5++;
 			}
 		}
-		System.out
-				.println("\nnum1:" + num1 + "\nnum2:" + num2 + "\nnum3:" + num3 + "\nnum4:" + num4 + "\nnum5:" + num5);
 		double avgRating = 0;
 		long percent1 = 0;
 		long percent2 = 0;
@@ -186,9 +182,6 @@ public class reviewDAO {
 		double roundedAvgRating = avgRating * 10;
 		roundedAvgRating = Math.round(roundedAvgRating);
 		roundedAvgRating = roundedAvgRating / 10;
-
-		System.out.println("\npercent1:" + percent1 + "\npercent2:" + percent2 + "\nnpercent3:" + percent3
-				+ "\nnpercent4:" + percent4 + "\npercent5:" + percent5);
 
 		Map<String, Long> results = new HashMap<String, Long>();
 		results.put("size", numOfReviews);
