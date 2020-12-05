@@ -165,7 +165,7 @@ th, td {
 	  			<input id= "addReview" type="button" class="btn btn-info" name="answer" value="Add Review" onclick="showAddReview()" />
 	  			<div id="register-div" style="display:none" class="mb-4">
 	  				<div class="container card" id="usrform">
-		  				<form class="card-body" action="/BookStore/bookStore" method="GET" name="usrform" id="reviewAdded">
+		  				<form class="card-body" action="/BookStore/bookStore" method="POST" name="usrform" id="reviewAdded">
 							<div class="form-group">
 			  					<label for="">Rating</label> <br/>
 			  					<div class="form-check form-check-inline">
