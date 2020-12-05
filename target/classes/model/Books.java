@@ -131,21 +131,22 @@ public class Books {
 		BookBean b = null;
 		for (Map.Entry<String, BookBean> i : data.entrySet()) {
 			b = i.getValue();
-			System.out.println(b.getTitle());
 			books += "<div class=\"col-md-4\">";
 			books += "<div class=\"card mb-4 shadow-sm\">";
 		
 			books += "<img class=\"card-img-top\" src=\"/BookStore/res/img/" + b.getBid() + ".jpg\">";
-			books += "<div class=\"card-body\">";
-			books += "<h6 class=\"card-text\"> " + b.getTitle() + "</h6>";
-			books += "<h7 class=\"card-text\"> " + b.getCategory() + "</h7>";
+			books += "<div class=\"card-body\" id=\"wrapper\" >";
+			books += "<center>";
+			books += "<h6 class=\"card-text font-weight-bold\"> " + b.getTitle() + "</h6>";
+			books += "</center>";
+			books += "<h7 class=\"card-text \"> " + b.getCategory() + "</h7>";
 			books += "<br />";
-			books += "<h7 class=\"card-text\"> $" + b.getPrice() + "</h7>";
+			books += "<h7 class=\"card-text h5\" id=\"price\"> $" + b.getPrice() + "</h7>";
 			books += "<br />";
 			books += "<div class=\"btn-group\">";
 			books += "<form action=\"bookStore\" method=\"GET\">";
 			books += "<input type=\"hidden\" name=\"bid\" value=\"" + b.getBid() + "\" />";
-			books += "<button action='submit' class=\"btn btn-sm btn-outline-secondary\" name='moreInfo' value=\"true\">More Info</button>";
+			books += "<button action='submit' class=\"btn btn-sm btn btn-primary \" name='moreInfo' value=\"true\">More Info</button>";
 			books += "</form>";
 			books += "</div>";
 			books += "</div>";
