@@ -7,6 +7,7 @@ public class UserBean {
 	private String userName;
 	private String email;
 	private boolean isLoggedIn = false;
+	private int orderRequestCounter;
 	private CartBean cart;
 
 	public UserBean() {
@@ -68,6 +69,14 @@ public class UserBean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getOrderRequestCounter() {
+		return orderRequestCounter;
+	}
+
+	public void setOrderRequestCounter(int orderRequestCounter) {
+		this.orderRequestCounter = orderRequestCounter;
 	}
 
 }

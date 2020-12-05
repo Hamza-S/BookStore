@@ -24,7 +24,7 @@ public class BooksDAO {
 			e.printStackTrace();
 		}
 	}
-	public Map<String, BookBean> getLibrary() throws SQLException {
+	public Map<String, BookBean> getLibrary() throws SQLException { //Get all books
 		String query = ("select * from book");
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
 		Connection con = (this.ds).getConnection();
@@ -39,7 +39,7 @@ public class BooksDAO {
 		con.close();
 		return rv;
 	}
-	public Map<String, BookBean> searchLibrary(String bookTitle) throws SQLException {
+	public Map<String, BookBean> searchLibrary(String bookTitle) throws SQLException { //Search the library for a given book title the user enters
 		String t = bookTitle.toLowerCase();
 		String query = ("select * from book WHERE lower(title) like '%" + t + "%'");
 		Map<String, BookBean> rv = new HashMap<String, BookBean>();
@@ -56,13 +56,12 @@ public class BooksDAO {
 		return rv;
 	}
 	
-	public BookBean getBookById(String bid) throws SQLException {
+	public BookBean getBookById(String bid) throws SQLException { //Get books by id
 		String query = ("select * from book where bid like '%" + bid + "%'");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
 		ResultSet r = p.executeQuery();
 		BookBean book=null;
-		int size=r.getFetchSize();
 		while (r.next()) {
 			book = new BookBean(r.getString("bid"), r.getString("title"), r.getString("category"), Integer.parseInt(r.getString("price")));
 		}
@@ -73,7 +72,7 @@ public class BooksDAO {
 	}
 	
 	
-	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException {
+	public Map<String, BookBean> getBooksByCategory(String category) throws SQLException { //Get books by category
 		String c = category.toLowerCase();
 		String query = ("select * from book WHERE lower(category) = '" + c + "'");
 		if (category.contentEquals("all")) {

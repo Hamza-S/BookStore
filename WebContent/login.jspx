@@ -25,6 +25,9 @@ th, td {
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous"></link>
 <link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/css/main.css"
+	type="text/css" />
+<link rel="StyleSheet"
 	href="${pageContext.request.contextPath}/res/css/login.css"
 	type="text/css" title="cse4413" media="screen, print" />
 </head>
@@ -40,8 +43,8 @@ th, td {
 			<ul class="navbar-nav ml-auto">
 				<c:choose>
 					<c:when test="${not isLoggedIn}">
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5>
-						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5> </a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/BookStore/bookStore/Login"><h5>Login</h5></a></li>
 						<li class="nav-item"><a class="nav-link"
@@ -50,7 +53,8 @@ th, td {
 					<c:when test="${not empty isLoggedIn}">
 						<li class="nav-item"><a class="nav-link active"
 							id="welcomeBackText"><h6>Welcome back, ${userName}</h6></a></li>
-						<li class="nav-item"><a class="nav-link" href="/BookStore/bookStore"><h5>Home</h5></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/BookStore/bookStore"><h5>Home</h5></a></li>
 						<form class="logout" action="/BookStore/bookStore" method="POST">
 							<button id="logout" name="logout" value="true" type='submit'>
 								<li class="nav-item"><a class="nav-link"><h5>Logout</h5></a></li>
@@ -90,43 +94,36 @@ th, td {
 
 						</div>
 					</center>
+				<c:if test="${not empty loginError}">
+					<h6 style="color: red">*${loginError}</h6>
+				</c:if>
 					<div class="card-body">
 						<form class="login" action="/BookStore/bookStore" method="POST">
 							<div class="input-group form-group">
 
 								<input type="text" name="username" class="form-control mb-4"
-									placeholder="username"></input>
+									placeholder="username" required="required"></input>
 
 							</div>
 							<div class="input-group form-group">
 
 								<input type="password" name="password" class="form-control mb-1"
-									placeholder="password"></input>
+									placeholder="password" required="required"></input>
 							</div>
 							<div class="row align-items-center remember mb-5">
 								<input type="checkbox" id="rememberPass"><span>Remember
 									Password</span></input>
 							</div>
-							<!-- 
-							<div class="form-group">
-								<input type="submit" value="Login" class="btn  login_btn"></input>
-							</div>
-							-->
 							<button class="btn btn-primary btn-lg btn-block mb-2"
-								name='login' type="submit" value="true">Login</button>
+								name='login' type="submit" value="true" onclick="a">Login</button>
 
 							<div class="">
 								<div class="d-flex justify-content-center links">
 									Don't have an account?<a href="register.jspx">Sign Up</a>
 								</div>
-								<div class="d-flex justify-content-center">
-									<a href="#">Forgot your password?</a>
-								</div>
 							</div>
 						</form>
 					</div>
-
-
 				</div>
 			</div>
 		</div>

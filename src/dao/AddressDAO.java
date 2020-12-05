@@ -25,7 +25,7 @@ public class AddressDAO {
 			e.printStackTrace();
 		}
 	}
-	public int insertAddress(String username, String address, String country, String province, String zip) throws SQLException {
+	public int insertAddress(String username, String address, String country, String province, String zip) throws SQLException { //Inserts the address into address table
 		String query = ("INSERT INTO ADDRESS values(?, ?, ?, ?, ?)");
 		Connection con = (this.ds).getConnection();
 		PreparedStatement p = con.prepareStatement(query);
@@ -34,15 +34,13 @@ public class AddressDAO {
 		p.setString(3, country);
 		p.setString(4, zip);
 		p.setString(5, username);
-		System.out.println(query);
 		int success = p.executeUpdate();
-		System.out.println(success);
 		p.close();
 		con.close();
 		return success;
 	}
 	
-	public String getAddressAttribute(String username, String attribute) throws SQLException {
+	public String getAddressAttribute(String username, String attribute) throws SQLException { //get attributes from address table for a certain user
 		String query = ("SELECT " + attribute + " FROM ADDRESS WHERE username LIKE '" + username + "'" );
 		String result = "";
 		Connection con = (this.ds).getConnection();
