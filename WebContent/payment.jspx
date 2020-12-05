@@ -81,9 +81,10 @@
 				<c:when test="${empty isLoggedIn}">
 		<div id="upper-section">
 			<p class="lead">Please select register or login to continue</p>
-			<input type="button" name="answer" value="Register"
-				onclick="showDiv()" /> <input type="button" name="answer"
-				value="Login" onclick="showDiv2()" />
+			<input type="button" name="answer" value="Register" 
+				onclick="showDiv()" class="btn btn-dark mr-2"></input> 
+				<input type="button" name="answer"
+				value="Login" onclick="showDiv2()" class="btn btn-dark"/>
 
 
 					<div id="register-div" style="display: none">
@@ -127,7 +128,7 @@
 								<div class="row">
 									<div class="col-md-6 mb-3">
 										<label for="password1">Password</label> <input type="password"
-											class="form-control" id="password1" placeholder="" value="" required="required"></input>
+											class="form-control" id="password1" placeholder="" value="" required="required" onkeyup="check()"></input>
 										<input type="checkbox" onclick="showPassword()" id="showPass"><span
 											class="text-muted">Show password</span></input>
 									</div>
@@ -135,7 +136,9 @@
 									<div class="col-md-6 mb-3">
 										<label for="password2">Confirm Password</label> <input
 											name="password" type="password" class="form-control"
-											id="password2" placeholder="" value="" required="required"></input>
+											id="password2" placeholder="" value="" required="required" onkeyup="check()">
+											<span class="" id="message"></span>
+											</input>
 									</div>
 								</div>
 
@@ -145,7 +148,7 @@
 									<h4>Default Billing/Shipping Info</h4>
 									<label for="address">Address</label> <input name="address"
 										type="text" class="form-control" id="address"
-										placeholder="1234 Main St"> </input>
+										placeholder="1234 Main St" > </input>
 									<div class="invalid-feedback">Please enter your shipping
 										address.</div>
 								</div>
@@ -283,7 +286,7 @@
 						<div class="d-block my-3">
 							<div class="custom-control custom-radio">
 								<input id="credit" name="paymentMethod" type="radio"
-									class="custom-control-input" required="required"> </input> <label
+									class="custom-control-input" required="required" checked="checked"> </input> <label
 									class="custom-control-label" for="credit">Credit card</label>
 							</div>
 							<div class="custom-control custom-radio">
@@ -300,13 +303,13 @@
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label for="cc-name">Name on card</label> <input type="text"
-									class="form-control" id="cc-name" placeholder="" required="required"> </input> <small
+									class="form-control" id="cc-name" placeholder="" required="required" pattern="[a-zA-Z]*"> </input> <small
 									class="text-muted">Full name as displayed on card</small>
 								<div class="invalid-feedback">Name on card is required</div>
 							</div>
 							<div class="col-md-6 mb-3">
-								<label for="cc-number">Credit card number</label> <input
-									type="text" class="form-control" id="cc-number" placeholder="" required="required">
+								<label for="cc-number">Credit card number (16 digits)</label> <input
+									type="text" class="form-control" id="cc-number" placeholder="" required="required"  pattern="\d*" minlength="16" maxlength="16">
 								</input>
 								<div class="invalid-feedback">Credit card number is
 									required</div>
@@ -320,15 +323,14 @@
 								<div class="invalid-feedback">Expiration date required</div>
 							</div>
 							<div class="col-md-3 mb-3">
-								<label for="cc-cvv">CVV</label> <input type="text"
-									class="form-control" id="cc-cvv" placeholder="" required="required"> </input>
-								<div class="invalid-feedback">Security code required</div>
+								<label for="cc-cvv">CVV (3 digits)</label> <input type="text"
+									class="form-control" id="cc-cvv" placeholder="" required="required" pattern="\d*" minlength="3" maxlength="3"> </input>
+								<div class="invalid-feedback">3-digit Security code required</div>
 							</div>
 						</div>
 						<hr class="mb-4"></hr>
 						<button class="btn btn-primary btn-lg btn-block" name="PlaceOrder" value="true" type="submit">Place
 							Order</button>
-				
 				</div>
 			</div>
 		</div>
